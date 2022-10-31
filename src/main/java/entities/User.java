@@ -10,6 +10,7 @@ public abstract class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        System.out.println("TestForcePush");
     }
 
     public String getUsername() {
