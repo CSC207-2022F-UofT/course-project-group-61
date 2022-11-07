@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public class OrderDbGateway implements OrderDb {
 
-    private String ORDER_FILE_PATH = "data/orders.ser";
-    private DBReadWriter db;
+    private final String ORDER_FILE_PATH = "data/orders.ser";
+    private final DBReadWriter db;
 
     public OrderDbGateway() {
         this.db = new DBReadWriter(ORDER_FILE_PATH);

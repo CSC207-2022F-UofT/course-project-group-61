@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public interface ProductDb {
 
-    HashMap<Integer, Product> getAllProducts();
+    HashMap<Long, Product> getAllProducts();
 
-    Product getProduct(Integer upc);
+    Product getProduct(Long upc);
 
     boolean updateProduct(Product product);
 }
