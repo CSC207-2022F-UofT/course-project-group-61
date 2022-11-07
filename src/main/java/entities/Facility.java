@@ -39,4 +39,8 @@ public class Facility {
     public void removeProduct(int upc, int quantity) {
         this.inventory.put(upc, this.inventory.get(upc) - quantity);
     }
+
+    public HashMap<Integer, Integer> getInventory(){
+        return inventory;
+    }
 }
