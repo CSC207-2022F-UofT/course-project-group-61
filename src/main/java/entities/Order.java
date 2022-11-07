@@ -1,6 +1,7 @@
 package entities;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Order {
     // Creates the markers for the status of the order
@@ -8,6 +9,8 @@ public class Order {
     public static final int FULFILLED = 1;
     public static final int DELAYED = 2;
 
+    // Stores the order id number.
+    private final UUID id;
 
     // Variables to store the ID of the warehouse fulfilling the order and the store receiving it
     final private int warehouseID;
@@ -36,6 +39,11 @@ public class Order {
 
         this.orderQuantities = orderQuantites;
         timestamps.put(CREATED, dateCreated);
+        this.id = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public int getWarehouseID() {
