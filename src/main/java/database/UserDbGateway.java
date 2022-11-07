@@ -3,6 +3,8 @@ package database;
 import entities.Product;
 import entities.User;
 
+import java.io.EOFException;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class UserDbGateway implements UserDb {
@@ -18,6 +20,15 @@ public class UserDbGateway implements UserDb {
     public HashMap<String, User> getAllUsers() {
         try {
             return (HashMap<String, User>) db.read();
+        } catch (EOFException eof) {
+            HashMap<String, User> tempMap = new HashMap<String, User>();
+            try {
+                this.db.write(tempMap);
+                return (HashMap<String, User>) db.read();
+            } catch(IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;

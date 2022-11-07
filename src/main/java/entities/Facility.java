@@ -1,9 +1,10 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Facility {
+public class Facility implements Serializable {
     private final String name;
     private final UUID facilityID;
     private HashMap<Long, Integer> inventory;
@@ -13,13 +14,6 @@ public class Facility {
         this.name = name;
         this.facilityID = UUID.randomUUID();
         this.inventory = new HashMap<Long, Integer>();
-        this.facilityType = facType;
-    }
-
-    public Facility(String name, HashMap<Long, Integer> inventory, String facType) {
-        this.name = name;
-        this.facilityID = UUID.randomUUID();
-        this.inventory = inventory;
         this.facilityType = facType;
     }
 
@@ -36,11 +30,20 @@ public class Facility {
     }
 
     public int getUPCQuantity(Long upc) {
-        return this.inventory.get(upc);
+        try {
+            return this.inventory.get(upc);
+        } catch(NullPointerException e) {
+            return -1;
+        }
+
     }
 
     public void addProduct(Long upc, int quantity) {
-        this.inventory.put(upc, this.inventory.get(upc) + quantity);
+        try {
+            this.inventory.put(upc, this.inventory.get(upc) + quantity);
+        } catch(NullPointerException e) {
+            this.inventory.put(upc, quantity);
+        }
     }
 
     public void removeProduct(Long upc, int quantity) {

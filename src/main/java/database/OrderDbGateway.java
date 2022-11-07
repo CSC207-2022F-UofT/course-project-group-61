@@ -1,7 +1,10 @@
 package database;
 
+import entities.Facility;
 import entities.Order;
 
+import java.io.EOFException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -18,6 +21,15 @@ public class OrderDbGateway implements OrderDb {
     public HashMap<UUID, Order> getAllOrders() {
         try {
             return (HashMap<UUID, Order>) db.read();
+        } catch (EOFException eof) {
+            HashMap<UUID, Order> tempMap = new HashMap<UUID, Order>();
+            try {
+                this.db.write(tempMap);
+                return (HashMap<UUID, Order>) db.read();
+            } catch(IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;

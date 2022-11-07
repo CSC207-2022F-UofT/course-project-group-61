@@ -10,14 +10,13 @@ import java.util.HashMap;
 
 public class FacilityTest {
 
-    public static HashMap<Long, Integer> testMap = new HashMap<>();
 
     public static Facility facility;
 
     @Before
     public void setup() {
-        testMap.put(123456789123L, 13);
-        facility = new Facility("fac1",  testMap, "Store");
+        facility = new Facility("fac1", "Store");
+        facility.addProduct(123456789123L, 13);
     }
 
     @Test
