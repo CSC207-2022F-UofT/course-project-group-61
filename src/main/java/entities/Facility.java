@@ -1,16 +1,17 @@
 package entities;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Facility {
     private final String name;
-    private final int facilityID;
+    private final UUID facilityID;
     private HashMap<Integer, Integer> inventory;
     private String facilityType;
 
-    public Facility(String name, int facID, HashMap<Integer, Integer> inventory, String facType) {
+    public Facility(String name, HashMap<Integer, Integer> inventory, String facType) {
         this.name = name;
-        this.facilityID = facID;
+        this.facilityID = UUID.randomUUID();
         this.inventory = inventory;
         this.facilityType = facType;
     }
@@ -19,7 +20,7 @@ public class Facility {
         return this.name;
     }
 
-    public int getFacilityID() {
+    public UUID getFacilityID() {
         return this.facilityID;
     }
 

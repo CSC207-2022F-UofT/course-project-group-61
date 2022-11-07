@@ -17,13 +17,12 @@ public class FacilityTest {
     @Before
     public void setup() {
         testMap.put(0001, 13);
-        facility = new Facility("fac1", 13, testMap, "Store");
+        facility = new Facility("fac1",  testMap, "Store");
     }
 
     @Test
     public void getFacilityInfo() {
         assertEquals(facility.getName(), "fac1");
-        assertEquals(facility.getFacilityID(), 13);
         assertEquals(facility.getFacilityType(), "Store");
         assertEquals(facility.getUPCQuantity(0001), 13);
     }
