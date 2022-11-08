@@ -59,4 +59,14 @@ public class OrderDbGateway implements OrderDb {
             return null;
         }
     }
+
+    //for testing purposes
+    public void fileReset() {
+        try {
+            HashMap<UUID, Order> newHash = new HashMap<UUID, Order>();
+            db.write(newHash);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

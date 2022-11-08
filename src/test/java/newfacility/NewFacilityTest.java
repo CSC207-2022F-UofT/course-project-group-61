@@ -21,6 +21,7 @@ Things to test:
  */
 public class NewFacilityTest {
 
+    private NewFacilityController newFacilityController;
     private UUID newFacilityID;
 
     public boolean checkAttributes(Facility facility, String expName, UUID expFacID, String expFacType, Long sampUPC, int expUPCQuant) {
@@ -30,8 +31,10 @@ public class NewFacilityTest {
 
     @Before
     public void setup() {
-        NewFacilityController newFacilityController = new NewFacilityController("Store1", "Store");
-        this.newFacilityID = newFacilityController.newFacility();
+        this.newFacilityController = new NewFacilityController();
+        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
+        facilityDbGateway.fileReset();
+        this.newFacilityID = newFacilityController.newFacility("Store1", "Store");
     }
 
     @Test
@@ -39,10 +42,21 @@ public class NewFacilityTest {
         FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
         HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
 
-
         assertEquals(facilities.size(), 1);
         assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, "Store",
                 123456789123L, -1));
+    }
 
+    @Test
+    public void testWritetoNonEmpty() {
+        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
+        UUID secondFacilityID = newFacilityController.newFacility("Warehouse1", "Warehouse");
+        HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
+
+        assertEquals(facilities.size(), 2);
+        assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, "Store",
+                123456789123L, -1));
+        assertTrue(checkAttributes(facilities.get(secondFacilityID), "Warehouse1", secondFacilityID, "Warehouse",
+                123456789123L, -1));
     }
 }

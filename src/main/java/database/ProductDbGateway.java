@@ -1,5 +1,6 @@
 package database;
 
+import entities.Facility;
 import entities.Order;
 import entities.Product;
 
@@ -57,6 +58,16 @@ public class ProductDbGateway implements ProductDb {
         } catch(Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    //for testing purposes
+    public void fileReset() {
+        try {
+            HashMap<Long, Product> newHash = new HashMap<Long, Product>();
+            db.write(newHash);
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -59,4 +59,14 @@ public class FacilityDbGateway implements FacilityDb {
             return false;
         }
     }
+
+    //for testing purposes
+    public void fileReset() {
+        try {
+            HashMap<UUID, Facility> newHash = new HashMap<UUID, Facility>();
+            db.write(newHash);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

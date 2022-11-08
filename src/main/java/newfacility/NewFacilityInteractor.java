@@ -8,15 +8,14 @@ import java.util.UUID;
 public class NewFacilityInteractor {
 
     FacilityDbGateway readWriter = new FacilityDbGateway();
-    private final Facility newFacility;
+    public NewFacilityInteractor() {
 
-    public NewFacilityInteractor(String name, String facType) {
-        this.newFacility = new Facility(name, facType);
     }
 
-    public UUID addNewFacility() {
-        this.readWriter.updateFacility(this.newFacility);
-        return this.newFacility.getFacilityID();
+    public UUID addNewFacility(String name, String facType) {
+        Facility newFacility = new Facility(name, facType);
+        this.readWriter.updateFacility(newFacility);
+        return newFacility.getFacilityID();
     }
 
 }

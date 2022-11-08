@@ -1,11 +1,13 @@
 package database;
 
+import entities.Facility;
 import entities.Product;
 import entities.User;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class UserDbGateway implements UserDb {
 
@@ -56,6 +58,16 @@ public class UserDbGateway implements UserDb {
         } catch(Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    //for testing purposes
+    public void fileReset() {
+        try {
+            HashMap<String, User> newHash = new HashMap<String, User>();
+            db.write(newHash);
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 }
