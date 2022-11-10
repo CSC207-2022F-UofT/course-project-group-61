@@ -2,7 +2,6 @@ package itemlookup;
 
 import database.ProductDbGateway;
 import entities.Product;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -14,6 +13,7 @@ public class ItemLookupInteractor {
 
     }
 
+    //if product not found, will pass null up through the return stack and presenter will handle the output
     //TODO: what to return if upc doesn't exist
     public Product lookupByUPC(Long upc) {
         HashMap<Long, Product> products = this.readWriter.getAllProducts();

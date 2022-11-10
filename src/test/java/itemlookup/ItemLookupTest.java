@@ -13,8 +13,7 @@ import org.junit.Test;
 
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ItemLookupTest {
 
@@ -41,11 +40,13 @@ public class ItemLookupTest {
     @Test
     public void testLookupByUPC() {
         assertTrue(checkAttributes(this.itemLookupController.lookupByUPC(123456789123L), "Apple", 123456789123L, 5));
+        assertNull(this.itemLookupController.lookupByUPC(111111111111L));
     }
 
     @Test
     public void testLookupByName() {
         assertTrue(checkAttributes(this.itemLookupController.lookupByName("Apple"), "Apple", 123456789123L, 5));
+        assertNull(this.itemLookupController.lookupByName("Orange"));
     }
 
 }
