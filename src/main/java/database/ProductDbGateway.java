@@ -2,6 +2,8 @@ package database;
 
 import entities.Product;
 
+import java.io.EOFException;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class ProductDbGateway implements ProductDb {
@@ -17,6 +19,15 @@ public class ProductDbGateway implements ProductDb {
     public HashMap<Long, Product> getAllProducts() {
         try {
             return (HashMap<Long, Product>) db.read();
+        } catch (EOFException eof) {
+            HashMap<Long, Product> tempMap = new HashMap<Long, Product>();
+            try {
+                this.db.write(tempMap);
+                return (HashMap<Long, Product>) db.read();
+            } catch(IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -44,6 +55,16 @@ public class ProductDbGateway implements ProductDb {
         } catch(Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    //for testing purposes
+    public void fileReset() {
+        try {
+            HashMap<Long, Product> newHash = new HashMap<Long, Product>();
+            db.write(newHash);
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 }
