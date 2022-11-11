@@ -3,6 +3,8 @@ package database;
 import entities.Facility;
 import entities.Order;
 
+import java.io.EOFException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -19,6 +21,15 @@ public class FacilityDbGateway implements FacilityDb {
     public HashMap<UUID, Facility> getAllFacilities() {
         try {
             return (HashMap<UUID, Facility>) db.read();
+        } catch (EOFException eof) {
+            HashMap<UUID, Facility> tempMap = new HashMap<UUID, Facility>();
+            try {
+                this.db.write(tempMap);
+                return (HashMap<UUID, Facility>) db.read();
+            } catch(IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -46,6 +57,16 @@ public class FacilityDbGateway implements FacilityDb {
         } catch(Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    //for testing purposes
+    public void fileReset() {
+        try {
+            HashMap<UUID, Facility> newHash = new HashMap<UUID, Facility>();
+            db.write(newHash);
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 }
