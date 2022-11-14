@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 
 
 public class OrderTest {
@@ -11,21 +12,27 @@ public class OrderTest {
     public static HashMap<Integer, Integer> orderQuantities = new HashMap<>();
     public static Date creationDate = new Date(2022, 10, 31, 0, 0);
 
+    private UUID warehouseID;
+    private UUID storeID;
+
     @Before
     public void createTest(){
         // Puts some basic stuff in the order and builds it
         orderQuantities.put(1, 10);
         orderQuantities.put(2, 120);
 
-        newOrder = new Order(1, 2, "tester", orderQuantities, creationDate);
+        warehouseID = UUID.randomUUID();
+        storeID = UUID.randomUUID();
+
+        newOrder = new Order(warehouseID, storeID, "tester", orderQuantities, creationDate);
     }
 
     @Test
     public void gettersTest(){
         // Tests all the basic getters
         Assertions.assertEquals(newOrder.getOrderingUser(), "tester");
-        Assertions.assertEquals(newOrder.getStoreID(), 2);
-        Assertions.assertEquals(newOrder.getWarehouseID(), 1);
+        Assertions.assertEquals(newOrder.getStoreID(), storeID);
+        Assertions.assertEquals(newOrder.getWarehouseID(), warehouseID);
         Assertions.assertEquals(newOrder.getStatus(), Order.CREATED);
 
         // Tests the order quantities, ensures the keys are the same and actual quantities

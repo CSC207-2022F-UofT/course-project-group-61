@@ -1,9 +1,10 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Facility {
+public class Facility implements Serializable {
     private final String name;
     private final UUID facilityID;
     private HashMap<Integer, Integer> inventory;

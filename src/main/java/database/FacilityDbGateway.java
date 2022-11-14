@@ -3,6 +3,7 @@ package database;
 import entities.Facility;
 import entities.Order;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -46,6 +47,16 @@ public class FacilityDbGateway implements FacilityDb {
         } catch(Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    //for testing purposes
+    public void fileReset() {
+        try {
+            HashMap<UUID, Facility> newHash = new HashMap<UUID, Facility>();
+            db.write(newHash);
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 }

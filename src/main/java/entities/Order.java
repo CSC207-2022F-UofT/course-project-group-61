@@ -13,8 +13,8 @@ public class Order {
     private final UUID id;
 
     // Variables to store the ID of the warehouse fulfilling the order and the store receiving it
-    final private int warehouseID;
-    final private int storeID;
+    final private UUID warehouseID;
+    final private UUID storeID;
 
     // Stores the username of the user that created the Order
     final private String username;
@@ -29,7 +29,7 @@ public class Order {
     // the creation date, fulfillment date when it does happen
     private HashMap<Integer, Date> timestamps = new HashMap<>();
 
-    public Order(int warehouseID, int storeID, String username, HashMap<Integer, Integer> orderQuantites, Date dateCreated){
+    public Order(UUID warehouseID, UUID storeID, String username, HashMap<Integer, Integer> orderQuantites, Date dateCreated){
         this.warehouseID = warehouseID;
         this.storeID = storeID;
 
@@ -46,11 +46,11 @@ public class Order {
         return id;
     }
 
-    public int getWarehouseID() {
+    public UUID getWarehouseID() {
         return warehouseID;
     }
 
-    public int getStoreID() {
+    public UUID getStoreID() {
         return storeID;
     }
 
