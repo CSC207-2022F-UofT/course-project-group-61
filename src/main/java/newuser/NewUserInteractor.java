@@ -5,6 +5,8 @@ import entities.FacilityUser;
 import entities.User;
 import entities.FacilityType;
 
+import java.util.UUID;
+
 
 public class NewUserInteractor{
 
@@ -13,11 +15,9 @@ public class NewUserInteractor{
     public NewUserInteractor(){
     }
 
-    public User addNewUser(String username, String password, int facilityID, FacilityType type){
+    public User addNewUser(String username, String password, UUID facilityID, FacilityType type){
 
-        // FacilityUser has type int facilityID, but Facility has type UUID facilityID, does this matter?
-        // Can int and UUID be compared/be checked for the same number sequence?
-
+        // changed facilityID in all classes to type UUID.
         User newUser = new FacilityUser(username, password, facilityID, type);
         if (readWriter.getUser(username) != null){
             return null;
