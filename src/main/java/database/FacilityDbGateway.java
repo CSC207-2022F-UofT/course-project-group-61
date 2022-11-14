@@ -3,6 +3,7 @@ package database;
 import entities.Facility;
 import entities.Order;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
