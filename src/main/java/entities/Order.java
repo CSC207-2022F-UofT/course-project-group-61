@@ -23,13 +23,13 @@ public class Order {
 
     // Stores the items in the order as a HashMap where the first int is
     // the UPC code of the product and second int is the quantity of it
-    final private HashMap<Integer, Integer> orderQuantities;
+    final private HashMap<Long, Integer> orderQuantities;
 
     // Stores the important timestamps of the order object:
     // the creation date, fulfillment date when it does happen
     private HashMap<Integer, Date> timestamps = new HashMap<>();
 
-    public Order(UUID warehouseID, UUID storeID, String username, HashMap<Integer, Integer> orderQuantites, Date dateCreated){
+    public Order(UUID warehouseID, UUID storeID, String username, HashMap<Long, Integer> orderQuantites, Date dateCreated){
         this.warehouseID = warehouseID;
         this.storeID = storeID;
 
@@ -62,7 +62,7 @@ public class Order {
         return username;
     }
 
-    public HashMap<Integer, Integer> getOrderQuantities() {
+    public HashMap<Long, Integer> getOrderQuantities() {
         return orderQuantities;
     }
 

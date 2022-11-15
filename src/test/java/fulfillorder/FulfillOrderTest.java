@@ -31,22 +31,20 @@ public class FulfillOrderTest {
         FacilityDbGateway facilityDb = new FacilityDbGateway();
         facilityDb.fileReset();
 
-        HashMap<Integer, Integer> storeInventory = new HashMap<>();
-        storeInventory.put(1, 0);
-        storeInventory.put(2, 0);
-        store = new Facility("Store1", storeInventory, "STORE");
+        store = new Facility("Store1", "STORE");
+        store.addProduct(1L, 0);
+        store.addProduct(2L, 0);
 
-        HashMap<Integer, Integer> warehouseInventory = new HashMap<>();
-        warehouseInventory.put(1, 20);
-        warehouseInventory.put(2, 30);
-        warehouse = new Facility("Warehouse1", warehouseInventory, "WAREHOUSE");
+        warehouse = new Facility("Warehouse1", "WAREHOUSE");
+        warehouse.addProduct(1L, 20);
+        warehouse.addProduct(2L, 30);
 
         facilityDb.updateFacility(store);
         facilityDb.updateFacility(warehouse);
 
-        HashMap<Integer, Integer> orderQuantities = new HashMap<>();
-        orderQuantities.put(1, 10);
-        orderQuantities.put(2, 20);
+        HashMap<Long, Integer> orderQuantities = new HashMap<>();
+        orderQuantities.put(1L, 10);
+        orderQuantities.put(2L, 20);
         Date creationDate = new Date();
         order = new Order(warehouse.getFacilityID(), store.getFacilityID(), "Tester1", orderQuantities, creationDate);
     }
@@ -62,11 +60,11 @@ public class FulfillOrderTest {
         interactor.addOrder(order);
 
         // Tests the interactor returns the correct value
-        HashMap<Integer, Boolean> expectedValues = new HashMap<>();
-        expectedValues.put(1, false);
-        expectedValues.put(2, false);
+        HashMap<Long, Boolean> expectedValues = new HashMap<>();
+        expectedValues.put(1L, false);
+        expectedValues.put(2L, false);
 
-        HashMap<Integer, Boolean> returnedValues = interactor.attemptUpdateInventory();
+        HashMap<Long, Boolean> returnedValues = interactor.attemptUpdateInventory();
 
         Assertions.assertEquals(returnedValues, expectedValues);
 
@@ -92,18 +90,18 @@ public class FulfillOrderTest {
         FulfillInteractor currentInteractor = new FulfillInteractor();
 
         // Creates the new order that has too many requested items, as in the warehouse cannot provide it.
-        HashMap<Integer, Integer> newOrderQuantities = new HashMap<>();
-        newOrderQuantities.put(1, 50);
-        newOrderQuantities.put(2, 50);
+        HashMap<Long, Integer> newOrderQuantities = new HashMap<>();
+        newOrderQuantities.put(1L, 50);
+        newOrderQuantities.put(2L, 50);
         Date currentDate = new Date();
         Order currentOrder = new Order(warehouse.getFacilityID(), store.getFacilityID(), "User2", newOrderQuantities, currentDate);
 
         currentInteractor.addOrder(currentOrder);
-        HashMap<Integer, Boolean> returnedValue = currentInteractor.attemptUpdateInventory();
+        HashMap<Long, Boolean> returnedValue = currentInteractor.attemptUpdateInventory();
 
-        HashMap<Integer, Boolean> expectedValue = new HashMap<>();
-        expectedValue.put(1, true);
-        expectedValue.put(2, true);
+        HashMap<Long, Boolean> expectedValue = new HashMap<>();
+        expectedValue.put(1L, true);
+        expectedValue.put(2L, true);
 
         Assertions.assertEquals(expectedValue, returnedValue);
 

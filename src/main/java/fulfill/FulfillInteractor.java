@@ -32,15 +32,15 @@ public class FulfillInteractor {
         this.warehouse = findWarehouse(order.getWarehouseID());
     }
 
-    public HashMap<Integer, Boolean> attemptUpdateInventory(){
+    public HashMap<Long, Boolean> attemptUpdateInventory(){
         /*
         Checks if an order can be fulfilled. That is it checks for each item in the order that the warehouse has enough
         items to fulfill the order and if not it asks the user to confirm whether or not they want to still fulfill the
         order with lower stock.
          */
 
-        HashMap<Integer, Integer> orderQuantities = order.getOrderQuantities();
-        HashMap<Integer, Boolean> outOfStock = outOfOrderChecker(orderQuantities, warehouse);
+        HashMap<Long, Integer> orderQuantities = order.getOrderQuantities();
+        HashMap<Long, Boolean> outOfStock = outOfOrderChecker(orderQuantities, warehouse);
 
         if(outOfStock.containsValue(false)){
             updateInventories(store, warehouse, orderQuantities);
@@ -57,7 +57,7 @@ public class FulfillInteractor {
         Assumes the attemptUpdateInventory has been run before and that at least one item was out of stock. This
         method will fulfill the order regardless of the out of stock or low items by updating the stock the most it can.
          */
-        HashMap<Integer, Integer> orderQuantites = order.getOrderQuantities();
+        HashMap<Long, Integer> orderQuantites = order.getOrderQuantities();
         orderQuantites = minimumOrderQuantities(orderQuantites, warehouse);
 
         updateInventories(store, warehouse, orderQuantites);
@@ -66,27 +66,27 @@ public class FulfillInteractor {
         order.fulfillOrder(currentDate);
     }
 
-    private HashMap<Integer, Integer> minimumOrderQuantities(HashMap<Integer, Integer> orderQuantites, Facility warehouse) {
+    private HashMap<Long, Integer> minimumOrderQuantities(HashMap<Long, Integer> orderQuantites, Facility warehouse) {
         /*
         Returns a hashmap of the minimum order quantities. That is for each order the minimum that the warehouse can
         provide.
          */
-        HashMap<Integer, Integer> minOrderQuantities = new HashMap<>();
+        HashMap<Long, Integer> minOrderQuantities = new HashMap<>();
 
-        for(int UPC: orderQuantites.keySet()){
+        for(long UPC: orderQuantites.keySet()){
             minOrderQuantities.put(UPC, Math.min(orderQuantites.get(UPC), warehouse.getUPCQuantity(UPC)));
         }
 
         return minOrderQuantities;
     }
 
-    private void updateInventories(Facility store, Facility warehouse, HashMap<Integer, Integer> orderQuantites){
+    private void updateInventories(Facility store, Facility warehouse, HashMap<Long, Integer> orderQuantites){
         /*
         Updates the store and warehouse to reduce and increase (respectively) their inventories. Assumes the order
         quantities is the exact amount that is needed to update; that is this function won't deal with checking if the
         warehouse has enough stock.
          */
-        for(int UPC: orderQuantites.keySet()){
+        for(long UPC: orderQuantites.keySet()){
             store.addProduct(UPC, orderQuantites.get(UPC));
             warehouse.removeProduct(UPC, orderQuantites.get(UPC));
         }
@@ -103,15 +103,15 @@ public class FulfillInteractor {
         return facilityDb.getFacility(storeID);
     }
 
-    private HashMap<Integer, Boolean> outOfOrderChecker(HashMap<Integer, Integer> orderQuantities, Facility warehouse){
+    private HashMap<Long, Boolean> outOfOrderChecker(HashMap<Long, Integer> orderQuantities, Facility warehouse){
         /*
         Checks if the warehouse has enough items in storage for all the items in the order. The hashmap corresponds to
         UPC codes and booleans, which states whether or not the warehouse has enough in storage for each product.
          */
-        HashMap<Integer, Boolean> outOfStock = new HashMap<>();
+        HashMap<Long, Boolean> outOfStock = new HashMap<>();
 
         // Checks that for each item is in stock for the warehouse
-        for(int UPC: orderQuantities.keySet()){
+        for(long UPC: orderQuantities.keySet()){
             if(warehouse.getUPCQuantity(UPC) < orderQuantities.get(UPC)){
                 outOfStock.put(UPC, true);
             }else{

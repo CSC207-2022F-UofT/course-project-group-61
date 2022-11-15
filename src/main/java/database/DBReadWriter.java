@@ -19,7 +19,7 @@ public class DBReadWriter {
         output.close();
     }
 
-    public Serializable read() throws IOException, ClassNotFoundException {
+    public Serializable read() throws IOException, ClassNotFoundException, EOFException {
         InputStream file = new FileInputStream(FILE_PATH);
         InputStream buffer = new BufferedInputStream(file);
         ObjectInput input = new ObjectInputStream(buffer);

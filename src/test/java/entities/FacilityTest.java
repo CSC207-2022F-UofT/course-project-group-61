@@ -10,29 +10,28 @@ import java.util.HashMap;
 
 public class FacilityTest {
 
-    public static HashMap<Integer, Integer> testMap = new HashMap<>();
 
     public static Facility facility;
 
     @Before
     public void setup() {
-        testMap.put(0001, 13);
-        facility = new Facility("fac1",  testMap, "Store");
+        facility = new Facility("fac1", "Store");
+        facility.addProduct(123456789123L, 13);
     }
 
     @Test
     public void getFacilityInfo() {
         assertEquals(facility.getName(), "fac1");
         assertEquals(facility.getFacilityType(), "Store");
-        assertEquals(facility.getUPCQuantity(0001), 13);
+        assertEquals(facility.getUPCQuantity(123456789123L), 13);
     }
 
     @Test
     public void adjustInventory() {
-        facility.addProduct(0001, 3);
-        assertEquals(facility.getUPCQuantity(0001), 16);
-        facility.removeProduct(0001, 7);
-        assertEquals(facility.getUPCQuantity(0001), 9);
+        facility.addProduct(123456789123L, 3);
+        assertEquals(facility.getUPCQuantity(123456789123L), 16);
+        facility.removeProduct(123456789123L, 7);
+        assertEquals(facility.getUPCQuantity(123456789123L), 9);
     }
 
 }

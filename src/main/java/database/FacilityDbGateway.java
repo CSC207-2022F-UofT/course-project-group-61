@@ -21,6 +21,15 @@ public class FacilityDbGateway implements FacilityDb {
     public HashMap<UUID, Facility> getAllFacilities() {
         try {
             return (HashMap<UUID, Facility>) db.read();
+        } catch (EOFException eof) {
+            HashMap<UUID, Facility> tempMap = new HashMap<UUID, Facility>();
+            try {
+                this.db.write(tempMap);
+                return (HashMap<UUID, Facility>) db.read();
+            } catch(IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;

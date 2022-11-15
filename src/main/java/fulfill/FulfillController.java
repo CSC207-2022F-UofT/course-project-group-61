@@ -22,7 +22,7 @@ public class FulfillController {
         /*
         Attempts to fulfill an order. Note that this can fail is the warehouse is out of stock on some items.
          */
-        HashMap<Integer, Boolean> attemptSuccess = interactor.attemptUpdateInventory();
+        HashMap<Long, Boolean> attemptSuccess = interactor.attemptUpdateInventory();
 
         // Checks if the warehouse is out of stock on any specific items
         if(attemptSuccess.containsValue(true)){
