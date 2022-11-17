@@ -1,12 +1,14 @@
 package entities;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     private String name;
     private long UPC;
     private int price;
 
-    public Product(String name, int UPC, int price){
+    public Product(String name, Long UPC, int price){
         this.name = name;
         this.UPC = UPC;
         this.price = price;
@@ -24,7 +26,7 @@ public class Product {
         return UPC;
     }
 
-    public void setUPC(int newUPC){
+    public void setUPC(Long newUPC){
         this.UPC = newUPC;
     }
 
