@@ -2,7 +2,7 @@ package userlogin;
 
 public interface UserLoginOutputBoundary {
 
-    UserLoginResponseModel prepareSuccessView();
+    void prepareSuccessView(UserLoginResponseModel model);
 
-    UserLoginResponseModel prepareFailView(LoginStatus status);
+    void prepareFailView(UserLoginResponseModel model);
 }
