@@ -1,4 +1,4 @@
-package storemainmenu;
+package warehousemainmenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,32 +7,30 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class StoreMainMenuView extends JFrame implements Observer, ActionListener {
+public class WarehouseMainMenuView extends JFrame implements Observer, ActionListener {
 
     /*
-     * place order
-     * daily sales
+     * fullfill order
      * inventory count
      * generate report
      * item lookup
      * */
 
-    private final StoreMainMenuController controller;
+    private final WarehouseMainMenuController controller;
 
-    private JButton placeOrderButton;
-    private JButton dailySalesButton;
+    private JButton fulfillOrderButton;
     private  JButton invCountButton;
     private  JButton genReportButton;
     private JButton itemLookupButton;
 
-    public StoreMainMenuView(StoreMainMenuController controller) {
+    public WarehouseMainMenuView(WarehouseMainMenuController controller) {
         this.controller = controller;
         init();
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        StoreMainMenuViewModel viewModel = (StoreMainMenuViewModel) o;
+        WarehouseMainMenuViewModel viewModel = (WarehouseMainMenuViewModel) o;
 
         setVisible(viewModel.isVisible());
 
@@ -43,26 +41,22 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
         JLabel header = new JLabel("Inventory Management System");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-        this.placeOrderButton = new JButton("Place Order");
-        this.dailySalesButton = new JButton("Input Daily Sales");
+        this.fulfillOrderButton = new JButton("Fulfill Order");
         this.invCountButton = new JButton("Input Inventory");
         this.genReportButton = new JButton("Generate Report");
         this.itemLookupButton = new JButton("Item Lookup");
 
-        placeOrderButton.addActionListener(this);
-        dailySalesButton.addActionListener(this);
+        fulfillOrderButton.addActionListener(this);
         invCountButton.addActionListener(this);
         genReportButton.addActionListener(this);
         itemLookupButton.addActionListener(this);
 
-        placeOrderButton.setBounds(50, 50, 200, 40);
-        dailySalesButton.setBounds(50, 100, 200, 40);
-        invCountButton.setBounds(50, 150, 200, 40);
-        genReportButton.setBounds(50, 200, 200, 40);
-        itemLookupButton.setBounds(50, 250, 200, 40);
+        fulfillOrderButton.setBounds(50, 50, 200, 40);
+        invCountButton.setBounds(50, 100, 200, 40);
+        genReportButton.setBounds(50, 150, 200, 40);
+        itemLookupButton.setBounds(50, 200, 200, 40);
 
-        add(placeOrderButton);
-        add(dailySalesButton);
+        add(fulfillOrderButton);
         add(invCountButton);
         add(genReportButton);
         add(itemLookupButton);
@@ -76,10 +70,8 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == placeOrderButton) {
-            controller.chooseAction(ButtonOption.PLACE_ORDER);
-        } else if (e.getSource() == dailySalesButton) {
-            controller.chooseAction(ButtonOption.DAILY_SALES);
+        if (e.getSource() == fulfillOrderButton) {
+            controller.chooseAction(ButtonOption.FULFILL_ORDER);
         } else if (e.getSource() == invCountButton) {
             controller.chooseAction(ButtonOption.INV_COUNT);
         } else if (e.getSource() == genReportButton) {
