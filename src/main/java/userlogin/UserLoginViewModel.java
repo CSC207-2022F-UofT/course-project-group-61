@@ -16,6 +16,8 @@ public class UserLoginViewModel extends Observable {
         failedReason = status;
         setChanged();
         notifyObservers();
+        failed = false;
+        failedReason = null;
     }
 
     public boolean isVisible() {
