@@ -7,6 +7,7 @@ public class StoreMainMenuViewModel extends Observable {
     private boolean visible;
 
     public StoreMainMenuViewModel() {
+        setVisible(false);
     }
 
     public boolean isVisible() {

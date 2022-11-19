@@ -4,13 +4,16 @@ import entities.AdminUser;
 import entities.FacilityType;
 import entities.FacilityUser;
 import entities.User;
+import storemainmenu.StoreMainMenuViewModel;
 
 public class UserLoginPresenter implements UserLoginOutputBoundary {
 
     private UserLoginViewModel viewModel;
+    private StoreMainMenuViewModel storeModel;
 
-    public UserLoginPresenter(UserLoginViewModel viewModel) {
+    public UserLoginPresenter(UserLoginViewModel viewModel, StoreMainMenuViewModel storeModel) {
         this.viewModel = viewModel;
+        this.storeModel = storeModel;
     }
 
     @Override
@@ -20,7 +23,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         if (user instanceof AdminUser) {
             //TODO: Set admin main menu view to visible
         } else if (((FacilityUser) user).getType() == FacilityType.STORE) {
-            //TODO: Set store main menu view to visible
+            storeModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
             //TODO: Set warehouse main menu view to visible
         }
