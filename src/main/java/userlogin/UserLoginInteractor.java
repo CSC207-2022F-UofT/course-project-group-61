@@ -6,7 +6,7 @@ import entities.User;
 public class UserLoginInteractor implements UserLoginInputBoundary {
 
     private final UserDb userDb;
-    public UserLoginInteractor(UserDb userDb) {
+    public UserLoginInteractor(UserLoginPresenter presenter, UserDb userDb) {
         this.userDb = userDb;
     }
     @Override
