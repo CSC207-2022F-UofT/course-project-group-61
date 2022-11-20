@@ -1,5 +1,6 @@
 package newuser;
 
+import entities.FacilityUser;
 import entities.User;
 
 public class NewUserResponseModel {

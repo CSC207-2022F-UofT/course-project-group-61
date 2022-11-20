@@ -27,7 +27,7 @@ public class NewUserInteractor implements NewUserInputBoundary{
 
         if (readWriter.getUser(request.getUsername()) != null){
             response = new NewUserResponseModel(null, NewUserStatus.USERNAME_EXISTS);
-            presenter.PrepareFailView(response);
+            presenter.prepareFailView(response);
             return response;
         }
         else if (request.getPassword().length() < 5){
