@@ -1,17 +1,17 @@
 package entities;
-
+import java.util.UUID;
 public class FacilityUser extends User {
 
-    private final int facilityID;
+    private final UUID facilityID;
     private final FacilityType type;
 
-    public FacilityUser(String username, String password, int facilityID, FacilityType type) {
+    public FacilityUser(String username, String password, UUID facilityID, FacilityType type) {
         super(username, password);
         this.facilityID = facilityID;
         this.type = type;
     }
 
-    public int getFacilityID() {
+    public UUID getFacilityID() {
         return facilityID;
     }
 
