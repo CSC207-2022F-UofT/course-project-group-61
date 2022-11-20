@@ -8,36 +8,27 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class FulfillController {
-    private FulfillInteractor interactor;
+
+    private FulfillInputBoundry inputBoundry;
 
     public FulfillController(){
-            interactor = new FulfillInteractor(); // TODO: make it take in the presenter too
+        this.inputBoundry = new FulfillInteractor();
     }
 
-    public void addOrder(Order order){
-        interactor.addOrder(order);
-    }
-
-    public void attemptFulfill(){
+    public FulfillResponseModel attemptFulfill(UUID storeID, UUID warehouseID, UUID orderID){
         /*
         Attempts to fulfill an order. Note that this can fail is the warehouse is out of stock on some items.
          */
-        HashMap<Long, Boolean> attemptSuccess = interactor.attemptUpdateInventory();
-
-        // Checks if the warehouse is out of stock on any specific items
-        if(attemptSuccess.containsValue(true)){
-            ; // TODO: presenter logic for some items are out of stock
-        }else{
-            ; // TODO: presenter logic for the user fully fulfilled the order
-        }
+        FulfillRequestModel requestModel = new FulfillRequestModel(storeID, warehouseID, orderID);
+        return inputBoundry.attemptUpdateInventory(requestModel);
     }
 
-    public void confirmFulfill(){
+    public FulfillResponseModel confirmFulfill(UUID storeID, UUID warehouseID, UUID orderID){
         /*
         After attempting to fulfill and being rejected, this will confirm the fulfill no matter how low on stock some
         items are.
          */
-        interactor.confirmUpdateInventory();
-        // TODO: presenter logic for confirming an order is fulfilled
+        FulfillRequestModel requestModel = new FulfillRequestModel(storeID, warehouseID, orderID);
+        return inputBoundry.confirmUpdateInventory(requestModel);
     }
 }

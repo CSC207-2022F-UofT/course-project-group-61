@@ -1,9 +1,10 @@
 package entities;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Order {
+public class Order implements Serializable {
     // Creates the markers for the status of the order
     public static final int CREATED = 0;
     public static final int FULFILLED = 1;

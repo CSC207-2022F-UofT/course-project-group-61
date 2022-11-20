@@ -1,24 +1,32 @@
 package fulfillorder;
 
+import database.FacilityDb;
 import database.FacilityDbGateway;
 
+import database.OrderDb;
+import database.OrderDbGateway;
 import entities.Facility;
 import entities.Order;
 import fulfill.FulfillController;
 import fulfill.FulfillInteractor;
+import fulfill.FulfillResponseModel;
+import fulfill.FulfillStatus;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class FulfillOrderTest {
 
     private static FulfillController controller;
-    private static FulfillInteractor interactor;
-    private static Order order;
+
+    private static OrderDbGateway orderDb;
+    private static FacilityDbGateway facilityDb;
 
     private static Facility store;
     private static Facility warehouse;
@@ -26,96 +34,119 @@ public class FulfillOrderTest {
     @Before
     public void setup(){
         controller = new FulfillController();
-        interactor = new FulfillInteractor();
 
-        FacilityDbGateway facilityDb = new FacilityDbGateway();
+        facilityDb = new FacilityDbGateway();
         facilityDb.fileReset();
 
-        store = new Facility("Store1", "STORE");
-        store.addProduct(1L, 0);
-        store.addProduct(2L, 0);
-
-        warehouse = new Facility("Warehouse1", "WAREHOUSE");
-        warehouse.addProduct(1L, 20);
-        warehouse.addProduct(2L, 30);
+        store = createStore(1L, 0, 2L, 0, "Store1");
+        warehouse = createWarehouse(1L, 20, 2L, 30, "Warehouse1");
 
         facilityDb.updateFacility(store);
         facilityDb.updateFacility(warehouse);
 
-        HashMap<Long, Integer> orderQuantities = new HashMap<>();
-        orderQuantities.put(1L, 10);
-        orderQuantities.put(2L, 20);
-        Date creationDate = new Date();
-        order = new Order(warehouse.getFacilityID(), store.getFacilityID(), "Tester1", orderQuantities, creationDate);
-    }
-
-    @Test
-    public void TestAddingOrder() throws IOException {
-        // Tests that the program will not throw any exceptions, if it does the test fails automatically
-        controller.addOrder(order);
+        orderDb = new OrderDbGateway();
+        orderDb.fileReset();
     }
 
     @Test
     public void TestAttemptingFulfillOrder(){
-        interactor.addOrder(order);
+        Order order = createOrder(1L, 10, 2L, 20, "Tester1", warehouse.getFacilityID(), store.getFacilityID());
+        orderDb.updateOrder(order);
 
-        // Tests the interactor returns the correct value
-        HashMap<Long, Boolean> expectedValues = new HashMap<>();
-        expectedValues.put(1L, false);
-        expectedValues.put(2L, false);
+        FulfillResponseModel output = controller.attemptFulfill(store.getFacilityID(), warehouse.getFacilityID(), order.getId());
 
-        HashMap<Long, Boolean> returnedValues = interactor.attemptUpdateInventory();
+        Assertions.assertEquals(FulfillStatus.SUCCESS, output.getStatus());
+        Assertions.assertNull(output.getOutOfStockItems());
 
-        Assertions.assertEquals(returnedValues, expectedValues);
+        // Tests the order has been properly marked as fulfilled
+        Order newOrder = orderDb.getOrder(order.getId());
 
-        // Tests that the order was marked as fulfilled
-        Date returnedDate = order.getTimestamps().get(Order.FULFILLED);
-        Assertions.assertNotEquals(null, returnedDate);
+        Assertions.assertEquals(Order.FULFILLED, newOrder.getStatus());
+        Assertions.assertNotNull(newOrder.getTimestamps().get(Order.FULFILLED));
 
-        // Tests store and warehouse inventories were properly updated
-        // Since the interactor updates the store in the database we must pull up the "currentStore" from the database
-        FacilityDbGateway facilityDatabase = new FacilityDbGateway();
-        Facility currentStore = facilityDatabase.getFacility(store.getFacilityID());
-        Facility currentWarehouse = facilityDatabase.getFacility(warehouse.getFacilityID());
+        // Tests the store and warehouse's inventories have been properly updated
+        Facility newStore = facilityDb.getFacility(store.getFacilityID());
+        Facility newWarehouse = facilityDb.getFacility(warehouse.getFacilityID());
 
-        Assertions.assertEquals(10, currentStore.getUPCQuantity(1));
-        Assertions.assertEquals(20, currentStore.getUPCQuantity(2));
-        Assertions.assertEquals(10, currentWarehouse.getUPCQuantity(1));
-        Assertions.assertEquals(10, currentWarehouse.getUPCQuantity(2));
+        Assertions.assertEquals(10, newStore.getUPCQuantity(1L));
+        Assertions.assertEquals(20, newStore.getUPCQuantity(2L));
+
+        Assertions.assertEquals(10, newWarehouse.getUPCQuantity(1L));
+        Assertions.assertEquals(10, newWarehouse.getUPCQuantity(2L));
     }
 
     @Test
     public void TestConfirmFulfillOrder(){
-        //  Creates a new interactor to try and make an order that cannot be fully fulfilled
-        FulfillInteractor currentInteractor = new FulfillInteractor();
+        // Tests unfillable order
+        Order order = createOrder(1L, 30, 2L, 40, "Tester2", warehouse.getFacilityID(), store.getFacilityID());
+        orderDb.updateOrder(order);
 
-        // Creates the new order that has too many requested items, as in the warehouse cannot provide it.
-        HashMap<Long, Integer> newOrderQuantities = new HashMap<>();
-        newOrderQuantities.put(1L, 50);
-        newOrderQuantities.put(2L, 50);
-        Date currentDate = new Date();
-        Order currentOrder = new Order(warehouse.getFacilityID(), store.getFacilityID(), "User2", newOrderQuantities, currentDate);
+        FulfillResponseModel firstOutput = controller.attemptFulfill(store.getFacilityID(), warehouse.getFacilityID(), order.getId());
 
-        currentInteractor.addOrder(currentOrder);
-        HashMap<Long, Boolean> returnedValue = currentInteractor.attemptUpdateInventory();
+        Assertions.assertEquals(FulfillStatus.OUT_OF_STOCK, firstOutput.getStatus());
+        HashMap<Long, Boolean> expectedOutofStock = new HashMap<>();
+        expectedOutofStock.put(1L, true);
+        expectedOutofStock.put(2L, true);
+        Assertions.assertEquals(expectedOutofStock, firstOutput.getOutOfStockItems());
 
-        HashMap<Long, Boolean> expectedValue = new HashMap<>();
-        expectedValue.put(1L, true);
-        expectedValue.put(2L, true);
+        // Tests the store and warehouse's inventories have not been updated
+        Facility newStore = facilityDb.getFacility(store.getFacilityID());
+        Facility newWarehouse = facilityDb.getFacility(warehouse.getFacilityID());
 
-        Assertions.assertEquals(expectedValue, returnedValue);
+        Assertions.assertEquals(0, newStore.getUPCQuantity(1L));
+        Assertions.assertEquals(0, newStore.getUPCQuantity(2L));
 
-        currentInteractor.confirmUpdateInventory();
+        Assertions.assertEquals(20, newWarehouse.getUPCQuantity(1L));
+        Assertions.assertEquals(30, newWarehouse.getUPCQuantity(2L));
 
-        // Tests that inventories were properly updated
-        FacilityDbGateway facilityDatabase = new FacilityDbGateway();
-        Facility currentStore = facilityDatabase.getFacility(store.getFacilityID());
-        Facility currentWarehouse = facilityDatabase.getFacility(warehouse.getFacilityID());
+        // Tests the order has not been updated
+        Order newOrder = orderDb.getOrder(order.getId());
 
-        Assertions.assertEquals(20, currentStore.getUPCQuantity(1));
-        Assertions.assertEquals(30, currentStore.getUPCQuantity(2));
-        Assertions.assertEquals(0, currentWarehouse.getUPCQuantity(1));
-        Assertions.assertEquals(0, currentWarehouse.getUPCQuantity(2));
+        Assertions.assertEquals(Order.CREATED, newOrder.getStatus());
+
+        // Tests confirming fulfillment
+        FulfillResponseModel secondOutput = controller.confirmFulfill(store.getFacilityID(), warehouse.getFacilityID(), order.getId());
+
+        Assertions.assertEquals(FulfillStatus.SUCCESS, secondOutput.getStatus());
+        Assertions.assertNull(secondOutput.getOutOfStockItems());
+
+        // Tests the order has been properly marked as fulfilled
+        newOrder = orderDb.getOrder(order.getId());
+
+        Assertions.assertEquals(Order.FULFILLED, newOrder.getStatus());
+        Assertions.assertNotNull(newOrder.getTimestamps().get(Order.FULFILLED));
+
+        // Tests the store and warehouse's inventories have been properly updated
+        newStore = facilityDb.getFacility(store.getFacilityID());
+        newWarehouse = facilityDb.getFacility(warehouse.getFacilityID());
+
+        Assertions.assertEquals(20, newStore.getUPCQuantity(1L));
+        Assertions.assertEquals(30, newStore.getUPCQuantity(2L));
+
+        Assertions.assertEquals(0, newWarehouse.getUPCQuantity(1L));
+        Assertions.assertEquals(0, newWarehouse.getUPCQuantity(2L));
+
+    }
+
+    private Facility createWarehouse(long UPC1, int stock1, long UPC2, int stock2, String name){
+        Facility warehouse = new Facility(name, "WAREHOUSE");
+        warehouse.addProduct(UPC1, stock1);
+        warehouse.addProduct(UPC2, stock2);
+        return warehouse;
+    }
+
+    private Facility createStore(long UPC1, int stock1, long UPC2, int stock2, String name){
+        Facility store = new Facility(name, "STORE");
+        store.addProduct(UPC1, stock1);
+        store.addProduct(UPC2, stock2);
+        return store;
+    }
+
+    private Order createOrder(long UPC1, int stock1, long UPC2, int stock2, String user, UUID warehouseID, UUID storeID){
+        HashMap<Long, Integer> orderQuantities = new HashMap<>();
+        orderQuantities.put(UPC1, stock1);
+        orderQuantities.put(UPC2, stock2);
+        return new Order(warehouseID, storeID, user, orderQuantities, new Date());
     }
 
 }

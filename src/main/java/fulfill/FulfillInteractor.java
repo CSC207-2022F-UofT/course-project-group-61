@@ -2,6 +2,8 @@ package fulfill;
 
 import database.FacilityDb;
 import database.FacilityDbGateway;
+import database.OrderDb;
+import database.OrderDbGateway;
 import entities.Facility;
 import entities.Order;
 
@@ -9,61 +11,60 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class FulfillInteractor {
-    private Order order;
+public class FulfillInteractor implements FulfillInputBoundry{
     private FacilityDb facilityDb;
-
-    private Facility store;
-    private Facility warehouse;
+    private OrderDb orderDb;
 
     public FulfillInteractor(){
         this.facilityDb = new FacilityDbGateway();
-        // TODO: also make this take in the presenter (or at least the interface)
+        this.orderDb = new OrderDbGateway();
     }
 
-    public void addOrder(Order order){
-        /*
-        Adds the order object for this order being fulfilled as well as the store, and warehouse corresponding to the
-        order.
-         */
-        this.order = order;
-
-        this.store = findStore(order.getStoreID());
-        this.warehouse = findWarehouse(order.getWarehouseID());
-    }
-
-    public HashMap<Long, Boolean> attemptUpdateInventory(){
+    public FulfillResponseModel attemptUpdateInventory(FulfillRequestModel requestModel){
         /*
         Checks if an order can be fulfilled. That is it checks for each item in the order that the warehouse has enough
         items to fulfill the order and if not it asks the user to confirm whether or not they want to still fulfill the
         order with lower stock.
-         */
+        */
+        // Creates objects to more easily work with them
+        Facility store = findFacility(requestModel.getStoreID());
+        Facility warehouse = findFacility(requestModel.getWarehouseID());
+        Order order = findOrder(requestModel.getOrderID());
 
-        HashMap<Long, Integer> orderQuantities = order.getOrderQuantities();
-        HashMap<Long, Boolean> outOfStock = outOfOrderChecker(orderQuantities, warehouse);
+        HashMap<Long, Boolean> outOfStock = outOfOrderChecker(order.getOrderQuantities(), warehouse);
 
-        if(outOfStock.containsValue(false)){
-            updateInventories(store, warehouse, orderQuantities);
-
-            Date currentDate = new Date();
-            order.fulfillOrder(currentDate);
+        // Checks if any items are out of stock, if so show a failed reponse
+        if(outOfStock.containsValue(true)){
+            return new FulfillResponseModel(FulfillStatus.OUT_OF_STOCK, outOfStock);
         }
 
-        return outOfStock;
+        // Updates inventories of the facilities and updates order to be fulfilled
+        updateInventories(store, warehouse, order.getOrderQuantities());
+        order.fulfillOrder(new Date());
+        orderDb.updateOrder(order);
+
+        return new FulfillResponseModel(FulfillStatus.SUCCESS, null);
     }
 
-    public void confirmUpdateInventory(){
+    public FulfillResponseModel confirmUpdateInventory(FulfillRequestModel requestModel){
         /*
         Assumes the attemptUpdateInventory has been run before and that at least one item was out of stock. This
         method will fulfill the order regardless of the out of stock or low items by updating the stock the most it can.
-         */
-        HashMap<Long, Integer> orderQuantites = order.getOrderQuantities();
-        orderQuantites = minimumOrderQuantities(orderQuantites, warehouse);
+        */
+        // Creates objects to more easily work with them
+        Facility store = findFacility(requestModel.getStoreID());
+        Facility warehouse = findFacility(requestModel.getWarehouseID());
+        Order order = findOrder(requestModel.getOrderID());
 
-        updateInventories(store, warehouse, orderQuantites);
+        // Finds the minimum quantities you can update by
+        HashMap<Long, Integer> minimumQuantities = minimumOrderQuantities(order.getOrderQuantities(), warehouse);
 
-        Date currentDate = new Date();
-        order.fulfillOrder(currentDate);
+        // Updates inventories with items and marks the order as fulfilled
+        updateInventories(store, warehouse, minimumQuantities);
+        order.fulfillOrder(new Date());
+        orderDb.updateOrder(order);
+
+        return new FulfillResponseModel(FulfillStatus.SUCCESS, null);
     }
 
     private HashMap<Long, Integer> minimumOrderQuantities(HashMap<Long, Integer> orderQuantites, Facility warehouse) {
@@ -95,14 +96,6 @@ public class FulfillInteractor {
         facilityDb.updateFacility(warehouse);
     }
 
-    private Facility findWarehouse(UUID warehouseID){
-        return facilityDb.getFacility(warehouseID);
-    }
-
-    private Facility findStore(UUID storeID){
-        return facilityDb.getFacility(storeID);
-    }
-
     private HashMap<Long, Boolean> outOfOrderChecker(HashMap<Long, Integer> orderQuantities, Facility warehouse){
         /*
         Checks if the warehouse has enough items in storage for all the items in the order. The hashmap corresponds to
@@ -120,5 +113,13 @@ public class FulfillInteractor {
         }
 
         return outOfStock;
+    }
+
+    private Facility findFacility(UUID facilityID){
+        return facilityDb.getFacility(facilityID);
+    }
+
+    private Order findOrder(UUID orderID){
+        return orderDb.getOrder(orderID);
     }
 }
