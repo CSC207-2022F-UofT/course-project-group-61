@@ -9,13 +9,6 @@ import java.util.Observer;
 
 public class AdminMainMenuView extends JFrame implements Observer, ActionListener {
 
-    /*
-     * new fac
-     * new item
-     * new user
-     * item lookup
-     * */
-
     private final AdminMainMenuController controller;
 
     private JButton newFacilityButton;
@@ -60,6 +53,7 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         add(newItemButton);
         add(newUserButton);
         add(itemLookupButton);
+        add(header);
 
         setSize(800, 1000);
         setTitle("Inventory Management System");

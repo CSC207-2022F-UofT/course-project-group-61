@@ -5,7 +5,6 @@ public class WarehouseMainMenuController {
     WarehouseMainMenuPresenter presenter;
     public WarehouseMainMenuController(WarehouseMainMenuPresenter presenter) {
         this.presenter = presenter;
-        //this.presenter.updateView(option);
     }
 
     public void chooseAction(ButtonOption option) {

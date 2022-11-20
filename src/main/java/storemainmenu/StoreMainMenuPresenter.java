@@ -18,22 +18,22 @@ public class StoreMainMenuPresenter {
             case DAILY_SALES:
                 System.out.println("daily sales");
 
-                //TODO: set OrderView to visible
+                //TODO: set DailySalesView to visible
                 break;
             case INV_COUNT:
                 System.out.println("inv count");
 
-                //TODO: set OrderView to visible
+                //TODO: set InventoryCountView to visible
                 break;
             case GEN_REPORT:
                 System.out.println("gen report");
 
-                //TODO: set OrderView to visible
+                //TODO: set GenerateReportView to visible
                 break;
             case ITEM_LOOKUP:
                 System.out.println("item lookup");
 
-                //TODO: set OrderView to visible
+                //TODO: set ItemLookupView to visible
                 break;
         }
     }

@@ -9,13 +9,6 @@ import java.util.Observer;
 
 public class WarehouseMainMenuView extends JFrame implements Observer, ActionListener {
 
-    /*
-     * fullfill order
-     * inventory count
-     * generate report
-     * item lookup
-     * */
-
     private final WarehouseMainMenuController controller;
 
     private JButton fulfillOrderButton;
@@ -60,6 +53,7 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         add(invCountButton);
         add(genReportButton);
         add(itemLookupButton);
+        add(header);
 
         setSize(800, 1000);
         setTitle("Inventory Management System");

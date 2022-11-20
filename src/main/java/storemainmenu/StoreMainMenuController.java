@@ -5,7 +5,6 @@ public class StoreMainMenuController {
     StoreMainMenuPresenter presenter;
     public StoreMainMenuController(StoreMainMenuPresenter presenter) {
         this.presenter = presenter;
-        //this.presenter.updateView(option);
     }
 
     public void chooseAction(ButtonOption option) {

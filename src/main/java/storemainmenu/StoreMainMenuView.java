@@ -9,14 +9,6 @@ import java.util.Observer;
 
 public class StoreMainMenuView extends JFrame implements Observer, ActionListener {
 
-    /*
-     * place order
-     * daily sales
-     * inventory count
-     * generate report
-     * item lookup
-     * */
-
     private final StoreMainMenuController controller;
 
     private JButton placeOrderButton;
@@ -66,6 +58,7 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
         add(invCountButton);
         add(genReportButton);
         add(itemLookupButton);
+        add(header);
 
         setSize(800, 1000);
         setTitle("Inventory Management System");

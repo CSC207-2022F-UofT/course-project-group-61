@@ -5,7 +5,6 @@ public class AdminMainMenuController {
     AdminMainMenuPresenter presenter;
     public AdminMainMenuController(AdminMainMenuPresenter presenter) {
         this.presenter = presenter;
-        //this.presenter.updateView(option);
     }
 
     public void chooseAction(ButtonOption option) {
