@@ -1,28 +1,19 @@
 package userlogin;
 
-import adminmainmenu.AdminMainMenuViewModel;
 import entities.AdminUser;
 import entities.FacilityType;
 import entities.FacilityUser;
 import entities.User;
 import storemainmenu.StoreMainMenuViewModel;
-import warehousemainmenu.WarehouseMainMenuViewModel;
 
 public class UserLoginPresenter implements UserLoginOutputBoundary {
 
     private UserLoginViewModel viewModel;
-    private final StoreMainMenuViewModel storeMainMenuViewModel;
-    private final WarehouseMainMenuViewModel warehouseMainMenuViewModel;
-    private final AdminMainMenuViewModel adminMainMenuViewModel;
+    private StoreMainMenuViewModel storeModel;
 
-    public UserLoginPresenter(UserLoginViewModel viewModel,
-                              StoreMainMenuViewModel storeMainMenuViewModel,
-                              WarehouseMainMenuViewModel warehouseMainMenuViewModel,
-                              AdminMainMenuViewModel adminMainMenuViewModel) {
+    public UserLoginPresenter(UserLoginViewModel viewModel, StoreMainMenuViewModel storeModel) {
         this.viewModel = viewModel;
-        this.storeMainMenuViewModel = storeMainMenuViewModel;
-        this.warehouseMainMenuViewModel = warehouseMainMenuViewModel;
-        this.adminMainMenuViewModel = adminMainMenuViewModel;
+        this.storeModel = storeModel;
     }
 
     @Override
@@ -30,11 +21,11 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         viewModel.setVisible(false);
         User user = model.getUser();
         if (user instanceof AdminUser) {
-            adminMainMenuViewModel.setVisible(true);
+            //TODO: Set admin main menu view to visible
         } else if (((FacilityUser) user).getType() == FacilityType.STORE) {
-            storeMainMenuViewModel.setVisible(true);
+            storeModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
-            warehouseMainMenuViewModel.setVisible(true);
+            //TODO: Set warehouse main menu view to visible
         }
         //TODO: Store user data somewhere
     }
