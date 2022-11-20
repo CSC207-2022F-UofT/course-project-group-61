@@ -44,6 +44,7 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         genReportButton.addActionListener(this);
         itemLookupButton.addActionListener(this);
 
+        header.setBounds(50, 0, 500, 40);
         fulfillOrderButton.setBounds(50, 50, 200, 40);
         invCountButton.setBounds(50, 100, 200, 40);
         genReportButton.setBounds(50, 150, 200, 40);
