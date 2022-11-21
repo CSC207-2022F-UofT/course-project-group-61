@@ -60,7 +60,7 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         setTitle("Inventory Management System");
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+        //setVisible(true);
     }
 
     @Override

@@ -60,7 +60,7 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         setTitle("Inventory Management System");
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+        //setVisible(true);
     }
 
     @Override
