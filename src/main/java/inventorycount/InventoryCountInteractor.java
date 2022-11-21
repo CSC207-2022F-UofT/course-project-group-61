@@ -6,7 +6,6 @@ import database.FacilityDbGateway;
 import entities.Facility;
 
 import java.util.HashMap;
-import java.util.Set;
 import java.util.UUID;
 
 public class InventoryCountInteractor {
@@ -22,12 +21,12 @@ public class InventoryCountInteractor {
 
     }
 
-    public void updateInventoryCount(HashMap<Integer, Integer> newInventoryCount){
+    public void updateInventoryCount(HashMap<Long, Integer> newInventoryCount){
         // pull facility entity
         Facility facility = facilityDb.getFacility(facID);
 
         // update inventory
-        for (int upc : newInventoryCount.keySet()){
+        for (Long upc : newInventoryCount.keySet()){
 
             int newCount = newInventoryCount.get(upc);
 
@@ -44,7 +43,7 @@ public class InventoryCountInteractor {
 
     }
 
-    public HashMap<Integer, Integer> getCurrentCount(){
+    public HashMap<Long, Integer> getCurrentCount(){
         Facility facility = facilityDb.getFacility(facID);
 
         return facility.getInventory();

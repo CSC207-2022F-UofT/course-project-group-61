@@ -50,7 +50,7 @@ public class Facility implements Serializable {
         this.inventory.put(upc, this.inventory.get(upc) - quantity);
     }
 
-    public HashMap<Integer, Integer> getInventory(){
+    public HashMap<Long, Integer> getInventory(){
         return inventory;
     }
 }
