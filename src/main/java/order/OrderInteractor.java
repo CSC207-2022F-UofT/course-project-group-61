@@ -2,6 +2,7 @@ package order;
 
 import database.FacilityDb;
 import database.OrderDb;
+import database.ProductDb;
 import entities.*;
 
 import java.util.*;
@@ -11,11 +12,13 @@ public class OrderInteractor implements OrderInputBoundary {
     private OrderOutputBoundary presenter;
     private OrderDb orderDb;
     private FacilityDb facilityDb;
+    private ProductDb productDb;
 
-    public OrderInteractor(OrderOutputBoundary presenter, OrderDb orderDb, FacilityDb facilityDb) {
+    public OrderInteractor(OrderOutputBoundary presenter, OrderDb orderDb, FacilityDb facilityDb, ProductDb productDb) {
         this.presenter = presenter;
         this.orderDb = orderDb;
         this.facilityDb = facilityDb;
+        this.productDb = productDb;
     }
 
     @Override
@@ -57,8 +60,21 @@ public class OrderInteractor implements OrderInputBoundary {
         }
 
         OrderResponseModel response = new OrderResponseModel(orderedItems, request.getOrderQuantities());
-        // TODO: Call presenter
+        presenter.prepareSuccessView(response);
 
         return response;
+    }
+    @Override
+    public boolean upcExists(Long upc) {
+        if (productDb.getProduct(upc) == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public String getProductName(Long upc) {
+        return productDb.getProduct(upc).getName();
     }
 }
