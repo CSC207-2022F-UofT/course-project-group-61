@@ -6,6 +6,7 @@ import database.FacilityDbGateway;
 import database.OrderDb;
 import database.OrderDbGateway;
 import entities.Facility;
+import entities.FacilityType;
 import entities.Order;
 import fulfill.FulfillController;
 import fulfill.FulfillInteractor;
@@ -129,14 +130,14 @@ public class FulfillOrderTest {
     }
 
     private Facility createWarehouse(long UPC1, int stock1, long UPC2, int stock2, String name){
-        Facility warehouse = new Facility(name, "WAREHOUSE");
+        Facility warehouse = new Facility(name, FacilityType.WAREHOUSE);
         warehouse.addProduct(UPC1, stock1);
         warehouse.addProduct(UPC2, stock2);
         return warehouse;
     }
 
     private Facility createStore(long UPC1, int stock1, long UPC2, int stock2, String name){
-        Facility store = new Facility(name, "STORE");
+        Facility store = new Facility(name, FacilityType.STORE);
         store.addProduct(UPC1, stock1);
         store.addProduct(UPC2, stock2);
         return store;
