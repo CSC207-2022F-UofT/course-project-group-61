@@ -15,14 +15,14 @@ public class InventoryCountController {
     }
 
 
-    public void submitCount(HashMap<Integer, Integer> count){
+    public void submitCount(HashMap<Long, Integer> count){
 
         this.inventoryCountInteractor.updateInventoryCount(count);
         // TODO: return logic for presenter, void for now
 
     }
 
-    public HashMap<Integer, Integer> getCurrentCount(){
+    public HashMap<Long, Integer> getCurrentCount(){
         return inventoryCountInteractor.getCurrentCount();
     }
 
