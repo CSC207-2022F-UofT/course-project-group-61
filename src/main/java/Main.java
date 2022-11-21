@@ -6,10 +6,7 @@ import database.FacilityDbGateway;
 import database.OrderDbGateway;
 import database.ProductDbGateway;
 import database.UserDbGateway;
-import entities.FacilityType;
-import entities.FacilityUser;
-import entities.Product;
-import entities.User;
+import entities.*;
 import order.*;
 import storemainmenu.StoreMainMenuController;
 import storemainmenu.StoreMainMenuPresenter;
@@ -50,12 +47,21 @@ public class Main {
         OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), new OrderDbGateway(), new FacilityDbGateway(), new ProductDbGateway())), orderViewModel);
         orderViewModel.addObserver(orderView);
 
-        UserDbGateway gateway = new UserDbGateway();
-        gateway.fileReset();
-        gateway.updateUser(new FacilityUser("Jacob", "Test", UUID.randomUUID(), FacilityType.STORE));
+        UserDbGateway userDb = new UserDbGateway();
+        userDb.fileReset();
+        userDb.updateUser(new FacilityUser("Jacob", "Test", UUID.randomUUID(), FacilityType.STORE));
 
         ProductDbGateway productDb = new ProductDbGateway();
         productDb.fileReset();
         productDb.updateProduct(new Product("Strawberries", 4001L, 2));
+
+        FacilityDbGateway facilityDb = new FacilityDbGateway();
+        facilityDb.fileReset();
+        Facility testFacility = new Facility("TestFacility", FacilityType.WAREHOUSE);
+        testFacility.addProduct(4001L, 100);
+        facilityDb.updateFacility(testFacility);
+
+        OrderDbGateway orderDb = new OrderDbGateway();
+        orderDb.fileReset();
     }
 }
