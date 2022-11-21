@@ -3,9 +3,6 @@ package newuser;
 import database.UserDb;
 import entities.FacilityUser;
 import entities.User;
-import entities.FacilityType;
-
-import java.util.UUID;
 
 
 public class NewUserInteractor implements NewUserInputBoundary{

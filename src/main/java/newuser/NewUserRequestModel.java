@@ -1,6 +1,5 @@
 package newuser;
 
-import entities.Facility;
 import entities.FacilityType;
 
 import java.util.UUID;

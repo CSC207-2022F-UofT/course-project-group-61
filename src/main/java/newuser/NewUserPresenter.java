@@ -1,8 +1,6 @@
 package newuser;
 
 import adminmainmenu.AdminMainMenuViewModel;
-import entities.User;
-import database.UserDb;
 
 public class NewUserPresenter implements NewUserOutputBoundary{
 

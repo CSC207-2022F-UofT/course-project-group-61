@@ -1,21 +1,15 @@
 package newuser;
 
+import adminmainmenu.AdminMainMenuViewModel;
 import database.UserDbGateway;
 import entities.FacilityType;
 import entities.FacilityUser;
-import entities.Product;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.Objects;
-
-import newuser.*;
-import adminmainmenu.*;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /* things to test:

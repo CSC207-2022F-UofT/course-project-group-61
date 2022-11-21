@@ -1,8 +1,6 @@
 package newuser;
 
 import entities.FacilityType;
-import newuser.NewUserController;
-import newuser.NewUserViewModel;
 
 import javax.swing.*;
 import java.awt.*;

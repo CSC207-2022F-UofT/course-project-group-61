@@ -1,7 +1,7 @@
 package newuser;
 
 import entities.FacilityType;
-import entities.User;
+
 import java.util.UUID;
 
 public class NewUserController {
