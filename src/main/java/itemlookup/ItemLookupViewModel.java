@@ -10,12 +10,12 @@ public class ItemLookupViewModel extends Observable {
     private boolean visible;
     private boolean failed;
     private FailReason failedReason;
-    private List<Object> infoList;
+    private List<String> infoList;
 
     public ItemLookupViewModel() {
     }
 
-    public void viewInfo(List<Object> infoList) {
+    public void viewInfo(List<String> infoList) {
         this.infoList = infoList;
         setChanged();
         notifyObservers();
@@ -39,7 +39,7 @@ public class ItemLookupViewModel extends Observable {
         setChanged();
         notifyObservers();
     }
-    public List<Object> getInfoList() {return infoList;}
+    public List<String> getInfoList() {return infoList;}
 
     public boolean getFailed() {
         return failed;

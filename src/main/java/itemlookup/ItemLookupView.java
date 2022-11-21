@@ -33,18 +33,16 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
     public void update(Observable o, Object arg) {
         ItemLookupViewModel viewModel = (ItemLookupViewModel) o;
 
-
-        String[] row = (String[]) viewModel.getInfoList().toArray();
-        dtm.setRowCount(0);
-        dtm.addRow(row);
-
-        //String[] columnNames = {"Name", "UPC", "Price"};
-        /*Object[][] data = {{viewModel.getInfoList()}};
-        returnTable = new JTable(data, columnNames);*/
+        if (!Objects.isNull(viewModel.getInfoList())) {
+            String[] row = new String[3];
+            row[0] = viewModel.getInfoList().get(0);
+            row[1] = viewModel.getInfoList().get(1);
+            row[2] = viewModel.getInfoList().get(2);
+            dtm.setRowCount(0);
+            dtm.addRow(row);
+        }
 
         setVisible(viewModel.isVisible());
-
-
 
         System.out.println(viewModel.getFailed() + "" + viewModel.getFailedReason());
         if (viewModel.getFailed()) {
@@ -54,21 +52,11 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
                 JOptionPane.showMessageDialog(this, "Item name not found.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-
-
-
-
     }
 
     public void init() {
         JLabel header = new JLabel("Inventory Management System");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
-
-        /*String[] columnNames = {"Name", "UPC", "Price"};
-        Object[][] data = {{"Apple", 4001L, 5}};*/
-
-        //ArrayList<String> columnNames = new ArrayList<String>(Arrays.asList("Name", "UPC", "Price"));
-        //ArrayList<Object> data = new ArrayList<>();
 
         dtm = new DefaultTableModel(new Object[]{"Name", "UPC", "Price"}, 0);
         returnTable = new JTable(dtm);
@@ -79,20 +67,13 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
         this.NameButton = new JRadioButton("Lookup by Name");
         this.searchButton = new JButton("Search");
 
-        //UPCButton.setSelected(true);
-        //UPCPressed = true;
-
         ButtonGroup group = new ButtonGroup();
         group.add(UPCButton);
         group.add(NameButton);
 
-        //JButton UPCButton = new JButton("Lookup by UPC");
-        //JButton NameButton = new JButton("Lookup by Name");
-
         UPCButton.addActionListener(this);
         NameButton.addActionListener(this);
         searchButton.addActionListener(this);
-
 
         header.setBounds(50, 0, 500, 40);
         UPCButton.setBounds(50, 50 , 300, 30);
