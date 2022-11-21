@@ -26,8 +26,6 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         AdminMainMenuViewModel viewModel = (AdminMainMenuViewModel) o;
 
         setVisible(viewModel.isVisible());
-
-        System.out.println("update");
     }
 
     public void init() {

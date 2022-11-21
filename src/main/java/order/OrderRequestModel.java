@@ -1,35 +1,15 @@
 package order;
 
-import java.util.Date;
 import java.util.HashMap;
 
 public class OrderRequestModel {
 
-    private final int storeID;
-    private final String requestedBy;
-    private final HashMap<Integer, Integer> orderQuantities;
-    private final Date dateRequested;
+    private final HashMap<Long, Integer> orderQuantities;
 
-    public OrderRequestModel(int storeID, String requestedBy, HashMap<Integer, Integer> orderQuantities, Date dateRequested) {
-        this.storeID = storeID;
-        this.requestedBy = requestedBy;
+    public OrderRequestModel(HashMap<Long, Integer> orderQuantities) {
         this.orderQuantities = orderQuantities;
-        this.dateRequested = dateRequested;
     }
-
-    public int getStoreID() {
-        return storeID;
-    }
-
-    public String getRequestedBy() {
-        return requestedBy;
-    }
-
-    public HashMap<Integer, Integer> getOrderQuantities() {
+    public HashMap<Long, Integer> getOrderQuantities() {
         return orderQuantities;
-    }
-
-    public Date getDateRequested() {
-        return dateRequested;
     }
 }

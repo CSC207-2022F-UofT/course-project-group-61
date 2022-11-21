@@ -26,8 +26,6 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         WarehouseMainMenuViewModel viewModel = (WarehouseMainMenuViewModel) o;
 
         setVisible(viewModel.isVisible());
-
-        System.out.println("update");
     }
 
     public void init() {

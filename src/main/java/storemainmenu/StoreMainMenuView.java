@@ -27,8 +27,6 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
         StoreMainMenuViewModel viewModel = (StoreMainMenuViewModel) o;
 
         setVisible(viewModel.isVisible());
-
-        System.out.println("update");
     }
 
     public void init() {
