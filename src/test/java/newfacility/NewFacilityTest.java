@@ -2,6 +2,7 @@ package newfacility;
 
 import database.FacilityDbGateway;
 import entities.Facility;
+import entities.FacilityType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +35,7 @@ public class NewFacilityTest {
         this.newFacilityController = new NewFacilityController();
         FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
         facilityDbGateway.fileReset();
-        this.newFacilityID = newFacilityController.newFacility("Store1", "Store");
+        this.newFacilityID = newFacilityController.newFacility("Store1", FacilityType.STORE);
     }
 
     @Test
@@ -50,7 +51,7 @@ public class NewFacilityTest {
     @Test
     public void testWritetoNonEmpty() {
         FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
-        UUID secondFacilityID = newFacilityController.newFacility("Warehouse1", "Warehouse");
+        UUID secondFacilityID = newFacilityController.newFacility("Warehouse1", FacilityType.WAREHOUSE);
         HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
 
         assertEquals(facilities.size(), 2);

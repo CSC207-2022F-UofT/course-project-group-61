@@ -5,6 +5,7 @@ import adminmainmenu.AdminMainMenuViewModel;
 import database.UserDbGateway;
 import entities.FacilityType;
 import entities.FacilityUser;
+import entities.User;
 import storemainmenu.StoreMainMenuController;
 import storemainmenu.StoreMainMenuPresenter;
 import storemainmenu.StoreMainMenuView;
@@ -16,6 +17,8 @@ import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
 public class Main {
+
+    private User userSession;
 
     public static void main(String[] args) {
         UserLoginViewModel loginViewModel = new UserLoginViewModel();
