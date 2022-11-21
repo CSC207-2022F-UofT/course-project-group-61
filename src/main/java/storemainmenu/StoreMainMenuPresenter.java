@@ -1,19 +1,23 @@
 package storemainmenu;
 
+import entities.Order;
+import order.OrderViewModel;
+
 public class StoreMainMenuPresenter {
 
     private StoreMainMenuViewModel viewModel;
+    private OrderViewModel orderViewModel;
 
-    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel) {
+    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel) {
         this.viewModel = viewModel;
+        this.orderViewModel = orderViewModel;
     }
 
     public void changeView(ButtonOption option) {
         viewModel.setVisible(false);
         switch (option) {
             case PLACE_ORDER:
-                System.out.println("place order");
-                //TODO: set OrderView to visible
+                orderViewModel.setVisible(true);
                 break;
             case DAILY_SALES:
                 System.out.println("daily sales");

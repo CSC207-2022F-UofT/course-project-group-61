@@ -1,5 +1,7 @@
 package entities;
+
 import java.util.UUID;
+
 public class FacilityUser extends User {
 
     private final UUID facilityID;

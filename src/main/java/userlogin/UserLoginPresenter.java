@@ -11,18 +11,18 @@ import warehousemainmenu.WarehouseMainMenuViewModel;
 public class UserLoginPresenter implements UserLoginOutputBoundary {
 
     private UserLoginViewModel viewModel;
-    private final StoreMainMenuViewModel storeMainMenuViewModel;
-    private final WarehouseMainMenuViewModel warehouseMainMenuViewModel;
-    private final AdminMainMenuViewModel adminMainMenuViewModel;
+    private StoreMainMenuViewModel storeModel;
+    private WarehouseMainMenuViewModel warehouseModel;
+    private AdminMainMenuViewModel adminModel;
 
     public UserLoginPresenter(UserLoginViewModel viewModel,
-                              StoreMainMenuViewModel storeMainMenuViewModel,
-                              WarehouseMainMenuViewModel warehouseMainMenuViewModel,
-                              AdminMainMenuViewModel adminMainMenuViewModel) {
+                              StoreMainMenuViewModel storeModel,
+                              WarehouseMainMenuViewModel warehouseModel,
+                              AdminMainMenuViewModel adminModel) {
         this.viewModel = viewModel;
-        this.storeMainMenuViewModel = storeMainMenuViewModel;
-        this.warehouseMainMenuViewModel = warehouseMainMenuViewModel;
-        this.adminMainMenuViewModel = adminMainMenuViewModel;
+        this.storeModel = storeModel;
+        this.warehouseModel = warehouseModel;
+        this.adminModel = adminModel;
     }
 
     @Override
@@ -30,13 +30,12 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         viewModel.setVisible(false);
         User user = model.getUser();
         if (user instanceof AdminUser) {
-            adminMainMenuViewModel.setVisible(true);
+            adminModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.STORE) {
-            storeMainMenuViewModel.setVisible(true);
+            storeModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
-            warehouseMainMenuViewModel.setVisible(true);
+            warehouseModel.setVisible(true);
         }
-        //TODO: Store user data somewhere
     }
 
     @Override
