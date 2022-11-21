@@ -6,6 +6,8 @@ import storemainmenu.StoreMainMenuViewModel;
 import userlogin.*;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
+import java.util.UUID;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class Main {
 
         UserDbGateway gateway = new UserDbGateway();
         gateway.fileReset();
-        gateway.updateUser(new FacilityUser("Jacob", "Test", 123, FacilityType.STORE));
+        gateway.updateUser(new FacilityUser("Jacob", "Test", UUID.randomUUID(), FacilityType.STORE));
 
     }
 }

@@ -1,11 +1,16 @@
 package adminmainmenu;
 
+import newuser.NewUserView;
+import newuser.NewUserViewModel;
+
 public class AdminMainMenuPresenter {
 
     private AdminMainMenuViewModel viewModel;
+    private NewUserViewModel newUserViewModel;
 
-    public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel) {
+    public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel) {
         this.viewModel = viewModel;
+        this.newUserViewModel = newUserViewModel;
     }
 
     public void changeView(ButtonOption option) {
@@ -23,7 +28,7 @@ public class AdminMainMenuPresenter {
             case NEW_USER:
                 System.out.println("new user");
 
-                //TODO: set NewUserView to visible
+                newUserViewModel.setVisible(true);
                 break;
             case ITEM_LOOKUP:
                 System.out.println("item lookup");

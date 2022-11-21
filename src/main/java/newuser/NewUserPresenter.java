@@ -8,8 +8,6 @@ public class NewUserPresenter implements NewUserOutputBoundary{
 
     private NewUserViewModel viewModel;
     private final AdminMainMenuViewModel adminMainMenuViewModel;
-    // todo: decide how to initialize user database (parameter?)
-    private final UserDb database;
 
     public NewUserPresenter(NewUserViewModel viewModel, AdminMainMenuViewModel adminMainMenuViewModel){
         this.viewModel = viewModel;
@@ -19,8 +17,6 @@ public class NewUserPresenter implements NewUserOutputBoundary{
     @Override
     public void prepareSuccessView(NewUserResponseModel model){
         viewModel.setVisible(false);
-        User user = model.getUser();
-        database.updateUser(user);
         adminMainMenuViewModel.setVisible(true);
     }
 

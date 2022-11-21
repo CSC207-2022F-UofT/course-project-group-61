@@ -73,7 +73,7 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         usernameField.setBounds(200, 50, 300, 30);
         passwordField.setBounds(200, 100, 300, 30);
         storeButton.setBounds(100, 150, 300, 30);
-        warehouseButton.setBounds(300, 150, 300, 30);
+        warehouseButton.setBounds(400, 150, 300, 30);
         registerButton.setBounds(200, 250, 100, 30);
 
         add(header);
@@ -91,8 +91,6 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // todo: Need to make sure this randomly generated UUID won't be the same as any UUIDs in the database
-        // How to accomplish this?
         UUID uuid = UUID.randomUUID();
         if (storeButton.isSelected()){
             controller.createStoreUser(usernameField.getText(), passwordField.getText(), uuid);
