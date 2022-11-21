@@ -13,7 +13,7 @@ public class Facility implements Serializable {
     public Facility(String name, FacilityType facType) {
         this.name = name;
         this.facilityID = UUID.randomUUID();
-        this.inventory = new HashMap<Long, Integer>();
+        this.inventory = new HashMap<>();
         this.facilityType = facType;
     }
 
