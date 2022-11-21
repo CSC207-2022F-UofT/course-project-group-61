@@ -38,7 +38,5 @@ public class Main {
 
         UserDbGateway gateway = new UserDbGateway();
         gateway.fileReset();
-        gateway.updateUser(new FacilityUser("Jacob", "Test", 123, FacilityType.STORE));
-
     }
 }
