@@ -28,11 +28,9 @@ public class ProductDbGateway implements ProductDb {
                 this.db.write(tempMap);
                 return (HashMap<Long, Product>) db.read();
             } catch(IOException | ClassNotFoundException e) {
-                e.printStackTrace();
                 return null;
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -45,7 +43,6 @@ public class ProductDbGateway implements ProductDb {
             db.write(products);
             return true;
         } catch(Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -56,7 +53,6 @@ public class ProductDbGateway implements ProductDb {
             HashMap<Long, Product> products = getAllProducts();
             return products.get(upc);
         } catch(Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

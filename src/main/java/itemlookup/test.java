@@ -24,7 +24,7 @@ public class test {
 
 
         ItemLookupViewModel viewModel = new ItemLookupViewModel();
-        ItemLookupView view = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(viewModel), new ProductDbGateway(), new FacilityDbGateway())));
+        ItemLookupView view = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(viewModel), productDbGateway, facilityDbGateway)));
         viewModel.addObserver(view);
         viewModel.setVisible(true);
     }

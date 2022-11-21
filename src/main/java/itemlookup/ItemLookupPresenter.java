@@ -26,8 +26,6 @@ public class ItemLookupPresenter implements ItemLookupOutputBoundary {
         for (Object o : infoList) {
             stringList.add(o.toString());
         }
-
-
         viewModel.viewInfo(stringList);
         //TODO: Store user data somewhere
     }
