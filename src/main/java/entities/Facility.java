@@ -8,7 +8,7 @@ public class Facility implements Serializable {
     private final String name;
     private final UUID facilityID;
     private HashMap<Long, Integer> inventory;
-    private String facilityType;
+    private final String facilityType;
 
     public Facility(String name, String facType) {
         this.name = name;
@@ -50,7 +50,7 @@ public class Facility implements Serializable {
         this.inventory.put(upc, this.inventory.get(upc) - quantity);
     }
 
-    public HashMap<Integer, Integer> getInventory(){
+    public HashMap<Long, Integer> getInventory(){
         return inventory;
     }
 }
