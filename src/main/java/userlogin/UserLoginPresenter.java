@@ -36,7 +36,6 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
             warehouseModel.setVisible(true);
         }
-        //TODO: Store user data somewhere
     }
 
     @Override

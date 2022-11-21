@@ -1,18 +1,27 @@
 package entities;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
 
-    public final FacilityUser facilityUser = new FacilityUser("testUser1", "CSC207", 1, FacilityType.STORE);
+    public UUID facilityId;
+    public final FacilityUser facilityUser;
+
+    public UserTest() {
+        facilityId = UUID.randomUUID();
+        facilityUser = new FacilityUser("testUser1", "CSC207", facilityId, FacilityType.STORE);
+    }
 
     @Test
     public void getFacilityUserInfo() {
         assertEquals("testUser1", facilityUser.getUsername());
         assertEquals("CSC207", facilityUser.getPassword());
-        assertEquals(1, facilityUser.getFacilityID());
+        assertEquals(facilityId, facilityUser.getFacilityID());
         assertEquals(FacilityType.STORE, facilityUser.getType());
     }
 

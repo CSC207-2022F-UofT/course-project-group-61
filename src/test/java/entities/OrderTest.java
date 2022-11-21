@@ -12,32 +12,31 @@ public class OrderTest {
     public static HashMap<Long, Integer> orderQuantities = new HashMap<>();
     public static Date creationDate = new Date(2022, 10, 31, 0, 0);
 
-    private UUID warehouseID;
-    private UUID storeID;
+    public UUID warehouseId;
+    public UUID storeId;
 
     @Before
     public void createTest(){
         // Puts some basic stuff in the order and builds it
         orderQuantities.put(1L, 10);
         orderQuantities.put(2L, 120);
+        warehouseId = UUID.randomUUID();
+        storeId = UUID.randomUUID();
 
-        warehouseID = UUID.randomUUID();
-        storeID = UUID.randomUUID();
-
-        newOrder = new Order(warehouseID, storeID, "tester", orderQuantities, creationDate);
+        newOrder = new Order(warehouseId, storeId, "tester", orderQuantities, creationDate);
     }
 
     @Test
     public void gettersTest(){
         // Tests all the basic getters
         Assertions.assertEquals(newOrder.getOrderingUser(), "tester");
-        Assertions.assertEquals(newOrder.getStoreID(), storeID);
-        Assertions.assertEquals(newOrder.getWarehouseID(), warehouseID);
+        Assertions.assertEquals(newOrder.getStoreID(), storeId);
+        Assertions.assertEquals(newOrder.getWarehouseID(), warehouseId);
         Assertions.assertEquals(newOrder.getStatus(), Order.CREATED);
 
         // Tests the order quantities, ensures the keys are the same and actual quantities
         HashMap<Long, Integer> givenOrderQuantities = newOrder.getOrderQuantities();
-        for(long key: givenOrderQuantities.keySet()){
+        for(Long key: givenOrderQuantities.keySet()){
             Assertions.assertTrue(orderQuantities.containsKey(key));
             Assertions.assertEquals(orderQuantities.get(key), givenOrderQuantities.get(key));
         }
