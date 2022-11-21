@@ -49,4 +49,8 @@ public class Facility implements Serializable {
     public void removeProduct(Long upc, int quantity) {
         this.inventory.put(upc, this.inventory.get(upc) - quantity);
     }
+
+    public HashMap<Integer, Integer> getInventory(){
+        return inventory;
+    }
 }
