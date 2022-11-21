@@ -6,9 +6,8 @@ import database.FacilityDbGateway;
 import database.OrderDbGateway;
 import database.ProductDbGateway;
 import database.UserDbGateway;
-import entities.AdminUser;
-import entities.FacilityType;
-import entities.FacilityUser;
+import entities.*;
+import order.*;
 import storemainmenu.StoreMainMenuController;
 import storemainmenu.StoreMainMenuPresenter;
 import storemainmenu.StoreMainMenuView;
@@ -31,15 +30,6 @@ public class Main {
         WarehouseMainMenuViewModel warehouseViewModel = new WarehouseMainMenuViewModel();
         AdminMainMenuViewModel adminViewModel = new AdminMainMenuViewModel();
         OrderViewModel orderViewModel = new OrderViewModel();
-
-        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel)));
-        storeViewModel.addObserver(storeMainMenuView);
-
-        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel)));
-        warehouseViewModel.addObserver(warehouseMainMenuView);
-
-        AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel)));
-        adminViewModel.addObserver(adminMainMenuView);
 
         UserLoginView loginView = new UserLoginView(new UserLoginController(new UserLoginInteractor(new UserLoginPresenter(loginViewModel, storeViewModel, warehouseViewModel, adminViewModel), new UserDbGateway())));
         loginViewModel.addObserver(loginView);
