@@ -25,7 +25,6 @@ public class UserLoginView extends JFrame implements Observer, ActionListener {
 
         setVisible(viewModel.isVisible());
 
-        System.out.println(viewModel.getFailed() + "" + viewModel.getFailedReason());
         if (viewModel.getFailed()) {
             if (viewModel.getFailedReason() == LoginStatus.INVALID_USER) {
                 JOptionPane.showMessageDialog(this, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -64,7 +63,6 @@ public class UserLoginView extends JFrame implements Observer, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("test");
         controller.login(usernameField.getText(), passwordField.getText());
     }
 }
