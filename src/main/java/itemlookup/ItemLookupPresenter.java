@@ -22,7 +22,7 @@ public class ItemLookupPresenter implements ItemLookupOutputBoundary {
     public void prepareSuccessView(ItemLookupResponseModel model) {
         //viewModel.setVisible(false);
         List<Object> infoList = model.getInfoList();
-        ItemLookupViewModel.viewInfo(infoList);
+        viewModel.viewInfo(infoList);
 
         /*if (user instanceof AdminUser) {
             adminMainMenuViewModel.setVisible(true);
@@ -37,6 +37,6 @@ public class ItemLookupPresenter implements ItemLookupOutputBoundary {
 
     @Override
     public void prepareFailView(ItemLookupResponseModel model) {
-        viewModel.failed();
+        viewModel.failed(model.getFailReason());
     }
 }
