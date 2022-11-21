@@ -5,6 +5,7 @@ import userlogin.UserLoginController;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.List;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,9 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
     private JRadioButton NameButton;
     private JButton searchButton;
     private JTable returnTable;
+    private JTable inventoryTable;
     private DefaultTableModel dtm;
+    private DefaultTableModel dtmi;
     private boolean UPCPressed = false;
     private boolean NamePressed = false;
 
@@ -40,6 +43,14 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
             row[2] = viewModel.getInfoList().get(2);
             dtm.setRowCount(0);
             dtm.addRow(row);
+
+            dtmi.setRowCount(0);
+            for (int i = 0; i < (viewModel.getInfoList().size() - 3) / 2; i = i+2) {
+                String[] invRow = new String[2];
+                invRow[0] = viewModel.getInfoList().get(3 + i);
+                invRow[1] = viewModel.getInfoList().get(4 + i);
+                dtmi.addRow(invRow);
+            }
         }
 
         setVisible(viewModel.isVisible());
@@ -58,8 +69,12 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
         JLabel header = new JLabel("Inventory Management System");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-        dtm = new DefaultTableModel(new Object[]{"Name", "UPC", "Price"}, 0);
+        dtm = new DefaultTableModel(new String[]{"Name", "UPC", "Price"}, 0);
+        dtmi = new DefaultTableModel(new String[]{"Warehouse ID", "Quantity"}, 0);
         returnTable = new JTable(dtm);
+        JTableHeader rtHeader = returnTable.getTableHeader();
+        inventoryTable = new JTable(dtmi);
+        JTableHeader itHeader = inventoryTable.getTableHeader();
 
         inputField = new JTextField("Item Search");
 
@@ -80,7 +95,11 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
         NameButton.setBounds(50, 100, 300, 30);
         inputField.setBounds(50, 200,300, 30);
         searchButton.setBounds(350, 200, 100, 30);
-        returnTable.setBounds(50, 250, 700, 100);
+        returnTable.setBounds(50, 280, 700, 30);
+        rtHeader.setBounds(50, 250, 700, 30);
+        inventoryTable.setBounds(50, 340, 700, 100);
+        itHeader.setBounds(50, 310, 700, 30);
+
 
         add(header);
         add(UPCButton);
@@ -88,6 +107,9 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
         add(inputField);
         add(searchButton);
         add(returnTable);
+        add(inventoryTable);
+        add(rtHeader);
+        add(itHeader);
 
         setLayout(null);
         setTitle("Inventory Management System");
