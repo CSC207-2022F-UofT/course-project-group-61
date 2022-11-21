@@ -8,6 +8,7 @@ import entities.User;
 import storemainmenu.StoreMainMenuViewModel;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemLookupPresenter implements ItemLookupOutputBoundary {
@@ -20,18 +21,14 @@ public class ItemLookupPresenter implements ItemLookupOutputBoundary {
 
     @Override
     public void prepareSuccessView(ItemLookupResponseModel model) {
-        //viewModel.setVisible(false);
         List<Object> infoList = model.getInfoList();
-        viewModel.viewInfo(infoList);
+        List<String> stringList = new ArrayList<>();
+        for (Object o : infoList) {
+            stringList.add(o.toString());
+        }
 
-        /*if (user instanceof AdminUser) {
-            adminMainMenuViewModel.setVisible(true);
-        } else if (((FacilityUser) user).getType() == FacilityType.STORE) {
-            System.out.println("store");
-            storeMainMenuViewModel.setVisible(true);
-        } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
-            warehouseMainMenuViewModel.setVisible(true);
-        }*/
+
+        viewModel.viewInfo(stringList);
         //TODO: Store user data somewhere
     }
 
