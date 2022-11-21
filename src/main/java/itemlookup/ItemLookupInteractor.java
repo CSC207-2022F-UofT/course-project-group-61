@@ -17,6 +17,7 @@ public class ItemLookupInteractor {
     //TODO: what to return if upc doesn't exist
     public Product lookupByUPC(Long upc) {
         HashMap<Long, Product> products = this.readWriter.getAllProducts();
+
         return products.get(upc);
     }
 
