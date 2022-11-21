@@ -26,8 +26,6 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         WarehouseMainMenuViewModel viewModel = (WarehouseMainMenuViewModel) o;
 
         setVisible(viewModel.isVisible());
-
-        System.out.println("update");
     }
 
     public void init() {
@@ -60,7 +58,6 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         setTitle("Inventory Management System");
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //setVisible(true);
     }
 
     @Override

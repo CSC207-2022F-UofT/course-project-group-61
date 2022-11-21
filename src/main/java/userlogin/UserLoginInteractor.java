@@ -2,6 +2,7 @@ package userlogin;
 
 import database.UserDb;
 import entities.User;
+import entities.UserSession;
 
 public class UserLoginInteractor implements UserLoginInputBoundary {
 
@@ -22,6 +23,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
             if (user.getPassword().equals(request.getPassword())) {
                 response = new UserLoginResponseModel(user, LoginStatus.SUCCESS);
                 presenter.prepareSuccessView(response);
+                UserSession.setUserSession(user);
             } else {
                 response = new UserLoginResponseModel(null, LoginStatus.INCORRECT_PASSWORD);
                 presenter.prepareFailView(response);

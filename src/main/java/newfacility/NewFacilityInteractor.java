@@ -2,6 +2,7 @@ package newfacility;
 
 import database.FacilityDbGateway;
 import entities.Facility;
+import entities.FacilityType;
 
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ public class NewFacilityInteractor {
 
     }
 
-    public UUID addNewFacility(String name, String facType) {
+    public UUID addNewFacility(String name, FacilityType facType) {
         Facility newFacility = new Facility(name, facType);
         this.readWriter.updateFacility(newFacility);
         return newFacility.getFacilityID();

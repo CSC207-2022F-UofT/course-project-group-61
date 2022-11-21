@@ -2,6 +2,7 @@ package newfacility;
 
 import database.FacilityDbGateway;
 import entities.Facility;
+import entities.FacilityType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ public class NewFacilityTest {
     private NewFacilityController newFacilityController;
     private UUID newFacilityID;
 
-    public boolean checkAttributes(Facility facility, String expName, UUID expFacID, String expFacType, Long sampUPC, int expUPCQuant) {
+    public boolean checkAttributes(Facility facility, String expName, UUID expFacID, FacilityType expFacType, Long sampUPC, int expUPCQuant) {
         return Objects.equals(facility.getName(), expName) & Objects.equals(facility.getFacilityID(), expFacID) &
                 Objects.equals(facility.getFacilityType(), expFacType) & facility.getUPCQuantity(sampUPC) == expUPCQuant;
     }
@@ -34,7 +35,7 @@ public class NewFacilityTest {
         this.newFacilityController = new NewFacilityController();
         FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
         facilityDbGateway.fileReset();
-        this.newFacilityID = newFacilityController.newFacility("Store1", "Store");
+        this.newFacilityID = newFacilityController.newFacility("Store1", FacilityType.STORE);
     }
 
     @Test
@@ -43,20 +44,20 @@ public class NewFacilityTest {
         HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
 
         assertEquals(facilities.size(), 1);
-        assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, "Store",
+        assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, FacilityType.STORE,
                 123456789123L, -1));
     }
 
     @Test
     public void testWritetoNonEmpty() {
         FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
-        UUID secondFacilityID = newFacilityController.newFacility("Warehouse1", "Warehouse");
+        UUID secondFacilityID = newFacilityController.newFacility("Warehouse1", FacilityType.WAREHOUSE);
         HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
 
         assertEquals(facilities.size(), 2);
-        assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, "Store",
+        assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, FacilityType.STORE,
                 123456789123L, -1));
-        assertTrue(checkAttributes(facilities.get(secondFacilityID), "Warehouse1", secondFacilityID, "Warehouse",
+        assertTrue(checkAttributes(facilities.get(secondFacilityID), "Warehouse1", secondFacilityID, FacilityType.WAREHOUSE,
                 123456789123L, -1));
     }
 }

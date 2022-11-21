@@ -7,6 +7,7 @@ public class AdminMainMenuViewModel extends Observable {
     private boolean visible;
 
     public AdminMainMenuViewModel() {
+        setVisible(false);
     }
 
     public boolean isVisible() {

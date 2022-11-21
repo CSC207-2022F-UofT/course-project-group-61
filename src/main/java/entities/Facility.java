@@ -8,12 +8,12 @@ public class Facility implements Serializable {
     private final String name;
     private final UUID facilityID;
     private HashMap<Long, Integer> inventory;
-    private String facilityType;
+    private FacilityType facilityType;
 
-    public Facility(String name, String facType) {
+    public Facility(String name, FacilityType facType) {
         this.name = name;
         this.facilityID = UUID.randomUUID();
-        this.inventory = new HashMap<Long, Integer>();
+        this.inventory = new HashMap<>();
         this.facilityType = facType;
     }
 
@@ -25,7 +25,7 @@ public class Facility implements Serializable {
         return this.facilityID;
     }
 
-    public String getFacilityType() {
+    public FacilityType getFacilityType() {
         return this.facilityType;
     }
 
@@ -48,5 +48,9 @@ public class Facility implements Serializable {
 
     public void removeProduct(Long upc, int quantity) {
         this.inventory.put(upc, this.inventory.get(upc) - quantity);
+    }
+
+    public HashMap<Long, Integer> getInventory(){
+        return inventory;
     }
 }

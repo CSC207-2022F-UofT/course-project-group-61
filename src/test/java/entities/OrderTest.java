@@ -4,33 +4,39 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 
 
 public class OrderTest {
     public static Order newOrder;
-    public static HashMap<Integer, Integer> orderQuantities = new HashMap<>();
+    public static HashMap<Long, Integer> orderQuantities = new HashMap<>();
     public static Date creationDate = new Date(2022, 10, 31, 0, 0);
+
+    public UUID warehouseId;
+    public UUID storeId;
 
     @Before
     public void createTest(){
         // Puts some basic stuff in the order and builds it
-        orderQuantities.put(1, 10);
-        orderQuantities.put(2, 120);
+        orderQuantities.put(1L, 10);
+        orderQuantities.put(2L, 120);
+        warehouseId = UUID.randomUUID();
+        storeId = UUID.randomUUID();
 
-        newOrder = new Order(1, 2, "tester", orderQuantities, creationDate);
+        newOrder = new Order(warehouseId, storeId, "tester", orderQuantities, creationDate);
     }
 
     @Test
     public void gettersTest(){
         // Tests all the basic getters
         Assertions.assertEquals(newOrder.getOrderingUser(), "tester");
-        Assertions.assertEquals(newOrder.getStoreID(), 2);
-        Assertions.assertEquals(newOrder.getWarehouseID(), 1);
+        Assertions.assertEquals(newOrder.getStoreID(), storeId);
+        Assertions.assertEquals(newOrder.getWarehouseID(), warehouseId);
         Assertions.assertEquals(newOrder.getStatus(), Order.CREATED);
 
         // Tests the order quantities, ensures the keys are the same and actual quantities
-        HashMap<Integer, Integer> givenOrderQuantities = newOrder.getOrderQuantities();
-        for(int key: givenOrderQuantities.keySet()){
+        HashMap<Long, Integer> givenOrderQuantities = newOrder.getOrderQuantities();
+        for(Long key: givenOrderQuantities.keySet()){
             Assertions.assertTrue(orderQuantities.containsKey(key));
             Assertions.assertEquals(orderQuantities.get(key), givenOrderQuantities.get(key));
         }
