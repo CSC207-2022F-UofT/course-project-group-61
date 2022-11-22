@@ -1,11 +1,15 @@
 package warehousemainmenu;
 
+import itemlookup.ItemLookupViewModel;
+
 public class WarehouseMainMenuPresenter {
 
     private WarehouseMainMenuViewModel viewModel;
+    private ItemLookupViewModel itemLookupViewModel;
 
-    public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel) {
+    public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel, ItemLookupViewModel itemLookupViewModel) {
         this.viewModel = viewModel;
+        this.itemLookupViewModel = itemLookupViewModel;
     }
 
     public void changeView(ButtonOption option) {
@@ -27,7 +31,8 @@ public class WarehouseMainMenuPresenter {
                 break;
             case ITEM_LOOKUP:
                 System.out.println("item lookup");
-
+                viewModel.setVisible(false);
+                itemLookupViewModel.setVisible(true);
                 //TODO: set ItemLookupView to visible
                 break;
         }

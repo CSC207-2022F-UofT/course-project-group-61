@@ -3,6 +3,7 @@ package itemlookup;
 import database.FacilityDbGateway;
 import database.ProductDbGateway;
 import entities.Facility;
+import entities.FacilityType;
 import entities.Product;
 
 
@@ -16,7 +17,7 @@ public class test {
         productDbGateway.updateProduct(new Product("Banana", 4003L, 3));
 
         facilityDbGateway.fileReset();
-        Facility facility1 = new Facility("Facility1", "Warehouse");
+        Facility facility1 = new Facility("Facility1", FacilityType.WAREHOUSE);
         facility1.addProduct(4001L, 50);
         facility1.addProduct(4002L, 40);
         facility1.addProduct(4003L, 30);

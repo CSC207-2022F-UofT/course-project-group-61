@@ -33,7 +33,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
             adminModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.STORE) {
             System.out.println("store");
-            storeMainMenuViewModel.setVisible(true);
+            storeModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
             warehouseModel.setVisible(true);
         }
