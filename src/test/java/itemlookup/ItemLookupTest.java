@@ -33,7 +33,7 @@ public class ItemLookupTest {
 
     @Before
     public void setup() {
-        this.itemLookupController = new ItemLookupController();
+        this.itemLookupController = new ItemLookupController(null);
         this.productDbGateway = new ProductDbGateway();
         this.productDbGateway.fileReset();
         this.testProduct = new Product("Apple", 123456789123L, 5);
