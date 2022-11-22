@@ -1,16 +1,19 @@
 package storemainmenu;
 
 import entities.Order;
+import itemlookup.ItemLookupViewModel;
 import order.OrderViewModel;
 
 public class StoreMainMenuPresenter {
 
     private StoreMainMenuViewModel viewModel;
     private OrderViewModel orderViewModel;
+    private ItemLookupViewModel itemLookupViewModel;
 
-    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel) {
+    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel, ItemLookupViewModel itemLookupViewModel) {
         this.viewModel = viewModel;
         this.orderViewModel = orderViewModel;
+        this.itemLookupViewModel = itemLookupViewModel;
     }
 
     public void changeView(ButtonOption option) {
@@ -36,7 +39,8 @@ public class StoreMainMenuPresenter {
                 break;
             case ITEM_LOOKUP:
                 System.out.println("item lookup");
-
+                viewModel.setVisible(false);
+                itemLookupViewModel.setVisible(true);
                 //TODO: set ItemLookupView to visible
                 break;
         }
