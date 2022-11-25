@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class NewFacilityInteractor {
 
-    FacilityDbGateway readWriter = new FacilityDbGateway();
+    private final FacilityDbGateway readWriter = new FacilityDbGateway();
     public NewFacilityInteractor() {
 
     }
