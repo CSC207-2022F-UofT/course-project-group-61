@@ -1,5 +1,6 @@
 package adminmainmenu;
 
+import newfacility.NewFacilityViewModel;
 import newuser.NewUserView;
 import newuser.NewUserViewModel;
 
@@ -7,10 +8,12 @@ public class AdminMainMenuPresenter {
 
     private AdminMainMenuViewModel viewModel;
     private NewUserViewModel newUserViewModel;
+    private NewFacilityViewModel newFacilityViewModel;
 
-    public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel) {
+    public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel, NewFacilityViewModel newFacilityViewModel) {
         this.viewModel = viewModel;
         this.newUserViewModel = newUserViewModel;
+        this.newFacilityViewModel = newFacilityViewModel;
     }
 
     public void changeView(ButtonOption option) {
@@ -18,7 +21,7 @@ public class AdminMainMenuPresenter {
         switch (option) {
             case NEW_FACILITY:
                 System.out.println("new facility");
-                //TODO: set NewFacilityView to visible
+                newFacilityViewModel.setVisible(true);
                 break;
             case NEW_ITEM:
                 System.out.println("new item");
