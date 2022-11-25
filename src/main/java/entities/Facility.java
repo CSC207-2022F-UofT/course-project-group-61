@@ -29,11 +29,11 @@ public class Facility implements Serializable {
         return this.facilityType;
     }
 
-    public int getUPCQuantity(long upc) {
+    public Integer getUPCQuantity(Long upc) {
         try {
             return this.inventory.get(upc);
         } catch(NullPointerException e) {
-            return -1;
+            return null;
         }
 
     }
