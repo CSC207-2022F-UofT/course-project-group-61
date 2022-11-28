@@ -1,8 +1,10 @@
 package adminmainmenu;
 
+import database.UserDbGateway;
+import entities.FacilityType;
+import entities.FacilityUser;
 import newuser.*;
-import database.*;
-import entities.*;
+
 import java.util.UUID;
 
 public class test {

@@ -1,6 +1,5 @@
 package storemainmenu;
 
-import entities.Order;
 import order.OrderViewModel;
 
 public class StoreMainMenuPresenter {

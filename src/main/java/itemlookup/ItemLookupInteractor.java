@@ -2,6 +2,7 @@ package itemlookup;
 
 import database.ProductDbGateway;
 import entities.Product;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

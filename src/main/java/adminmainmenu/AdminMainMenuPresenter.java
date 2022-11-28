@@ -1,6 +1,5 @@
 package adminmainmenu;
 
-import newuser.NewUserView;
 import newuser.NewUserViewModel;
 
 public class AdminMainMenuPresenter {
