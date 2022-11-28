@@ -2,13 +2,12 @@ import adminmainmenu.AdminMainMenuController;
 import adminmainmenu.AdminMainMenuPresenter;
 import adminmainmenu.AdminMainMenuView;
 import adminmainmenu.AdminMainMenuViewModel;
-import database.FacilityDbGateway;
-import database.OrderDbGateway;
-import database.ProductDbGateway;
-import database.UserDbGateway;
+import database.*;
 import entities.*;
-import newuser.NewUserViewModel;
-import order.*;
+import fulfill.FulfillController;
+import fulfill.FulfillPresenter;
+import fulfill.FulfillView;
+import fulfill.FulfillViewModel;
 import storemainmenu.StoreMainMenuController;
 import storemainmenu.StoreMainMenuPresenter;
 import storemainmenu.StoreMainMenuView;
@@ -18,56 +17,37 @@ import warehousemainmenu.WarehouseMainMenuController;
 import warehousemainmenu.WarehouseMainMenuPresenter;
 import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
-import newuser.*;
 
-import java.util.UUID;
+import java.util.Date;
+import java.util.HashMap;
 
 public class Main {
 
-    private User userSession;
-
     public static void main(String[] args) {
+        // Sets up the fulfill view model
+        FulfillViewModel fulfillViewModel = new FulfillViewModel();
+
         UserLoginViewModel loginViewModel = new UserLoginViewModel();
         StoreMainMenuViewModel storeViewModel = new StoreMainMenuViewModel();
         WarehouseMainMenuViewModel warehouseViewModel = new WarehouseMainMenuViewModel();
         AdminMainMenuViewModel adminViewModel = new AdminMainMenuViewModel();
-        OrderViewModel orderViewModel = new OrderViewModel();
-        NewUserViewModel newUserViewModel = new NewUserViewModel();
+
+        // Finishes setting up fulfill use case
+        FulfillView fulfillView = new FulfillView(new FulfillController(new FulfillPresenter(fulfillViewModel,warehouseViewModel)));
+        fulfillViewModel.addObserver(fulfillView);
 
         UserLoginView loginView = new UserLoginView(new UserLoginController(new UserLoginInteractor(new UserLoginPresenter(loginViewModel, storeViewModel, warehouseViewModel, adminViewModel), new UserDbGateway())));
         loginViewModel.addObserver(loginView);
         loginViewModel.setVisible(true);
 
-        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel)));
+        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel)));
         storeViewModel.addObserver(storeMainMenuView);
 
-        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel)));
+        WarehouseMainMenuPresenter warehouseMainMenuPresenter = new WarehouseMainMenuPresenter(warehouseViewModel, fulfillViewModel);
+        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(warehouseMainMenuPresenter));
         warehouseViewModel.addObserver(warehouseMainMenuView);
 
-        AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel)));
+        AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel)));
         adminViewModel.addObserver(adminMainMenuView);
-
-        OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), new OrderDbGateway(), new FacilityDbGateway(), new ProductDbGateway())), orderViewModel);
-        orderViewModel.addObserver(orderView);
-
-        NewUserView newUserView = new NewUserView(new NewUserController(new NewUserInteractor(new NewUserPresenter(newUserViewModel, adminViewModel), new UserDbGateway())));
-        newUserViewModel.addObserver(newUserView);
-
-        UserDbGateway userDb = new UserDbGateway();
-        //userDb.fileReset();
-        userDb.updateUser(new FacilityUser("Jacob", "Password", UUID.randomUUID(), FacilityType.STORE));
-        userDb.updateUser(new AdminUser("Admin", "Password"));
-        ProductDbGateway productDb = new ProductDbGateway();
-        productDb.fileReset();
-        productDb.updateProduct(new Product("Strawberries", 4001L, 2));
-
-        FacilityDbGateway facilityDb = new FacilityDbGateway();
-        Facility testFacility = new Facility("TestFacility", FacilityType.WAREHOUSE);
-        testFacility.addProduct(4001L, 100);
-        // null pointer exception occurs on this line
-        facilityDb.updateFacility(testFacility);
-
-        OrderDbGateway orderDb = new OrderDbGateway();
-        orderDb.fileReset();
     }
 }
