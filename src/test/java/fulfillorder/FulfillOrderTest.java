@@ -1,16 +1,16 @@
 package fulfillorder;
 
 import database.FacilityDbGateway;
+
 import database.OrderDbGateway;
 import entities.Facility;
 import entities.FacilityType;
 import entities.Order;
-import fulfill.FulfillController;
-import fulfill.FulfillResponseModel;
-import fulfill.FulfillStatus;
+import fulfill.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import warehousemainmenu.WarehouseMainMenuViewModel;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class FulfillOrderTest {
 
     @Before
     public void setup(){
-        controller = new FulfillController();
+        controller = new FulfillController(new FulfillPresenter(new FulfillViewModel(), new WarehouseMainMenuViewModel()));
 
         facilityDb = new FacilityDbGateway();
         facilityDb.fileReset();

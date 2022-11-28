@@ -2,6 +2,7 @@ package dailysales;
 
 import database.FacilityDbGateway;
 import entities.Facility;
+import entities.FacilityType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ public class DailySalesTest {
 
     private final DailySalesController dailySalesController = new DailySalesController();
     private final FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
-    private Facility facility = new Facility("Test Store", "Store");
+    private Facility facility = new Facility("Test Store", FacilityType.STORE);
 
 
     @Before
