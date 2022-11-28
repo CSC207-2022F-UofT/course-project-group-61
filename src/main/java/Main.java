@@ -2,12 +2,9 @@ import adminmainmenu.AdminMainMenuController;
 import adminmainmenu.AdminMainMenuPresenter;
 import adminmainmenu.AdminMainMenuView;
 import adminmainmenu.AdminMainMenuViewModel;
-import database.FacilityDbGateway;
-import database.OrderDbGateway;
-import database.ProductDbGateway;
-import database.UserDbGateway;
+import database.*;
 import entities.*;
-import itemlookup.ItemLookupViewModel;
+import itemlookup.*;
 import newfacility.*;
 import newuser.*;
 import fulfill.FulfillController;
@@ -33,6 +30,11 @@ public class Main {
     private User userSession;
 
     public static void main(String[] args) {
+        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
+        OrderDbGateway orderDbGateway = new OrderDbGateway();
+        ProductDbGateway productDbGateway = new ProductDbGateway();
+        UserDbGateway userDbGateway = new UserDbGateway();
+
         UserLoginViewModel loginViewModel = new UserLoginViewModel();
         StoreMainMenuViewModel storeViewModel = new StoreMainMenuViewModel();
         WarehouseMainMenuViewModel warehouseViewModel = new WarehouseMainMenuViewModel();
@@ -43,7 +45,7 @@ public class Main {
         NewFacilityViewModel newFacilityViewModel = new NewFacilityViewModel();
         FulfillViewModel fulfillViewModel = new FulfillViewModel();
 
-        UserLoginView loginView = new UserLoginView(new UserLoginController(new UserLoginInteractor(new UserLoginPresenter(loginViewModel, storeViewModel, warehouseViewModel, adminViewModel), new UserDbGateway())));
+        UserLoginView loginView = new UserLoginView(new UserLoginController(new UserLoginInteractor(new UserLoginPresenter(loginViewModel, storeViewModel, warehouseViewModel, adminViewModel), userDbGateway)));
         loginViewModel.addObserver(loginView);
         loginViewModel.setVisible(true);
 
@@ -51,7 +53,6 @@ public class Main {
         storeViewModel.addObserver(storeMainMenuView);
 
         WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel, itemLookupViewModel)));
-        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel, fulfillViewModel)));
         warehouseViewModel.addObserver(warehouseMainMenuView);
 
         AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel, newFacilityViewModel)));
@@ -69,10 +70,12 @@ public class Main {
         NewFacilityView newFacilityView = new NewFacilityView(new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(newFacilityViewModel), new FacilityDbGateway())));
         newFacilityViewModel.addObserver(newFacilityView);
 
-        UserDbGateway userDb = new UserDbGateway();
-        userDb.fileReset();
-        userDb.updateUser(new FacilityUser("Jacob", "Password", UUID.randomUUID(), FacilityType.STORE));
-        userDb.updateUser(new AdminUser("Admin", "Password"));
+        ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel), productDbGateway, facilityDbGateway)));
+        itemLookupViewModel.addObserver(itemLookupView);
+
+        userDbGateway.fileReset();
+        userDbGateway.updateUser(new FacilityUser("Jacob", "Password", UUID.randomUUID(), FacilityType.STORE));
+        userDbGateway.updateUser(new AdminUser("Admin", "Password"));
         ProductDbGateway productDb = new ProductDbGateway();
         productDb.fileReset();
         productDb.updateProduct(new Product("Strawberries", 4001L, 2));
