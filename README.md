@@ -3,11 +3,11 @@
 <Basic introduction to project as a whole>
   
 ## Existing user logins for testing purposes
-  **Admin User Login:**
-  **Username:** "Admin" **Password:** "Password"
-  **Warehouse User Login:**
-  <Insert Warehouse User Login Information (currently no warehouse user created in main class)>
-  **Store User Login:**
+  **Admin User Login:**  
+  **Username:** "Admin" **Password:** "Password"  
+  **Warehouse User Login:**  
+  <Insert Warehouse User Login Information (currently no warehouse user created in main class)>  
+  **Store User Login:**  
     **Username:** "Jacob" **Password:** "Password"
 
 ## CreateNewUser
