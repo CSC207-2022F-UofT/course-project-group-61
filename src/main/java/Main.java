@@ -9,7 +9,7 @@ import database.UserDbGateway;
 import entities.*;
 import itemlookup.ItemLookupViewModel;
 import newfacility.*;
-import newuser.NewUserViewModel;
+import newuser.*;
 import order.*;
 import storemainmenu.StoreMainMenuController;
 import storemainmenu.StoreMainMenuPresenter;
@@ -20,7 +20,6 @@ import warehousemainmenu.WarehouseMainMenuController;
 import warehousemainmenu.WarehouseMainMenuPresenter;
 import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
-import newuser.*;
 
 import java.util.UUID;
 

@@ -2,9 +2,6 @@ package newfacility;
 
 
 import entities.FacilityType;
-import itemlookup.ItemLookupResponseModel;
-
-import java.util.UUID;
 
 public class NewFacilityController {
 

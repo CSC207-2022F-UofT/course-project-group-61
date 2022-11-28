@@ -1,14 +1,13 @@
 package adminmainmenu;
 
 import newfacility.NewFacilityViewModel;
-import newuser.NewUserView;
 import newuser.NewUserViewModel;
 
 public class AdminMainMenuPresenter {
 
-    private AdminMainMenuViewModel viewModel;
-    private NewUserViewModel newUserViewModel;
-    private NewFacilityViewModel newFacilityViewModel;
+    private final AdminMainMenuViewModel viewModel;
+    private final NewUserViewModel newUserViewModel;
+    private final NewFacilityViewModel newFacilityViewModel;
 
     public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel, NewFacilityViewModel newFacilityViewModel) {
         this.viewModel = viewModel;

@@ -1,7 +1,5 @@
 package itemlookup;
 
-import userlogin.LoginStatus;
-
 import java.util.List;
 import java.util.Observable;
 

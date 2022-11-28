@@ -1,16 +1,14 @@
 package itemlookup;
 
-import userlogin.LoginStatus;
-import userlogin.UserLoginController;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 
 public class ItemLookupView extends JFrame implements Observer, ActionListener {
 
@@ -20,8 +18,6 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
     private JRadioButton UPCButton;
     private JRadioButton NameButton;
     private JButton searchButton;
-    private JTable returnTable;
-    private JTable inventoryTable;
     private DefaultTableModel dtm;
     private DefaultTableModel dtmi;
     private boolean UPCPressed = false;
@@ -71,9 +67,9 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
 
         dtm = new DefaultTableModel(new String[]{"Name", "UPC", "Price"}, 0);
         dtmi = new DefaultTableModel(new String[]{"Warehouse ID", "Quantity"}, 0);
-        returnTable = new JTable(dtm);
+        JTable returnTable = new JTable(dtm);
         JTableHeader rtHeader = returnTable.getTableHeader();
-        inventoryTable = new JTable(dtmi);
+        JTable inventoryTable = new JTable(dtmi);
         JTableHeader itHeader = inventoryTable.getTableHeader();
 
         inputField = new JTextField("Item Search");

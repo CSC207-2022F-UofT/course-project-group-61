@@ -1,8 +1,6 @@
 package newfacility;
 
 import entities.FacilityType;
-import itemlookup.FailReason;
-import itemlookup.ItemLookupController;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +20,6 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
     private JRadioButton storeButton;
     private JRadioButton warehouseButton;
     private JButton executeButton;
-    private JTable returnTable;
     private DefaultTableModel dtm;
     private boolean storePressed = false;
     private boolean warehousePressed = false;
@@ -60,7 +57,7 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         dtm = new DefaultTableModel(new String[]{"Name", "ID", "Type"}, 0);
-        returnTable = new JTable(dtm);
+        JTable returnTable = new JTable(dtm);
         JTableHeader rtHeader = returnTable.getTableHeader();
 
         inputField = new JTextField("Facility Name");

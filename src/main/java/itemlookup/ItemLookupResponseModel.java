@@ -1,9 +1,5 @@
 package itemlookup;
 
-import entities.User;
-import org.junit.internal.runners.statements.Fail;
-import userlogin.LoginStatus;
-
 import java.util.List;
 
 public class ItemLookupResponseModel {

@@ -2,12 +2,10 @@ package newfacility;
 
 import entities.FacilityType;
 
-import java.util.UUID;
-
 public class NewFacilityRequestModel {
 
-    private String name;
-    private FacilityType facType;
+    private final String name;
+    private final FacilityType facType;
 
     public NewFacilityRequestModel(String name, FacilityType facilityType) {
         this.name = name;

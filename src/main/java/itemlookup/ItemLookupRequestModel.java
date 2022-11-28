@@ -1,11 +1,9 @@
 package itemlookup;
 
-import java.util.List;
-
 public class ItemLookupRequestModel {
 
-    private Long UPC;
-    private String name;
+    private final Long UPC;
+    private final String name;
 
     public ItemLookupRequestModel(String name, Long UPC) {
         this.UPC = UPC;

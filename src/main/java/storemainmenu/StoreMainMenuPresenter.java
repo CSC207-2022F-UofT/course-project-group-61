@@ -1,14 +1,13 @@
 package storemainmenu;
 
-import entities.Order;
 import itemlookup.ItemLookupViewModel;
 import order.OrderViewModel;
 
 public class StoreMainMenuPresenter {
 
-    private StoreMainMenuViewModel viewModel;
-    private OrderViewModel orderViewModel;
-    private ItemLookupViewModel itemLookupViewModel;
+    private final StoreMainMenuViewModel viewModel;
+    private final OrderViewModel orderViewModel;
+    private final ItemLookupViewModel itemLookupViewModel;
 
     public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel, ItemLookupViewModel itemLookupViewModel) {
         this.viewModel = viewModel;

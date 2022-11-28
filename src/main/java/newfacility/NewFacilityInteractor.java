@@ -1,11 +1,7 @@
 package newfacility;
 
 import database.FacilityDb;
-import database.FacilityDbGateway;
 import entities.Facility;
-import entities.FacilityType;
-import itemlookup.ItemLookupRequestModel;
-import itemlookup.ItemLookupResponseModel;
 
 import java.util.*;
 

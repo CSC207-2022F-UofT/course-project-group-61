@@ -1,19 +1,11 @@
 package itemlookup;
 
-import adminmainmenu.AdminMainMenuViewModel;
-import entities.AdminUser;
-import entities.FacilityType;
-import entities.FacilityUser;
-import entities.User;
-import storemainmenu.StoreMainMenuViewModel;
-import warehousemainmenu.WarehouseMainMenuViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemLookupPresenter implements ItemLookupOutputBoundary {
 
-    private ItemLookupViewModel viewModel;
+    private final ItemLookupViewModel viewModel;
 
     public ItemLookupPresenter(ItemLookupViewModel viewModel) {
         this.viewModel = viewModel;
