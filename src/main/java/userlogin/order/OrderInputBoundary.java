@@ -1,4 +1,4 @@
-package order;
+package userlogin.order;
 
 public interface OrderInputBoundary {
 
