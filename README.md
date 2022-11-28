@@ -3,9 +3,12 @@
 <Basic introduction to project as a whole>
   
 ## Existing user logins for testing purposes
-  **Store User Login:** **Username:** "Admin" **Password:** Password
-  <Insert Warehouse User Login Info>
-  <Insert Admin User Login Info>
+  **Admin User Login:**
+  **Username:** "Admin" **Password:** "Password"
+  **Warehouse User Login:**
+  <Insert Warehouse User Login Information (currently no warehouse user created in main class)>
+  **Store User Login:**
+    **Username:** "Jacob" **Password:** "Password"
 
 ## CreateNewUser
 This feature allows **ADMIN USERS** to create new facility **(STORE or WAREHOUSE)** users through the admin main menu. To avoid confusion, this feature is **not available** in the **login interface**. This is because **ONLY ADMINS** are permitted to create new (facility) users, as general users should not have the permission to do so. Through the admin main menu interface, the admin user will be able to select the "New User" button which will send them to the Create New User interface. Here, The admin user may create either a store or warehouse user with two requirements:
