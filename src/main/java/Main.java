@@ -11,7 +11,7 @@ import fulfill.FulfillController;
 import fulfill.FulfillPresenter;
 import fulfill.FulfillView;
 import fulfill.FulfillViewModel;
-import newuser.NewUserViewModel;
+import newuser.*;
 import order.*;
 import storemainmenu.StoreMainMenuController;
 import storemainmenu.StoreMainMenuPresenter;
@@ -22,7 +22,6 @@ import warehousemainmenu.WarehouseMainMenuController;
 import warehousemainmenu.WarehouseMainMenuPresenter;
 import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
-import newuser.*;
 
 import java.util.UUID;
 
