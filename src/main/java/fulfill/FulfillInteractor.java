@@ -12,12 +12,17 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class FulfillInteractor implements FulfillInputBoundry{
+
+    private final FulfillOutputBoundry outputBoundry;
+
     private FacilityDb facilityDb;
     private OrderDb orderDb;
 
-    public FulfillInteractor(){
+    public FulfillInteractor(FulfillOutputBoundry outputBoundry){
         this.facilityDb = new FacilityDbGateway();
         this.orderDb = new OrderDbGateway();
+
+        this.outputBoundry = outputBoundry;
     }
 
     public FulfillResponseModel attemptUpdateInventory(FulfillRequestModel requestModel){
@@ -35,7 +40,10 @@ public class FulfillInteractor implements FulfillInputBoundry{
 
         // Checks if any items are out of stock, if so show a failed reponse
         if(outOfStock.containsValue(true)){
-            return new FulfillResponseModel(FulfillStatus.OUT_OF_STOCK, outOfStock);
+            FulfillResponseModel returnModel = new FulfillResponseModel(FulfillStatus.OUT_OF_STOCK, outOfStock, order);
+
+            outputBoundry.prepareOutOfStockView(returnModel);
+            return returnModel;
         }
 
         // Updates inventories of the facilities and updates order to be fulfilled
@@ -43,7 +51,10 @@ public class FulfillInteractor implements FulfillInputBoundry{
         order.fulfillOrder(new Date());
         orderDb.updateOrder(order);
 
-        return new FulfillResponseModel(FulfillStatus.SUCCESS, null);
+        FulfillResponseModel returnModel = new FulfillResponseModel(FulfillStatus.SUCCESS, null, order);
+
+        outputBoundry.prepareSuccessView(returnModel);
+        return returnModel;
     }
 
     public FulfillResponseModel confirmUpdateInventory(FulfillRequestModel requestModel){
@@ -64,7 +75,29 @@ public class FulfillInteractor implements FulfillInputBoundry{
         order.fulfillOrder(new Date());
         orderDb.updateOrder(order);
 
-        return new FulfillResponseModel(FulfillStatus.SUCCESS, null);
+        FulfillResponseModel returnModel = new FulfillResponseModel(FulfillStatus.SUCCESS, null, order);
+
+        outputBoundry.prepareSuccessView(returnModel);
+        return returnModel;
+    }
+
+    public FulfillResponseModel newSelectedOrder(FulfillRequestModel requestModel){
+        Order newOrder = findOrder(requestModel.getOrderID());
+
+        FulfillResponseModel model = new FulfillResponseModel(FulfillStatus.NOT_APPLICABLE, null, newOrder);
+        outputBoundry.prepareNewOrderView(model);
+
+        // TODO: add this
+        return model;
+    }
+
+    public FulfillResponseModel backToMainMenu(FulfillRequestModel requestModel){
+        /*
+        Handles the case of the user wanting to go back to the warehouse main menu view
+         */
+        FulfillResponseModel responseModel = new FulfillResponseModel(null, null, null);
+        outputBoundry.prepareWarehouseMainMenuView(responseModel);
+        return responseModel;
     }
 
     private HashMap<Long, Integer> minimumOrderQuantities(HashMap<Long, Integer> orderQuantites, Facility warehouse) {

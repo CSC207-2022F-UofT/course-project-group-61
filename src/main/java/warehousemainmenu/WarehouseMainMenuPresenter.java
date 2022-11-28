@@ -1,19 +1,25 @@
 package warehousemainmenu;
 
+import fulfill.FulfillView;
+import fulfill.FulfillViewModel;
+
 public class WarehouseMainMenuPresenter {
 
     private WarehouseMainMenuViewModel viewModel;
 
-    public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel) {
+    private FulfillViewModel fulfillViewModel;
+
+    public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel, FulfillViewModel fulfillViewModel) {
         this.viewModel = viewModel;
+        this.fulfillViewModel = fulfillViewModel;
     }
 
     public void changeView(ButtonOption option) {
         viewModel.setVisible(false);
         switch (option) {
             case FULFILL_ORDER:
-                System.out.println("fulfill order");
-                //TODO: set FulfillView to visible
+                viewModel.setVisible(false);
+                fulfillViewModel.setVisible(true);
                 break;
             case INV_COUNT:
                 System.out.println("inv count");

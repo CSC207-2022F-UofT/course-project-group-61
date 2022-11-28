@@ -8,10 +8,7 @@ import database.OrderDbGateway;
 import entities.Facility;
 import entities.FacilityType;
 import entities.Order;
-import fulfill.FulfillController;
-import fulfill.FulfillInteractor;
-import fulfill.FulfillResponseModel;
-import fulfill.FulfillStatus;
+import fulfill.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +31,7 @@ public class FulfillOrderTest {
 
     @Before
     public void setup(){
-        controller = new FulfillController();
+        controller = new FulfillController(new FulfillPresenter(new FulfillViewModel()));
 
         facilityDb = new FacilityDbGateway();
         facilityDb.fileReset();
