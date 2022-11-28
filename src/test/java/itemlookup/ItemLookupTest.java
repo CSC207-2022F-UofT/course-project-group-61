@@ -6,11 +6,13 @@ package itemlookup;
     -lookup by name
      */
 
+import database.FacilityDbGateway;
 import database.ProductDbGateway;
 import entities.Product;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +23,7 @@ public class ItemLookupTest {
 
     private ItemLookupController itemLookupController;
     private ProductDbGateway productDbGateway;
+    private FacilityDbGateway facilityDbGateway;
     private Product testProduct;
     private List<Object> testList;
 
@@ -33,26 +36,28 @@ public class ItemLookupTest {
 
     @Before
     public void setup() {
-        this.itemLookupController = new ItemLookupController(null);
         this.productDbGateway = new ProductDbGateway();
         this.productDbGateway.fileReset();
         this.testProduct = new Product("Apple", 123456789123L, 5);
         this.productDbGateway.updateProduct(this.testProduct);
+        this.facilityDbGateway = new FacilityDbGateway();
+        this.facilityDbGateway.fileReset();
+        this.itemLookupController = new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(new ItemLookupViewModel()), productDbGateway, facilityDbGateway));
         this.testList = Arrays.asList("Apple", 123456789123L, 5);
     }
 
     @Test
     public void testLookupByUPC() {
-        assertEquals(this.itemLookupController.lookupByUPC(123456789123L), testList);
+        assertEquals(this.itemLookupController.lookupByUPC(123456789123L).getInfoList(), testList);
         //assertTrue(checkAttributes(this.itemLookupController.lookupByUPC(123456789123L), "Apple", 123456789123L, 5));
-        assertNull(this.itemLookupController.lookupByUPC(111111111111L));
+        assertNull(this.itemLookupController.lookupByUPC(111111111111L).getInfoList());
     }
 
     @Test
     public void testLookupByName() {
-        assertEquals(this.itemLookupController.lookupByName("Apple"), testList);
+        assertEquals(this.itemLookupController.lookupByName("Apple").getInfoList(), testList);
         //assertTrue(checkAttributes(this.itemLookupController.lookupByName("Apple"), "Apple", 123456789123L, 5));
-        assertNull(this.itemLookupController.lookupByName("Orange"));
+        assertNull(this.itemLookupController.lookupByName("Orange").getInfoList());
     }
 
 }

@@ -33,6 +33,7 @@ public class NewFacilityInteractor implements NewFacilityInputBoundary{
             response = new NewFacilityResponseModel(null, FailReason.REPEAT_NAME);
             presenter.prepareFailView(response);
         } else {
+            facilityDb.updateFacility(newFacility);
             List<Object> responseList = new ArrayList<>();
             responseList.add(newFacility.getName());
             responseList.add(newFacility.getFacilityID());

@@ -62,6 +62,7 @@ public class ItemLookupInteractor implements ItemLookupInputBoundary{
         if (returnList.size() == 0) {
             response = new ItemLookupResponseModel(null, FailReason.INVALID_NAME);
             presenter.prepareFailView(response);
+            return response;
         }
         for (Facility facility : facilities.values()) {
             if (!Objects.isNull(facility.getUPCQuantity((Long) returnList.get(1)))) {
