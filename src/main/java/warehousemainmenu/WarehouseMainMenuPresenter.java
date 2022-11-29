@@ -5,8 +5,9 @@ import fulfill.FulfillViewModel;
 
 public class WarehouseMainMenuPresenter {
 
-    private WarehouseMainMenuViewModel viewModel;
-    private ItemLookupViewModel itemLookupViewModel;
+    private final WarehouseMainMenuViewModel viewModel;
+    private final FulfillViewModel fulfillViewModel;
+    private final ItemLookupViewModel itemLookupViewModel;
 
     public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel, ItemLookupViewModel itemLookupViewModel, FulfillViewModel fulfillViewModel) {
         this.viewModel = viewModel;
