@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DailySalesTest {
 
@@ -30,7 +31,7 @@ public class DailySalesTest {
         oneProdHash.put(1L, 4);
         this.dailySalesController.updateDailySales(this.facility.getFacilityID(), oneProdHash);
 
-        assertEquals(this.facilityDbGateway.getFacility(this.facility.getFacilityID()).getUPCQuantity(1L), 46);
+        assertEquals(46, (int) this.facilityDbGateway.getFacility(this.facility.getFacilityID()).getUPCQuantity(1L));
     }
 
     @Test
@@ -42,8 +43,8 @@ public class DailySalesTest {
         this.facilityDbGateway.updateFacility(this.facility);
         this.dailySalesController.updateDailySales(this.facility.getFacilityID(), multiProdHash);
 
-        assertEquals(this.facilityDbGateway.getFacility(this.facility.getFacilityID()).getUPCQuantity(1L), 46);
-        assertEquals(this.facilityDbGateway.getFacility(this.facility.getFacilityID()).getUPCQuantity(2L), 13);
+        assertEquals(46, (int) this.facilityDbGateway.getFacility(this.facility.getFacilityID()).getUPCQuantity(1L));
+        assertEquals(13, (int) this.facilityDbGateway.getFacility(this.facility.getFacilityID()).getUPCQuantity(2L));
     }
 
 }

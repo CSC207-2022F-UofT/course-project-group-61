@@ -9,10 +9,10 @@ import java.util.UUID;
 
 public class FacilityDbGateway implements FacilityDb {
 
-    private final String FACILITY_FILE_PATH = "data/facilities.ser";
     private final DBReadWriter db;
 
     public FacilityDbGateway() {
+        String FACILITY_FILE_PATH = "data/facilities.ser";
         this.db = new DBReadWriter(FACILITY_FILE_PATH);
     }
 
