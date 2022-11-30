@@ -1,19 +1,19 @@
 package itemlookup;
 
-import entities.Product;
-
 public class ItemLookupController {
-    private final ItemLookupInteractor itemLookupInteractor;
+    private final ItemLookupInputBoundary inputBoundary;
 
-    public ItemLookupController() {
-        this.itemLookupInteractor = new ItemLookupInteractor();
+    public ItemLookupController(ItemLookupInputBoundary inputBoundary) {
+        this.inputBoundary = inputBoundary;
     }
 
-    public Product lookupByUPC(Long upc) {
-        return this.itemLookupInteractor.lookupByUPC(upc);
+    public ItemLookupResponseModel lookupByUPC(Long upc) {
+        ItemLookupRequestModel request = new ItemLookupRequestModel(null, upc);
+        return inputBoundary.lookupByUPC(request);
     }
 
-    public Product lookupByName(String name) {
-        return this.itemLookupInteractor.lookupByName(name);
+    public ItemLookupResponseModel lookupByName(String name) {
+        ItemLookupRequestModel request = new ItemLookupRequestModel(name, null);
+        return inputBoundary.lookupByName(request);
     }
 }

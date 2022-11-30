@@ -4,7 +4,6 @@ import database.FacilityDbGateway;
 import entities.Facility;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class DailySalesInteractor {
