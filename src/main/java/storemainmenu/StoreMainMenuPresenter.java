@@ -1,5 +1,6 @@
 package storemainmenu;
 
+import dailysales.DailySalesViewModel;
 import entities.Order;
 import order.OrderViewModel;
 
@@ -7,10 +8,12 @@ public class StoreMainMenuPresenter {
 
     private StoreMainMenuViewModel viewModel;
     private OrderViewModel orderViewModel;
+    private DailySalesViewModel dailySalesViewModel;
 
-    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel) {
+    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel, DailySalesViewModel dailySalesViewModel) {
         this.viewModel = viewModel;
         this.orderViewModel = orderViewModel;
+        this.dailySalesViewModel = dailySalesViewModel;
     }
 
     public void changeView(ButtonOption option) {
@@ -20,9 +23,7 @@ public class StoreMainMenuPresenter {
                 orderViewModel.setVisible(true);
                 break;
             case DAILY_SALES:
-                System.out.println("daily sales");
-
-                //TODO: set DailySalesView to visible
+                dailySalesViewModel.setVisible(true);
                 break;
             case INV_COUNT:
                 System.out.println("inv count");

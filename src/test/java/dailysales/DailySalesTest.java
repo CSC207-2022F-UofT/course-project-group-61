@@ -1,10 +1,12 @@
 package dailysales;
 
 import database.FacilityDbGateway;
+import database.ProductDbGateway;
 import entities.Facility;
 import entities.FacilityType;
 import org.junit.Before;
 import org.junit.Test;
+import storemainmenu.StoreMainMenuViewModel;
 
 import java.util.HashMap;
 
@@ -13,7 +15,9 @@ import static org.junit.Assert.assertEquals;
 public class DailySalesTest {
 
     private final FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
-    private final DailySalesInteractor dailySalesInteractor = new DailySalesInteractor(facilityDbGateway);
+    private final ProductDbGateway productDbGateway = new ProductDbGateway();
+    private final DailySalesPresenter presenter = new DailySalesPresenter(new DailySalesViewModel(), new StoreMainMenuViewModel());
+    private final DailySalesInteractor dailySalesInteractor = new DailySalesInteractor(presenter, facilityDbGateway, productDbGateway);
     private final DailySalesController dailySalesController = new DailySalesController(dailySalesInteractor);
     private final Facility facility = new Facility("Test Store", FacilityType.STORE);
 

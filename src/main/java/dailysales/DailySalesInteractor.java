@@ -2,6 +2,7 @@ package dailysales;
 
 import database.FacilityDb;
 import database.FacilityDbGateway;
+import database.ProductDb;
 import entities.Facility;
 import entities.FacilityUser;
 import entities.UserSession;
@@ -12,10 +13,14 @@ import java.util.UUID;
 
 public class DailySalesInteractor implements DailySalesInputBoundary {
 
+    private final DailySalesOutputBoundary presenter;
     private final FacilityDb facilityDb;
+    private final ProductDb productDb;
 
-    public DailySalesInteractor(FacilityDb facilityDb) {
+    public DailySalesInteractor(DailySalesOutputBoundary presenter, FacilityDb facilityDb, ProductDb productDb) {
+        this.presenter = presenter;
         this.facilityDb = facilityDb;
+        this.productDb = productDb;
     }
 
     public DailySalesResponseModel inputDailySales(DailySalesRequestModel request) {
@@ -27,10 +32,17 @@ public class DailySalesInteractor implements DailySalesInputBoundary {
         }
 
         facilityDb.updateFacility(facility);
-        //TODO
+        presenter.prepareSuccessView();
         return new DailySalesResponseModel();
     }
 
-
+    @Override
+    public boolean upcExists(Long upc) {
+        return productDb.getProduct(upc) != null;
+    }
+    @Override
+    public String getProductName(Long upc) {
+        return productDb.getProduct(upc).getName();
+    }
 
 }
