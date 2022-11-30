@@ -2,6 +2,8 @@ package entities;
 
 import java.util.UUID;
 
+/* Either Store User or Warehouse User based on FacilityType.
+*  Extends parent class by adding facilityID and type attribute. */
 public class FacilityUser extends User {
 
     private final UUID facilityID;

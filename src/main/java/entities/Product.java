@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 
+/* Product holds information about an item such as name (ex. Apple), UPC (ex. 123456789123), and price (ex. 5)*/
 public class Product implements Serializable {
 
     private String name;
