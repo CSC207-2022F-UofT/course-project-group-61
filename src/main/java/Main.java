@@ -2,6 +2,7 @@ import adminmainmenu.AdminMainMenuController;
 import adminmainmenu.AdminMainMenuPresenter;
 import adminmainmenu.AdminMainMenuView;
 import adminmainmenu.AdminMainMenuViewModel;
+import dailysales.*;
 import database.FacilityDbGateway;
 import database.OrderDbGateway;
 import database.ProductDbGateway;
@@ -20,11 +21,7 @@ import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 import newuser.*;
 
-import java.util.UUID;
-
 public class Main {
-
-    private User userSession;
 
     public static void main(String[] args) {
         UserLoginViewModel loginViewModel = new UserLoginViewModel();
@@ -33,12 +30,18 @@ public class Main {
         AdminMainMenuViewModel adminViewModel = new AdminMainMenuViewModel();
         OrderViewModel orderViewModel = new OrderViewModel();
         NewUserViewModel newUserViewModel = new NewUserViewModel();
+        DailySalesViewModel dailySalesViewModel = new DailySalesViewModel();
 
-        UserLoginView loginView = new UserLoginView(new UserLoginController(new UserLoginInteractor(new UserLoginPresenter(loginViewModel, storeViewModel, warehouseViewModel, adminViewModel), new UserDbGateway())));
+        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
+        ProductDbGateway productDbGateway = new ProductDbGateway();
+        UserDbGateway userDbGateway = new UserDbGateway();
+        OrderDbGateway orderDbGateway = new OrderDbGateway();
+
+        UserLoginView loginView = new UserLoginView(new UserLoginController(new UserLoginInteractor(new UserLoginPresenter(loginViewModel, storeViewModel, warehouseViewModel, adminViewModel), userDbGateway)));
         loginViewModel.addObserver(loginView);
         loginViewModel.setVisible(true);
 
-        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel)));
+        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel, dailySalesViewModel)));
         storeViewModel.addObserver(storeMainMenuView);
 
         WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel)));
@@ -47,27 +50,31 @@ public class Main {
         AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel)));
         adminViewModel.addObserver(adminMainMenuView);
 
-        OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), new OrderDbGateway(), new FacilityDbGateway(), new ProductDbGateway())), orderViewModel);
+        OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)), orderViewModel);
         orderViewModel.addObserver(orderView);
 
-        NewUserView newUserView = new NewUserView(new NewUserController(new NewUserInteractor(new NewUserPresenter(newUserViewModel, adminViewModel), new UserDbGateway())));
+        NewUserView newUserView = new NewUserView(new NewUserController(new NewUserInteractor(new NewUserPresenter(newUserViewModel, adminViewModel), userDbGateway)));
         newUserViewModel.addObserver(newUserView);
 
-        UserDbGateway userDb = new UserDbGateway();
-        //userDb.fileReset();
-        userDb.updateUser(new FacilityUser("Jacob", "Password", UUID.randomUUID(), FacilityType.STORE));
-        userDb.updateUser(new AdminUser("Admin", "Password"));
-        ProductDbGateway productDb = new ProductDbGateway();
-        productDb.fileReset();
-        productDb.updateProduct(new Product("Strawberries", 4001L, 2));
+        DailySalesView dailySalesView = new DailySalesView(new DailySalesController(new DailySalesInteractor(new DailySalesPresenter(dailySalesViewModel, storeViewModel), facilityDbGateway, productDbGateway)));
+        dailySalesViewModel.addObserver(dailySalesView);
 
-        FacilityDbGateway facilityDb = new FacilityDbGateway();
-        Facility testFacility = new Facility("TestFacility", FacilityType.WAREHOUSE);
-        testFacility.addProduct(4001L, 100);
+        Facility testStore = new Facility("TestStore", FacilityType.STORE);
+        testStore.addProduct(4001L, 150);
+        Facility testWarehouse = new Facility("TestFacility", FacilityType.WAREHOUSE);
+        testWarehouse.addProduct(4001L, 100);
+
+        userDbGateway.fileReset();
+        userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));
+        userDbGateway.updateUser(new FacilityUser("Warehouse", "Password", testWarehouse.getFacilityID(), FacilityType.WAREHOUSE));
+        userDbGateway.updateUser(new AdminUser("Admin", "Password"));
+        productDbGateway.fileReset();
+        productDbGateway.updateProduct(new Product("Strawberries", 4001L, 2));
         // null pointer exception occurs on this line
-        facilityDb.updateFacility(testFacility);
+        facilityDbGateway.fileReset();
+        facilityDbGateway.updateFacility(testStore);
+        facilityDbGateway.updateFacility(testWarehouse);
 
-        OrderDbGateway orderDb = new OrderDbGateway();
-        orderDb.fileReset();
+        orderDbGateway.fileReset();
     }
 }
