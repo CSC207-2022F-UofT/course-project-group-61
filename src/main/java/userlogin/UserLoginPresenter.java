@@ -32,6 +32,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         if (user instanceof AdminUser) {
             adminModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.STORE) {
+            System.out.println("store");
             storeModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
             warehouseModel.setVisible(true);

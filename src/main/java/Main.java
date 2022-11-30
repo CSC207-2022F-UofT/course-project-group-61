@@ -8,6 +8,9 @@ import database.OrderDbGateway;
 import database.ProductDbGateway;
 import database.UserDbGateway;
 import entities.*;
+import itemlookup.*;
+import newfacility.*;
+import newuser.*;
 import fulfill.FulfillController;
 import fulfill.FulfillPresenter;
 import fulfill.FulfillView;
@@ -23,11 +26,15 @@ import warehousemainmenu.WarehouseMainMenuController;
 import warehousemainmenu.WarehouseMainMenuPresenter;
 import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
-import newuser.*;
 
 public class Main {
 
     public static void main(String[] args) {
+        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
+        OrderDbGateway orderDbGateway = new OrderDbGateway();
+        ProductDbGateway productDbGateway = new ProductDbGateway();
+        UserDbGateway userDbGateway = new UserDbGateway();
+
         UserLoginViewModel loginViewModel = new UserLoginViewModel();
         StoreMainMenuViewModel storeViewModel = new StoreMainMenuViewModel();
         WarehouseMainMenuViewModel warehouseViewModel = new WarehouseMainMenuViewModel();
@@ -36,23 +43,20 @@ public class Main {
         NewUserViewModel newUserViewModel = new NewUserViewModel();
         DailySalesViewModel dailySalesViewModel = new DailySalesViewModel();
         FulfillViewModel fulfillViewModel = new FulfillViewModel();
-
-        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
-        ProductDbGateway productDbGateway = new ProductDbGateway();
-        UserDbGateway userDbGateway = new UserDbGateway();
-        OrderDbGateway orderDbGateway = new OrderDbGateway();
+        ItemLookupViewModel itemLookupViewModel = new ItemLookupViewModel();
+        NewFacilityViewModel newFacilityViewModel = new NewFacilityViewModel();
 
         UserLoginView loginView = new UserLoginView(new UserLoginController(new UserLoginInteractor(new UserLoginPresenter(loginViewModel, storeViewModel, warehouseViewModel, adminViewModel), userDbGateway)));
         loginViewModel.addObserver(loginView);
         loginViewModel.setVisible(true);
 
-        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel, dailySalesViewModel)));
+        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel, dailySalesViewModel, itemLookupViewModel)));
         storeViewModel.addObserver(storeMainMenuView);
 
-        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel, fulfillViewModel)));
+        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel, itemLookupViewModel, fulfillViewModel)));
         warehouseViewModel.addObserver(warehouseMainMenuView);
 
-        AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel)));
+        AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel, newFacilityViewModel)));
         adminViewModel.addObserver(adminMainMenuView);
 
         OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)), orderViewModel);
@@ -66,6 +70,14 @@ public class Main {
 
         DailySalesView dailySalesView = new DailySalesView(new DailySalesController(new DailySalesInteractor(new DailySalesPresenter(dailySalesViewModel, storeViewModel), facilityDbGateway, productDbGateway)));
         dailySalesViewModel.addObserver(dailySalesView);
+
+        NewFacilityView newFacilityView = new NewFacilityView(new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(newFacilityViewModel), new FacilityDbGateway())));
+        newFacilityViewModel.addObserver(newFacilityView);
+
+        ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel), productDbGateway, facilityDbGateway)));
+        itemLookupViewModel.addObserver(itemLookupView);
+
+        // ***** TEST CODE BELOW *****
 
         Facility testStore = new Facility("TestStore", FacilityType.STORE);
         testStore.addProduct(4001L, 150);

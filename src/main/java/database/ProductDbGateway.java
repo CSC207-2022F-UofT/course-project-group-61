@@ -1,20 +1,17 @@
 package database;
 
-import entities.Facility;
-import entities.Order;
 import entities.Product;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.UUID;
 
 public class ProductDbGateway implements ProductDb {
 
-    private final String PRODUCT_FILE_PATH = "data/products.ser";
     private final DBReadWriter db;
 
     public ProductDbGateway() {
+        String PRODUCT_FILE_PATH = "data/products.ser";
         this.db = new DBReadWriter(PRODUCT_FILE_PATH);
     }
 
@@ -23,16 +20,14 @@ public class ProductDbGateway implements ProductDb {
         try {
             return (HashMap<Long, Product>) db.read();
         } catch (EOFException eof) {
-            HashMap<Long, Product> tempMap = new HashMap<Long, Product>();
+            HashMap<Long, Product> tempMap = new HashMap<>();
             try {
                 this.db.write(tempMap);
                 return (HashMap<Long, Product>) db.read();
             } catch(IOException | ClassNotFoundException e) {
-                e.printStackTrace();
                 return null;
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -45,7 +40,6 @@ public class ProductDbGateway implements ProductDb {
             db.write(products);
             return true;
         } catch(Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -56,7 +50,6 @@ public class ProductDbGateway implements ProductDb {
             HashMap<Long, Product> products = getAllProducts();
             return products.get(upc);
         } catch(Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -64,7 +57,7 @@ public class ProductDbGateway implements ProductDb {
     //for testing purposes
     public void fileReset() {
         try {
-            HashMap<Long, Product> newHash = new HashMap<Long, Product>();
+            HashMap<Long, Product> newHash = new HashMap<>();
             db.write(newHash);
         } catch(IOException e) {
             e.printStackTrace();

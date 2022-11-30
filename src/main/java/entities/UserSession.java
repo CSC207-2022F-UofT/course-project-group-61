@@ -1,7 +1,5 @@
 package entities;
 
-import entities.User;
-
 public class UserSession {
 
     private static User userSession;

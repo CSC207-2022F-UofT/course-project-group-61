@@ -3,20 +3,18 @@ package newfacility;
 
 import entities.FacilityType;
 
-import java.util.UUID;
-
 public class NewFacilityController {
 
-    private final NewFacilityInteractor newFacilityInteractor;
+    private final NewFacilityInputBoundary inputBoundary;
 
-    public NewFacilityController() {
-        this.newFacilityInteractor = new NewFacilityInteractor();
+    public NewFacilityController(NewFacilityInputBoundary inputBoundary) {
+        this.inputBoundary = inputBoundary;
     }
 
     //returns the facility id mostly for testing purposes but also maybe that's what the user will be given upon
     //execution of the request
-    public UUID newFacility(String name, FacilityType facType) {
-        return this.newFacilityInteractor.addNewFacility(name, facType);
-        //TODO: return logic for presenter
+    public NewFacilityResponseModel newFacility(String name, FacilityType facType) {
+        NewFacilityRequestModel request = new NewFacilityRequestModel(name, facType);
+        return inputBoundary.addNewFacility(request);
     }
 }

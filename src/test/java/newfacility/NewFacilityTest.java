@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -23,41 +24,41 @@ Things to test:
 public class NewFacilityTest {
 
     private NewFacilityController newFacilityController;
+    private FacilityDbGateway facilityDbGateway;
     private UUID newFacilityID;
 
-    public boolean checkAttributes(Facility facility, String expName, UUID expFacID, FacilityType expFacType, Long sampUPC, int expUPCQuant) {
+    public boolean checkAttributes(Facility facility, String expName, UUID expFacID, FacilityType expFacType, Long sampUPC, Integer expUPCQuant) {
         return Objects.equals(facility.getName(), expName) & Objects.equals(facility.getFacilityID(), expFacID) &
                 Objects.equals(facility.getFacilityType(), expFacType) & facility.getUPCQuantity(sampUPC) == expUPCQuant;
     }
 
     @Before
     public void setup() {
-        this.newFacilityController = new NewFacilityController();
-        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
+        facilityDbGateway = new FacilityDbGateway();
         facilityDbGateway.fileReset();
-        this.newFacilityID = newFacilityController.newFacility("Store1", FacilityType.STORE);
+        this.newFacilityController = new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(new NewFacilityViewModel()), facilityDbGateway));
+        List<Object> facility = newFacilityController.newFacility("Store1", FacilityType.STORE).getInfoList();
+        this.newFacilityID = (UUID) facility.get(1);
     }
 
     @Test
     public void testWriteToEmpty() {
-        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
         HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
-
         assertEquals(facilities.size(), 1);
         assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, FacilityType.STORE,
-                123456789123L, -1));
+                123456789123L, null));
+        facilityDbGateway.fileReset();
     }
 
     @Test
     public void testWritetoNonEmpty() {
-        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
-        UUID secondFacilityID = newFacilityController.newFacility("Warehouse1", FacilityType.WAREHOUSE);
+        UUID secondFacilityID = (UUID) newFacilityController.newFacility("Warehouse1", FacilityType.WAREHOUSE).getInfoList().get(1);
         HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
-
         assertEquals(facilities.size(), 2);
         assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, FacilityType.STORE,
-                123456789123L, -1));
+                123456789123L, null));
         assertTrue(checkAttributes(facilities.get(secondFacilityID), "Warehouse1", secondFacilityID, FacilityType.WAREHOUSE,
-                123456789123L, -1));
+                123456789123L, null));
+        facilityDbGateway.fileReset();
     }
 }
