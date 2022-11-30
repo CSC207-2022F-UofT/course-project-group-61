@@ -11,10 +11,10 @@ import java.util.HashMap;
 
 public class OrderInteractor implements OrderInputBoundary {
 
-    private OrderOutputBoundary presenter;
-    private OrderDb orderDb;
-    private FacilityDb facilityDb;
-    private ProductDb productDb;
+    private final OrderOutputBoundary presenter;
+    private final OrderDb orderDb;
+    private final FacilityDb facilityDb;
+    private final ProductDb productDb;
 
     public OrderInteractor(OrderOutputBoundary presenter, OrderDb orderDb, FacilityDb facilityDb, ProductDb productDb) {
         this.presenter = presenter;
@@ -68,11 +68,7 @@ public class OrderInteractor implements OrderInputBoundary {
     }
     @Override
     public boolean upcExists(Long upc) {
-        if (productDb.getProduct(upc) == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return productDb.getProduct(upc) != null;
     }
 
     @Override

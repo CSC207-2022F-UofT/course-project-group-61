@@ -9,10 +9,10 @@ import java.util.UUID;
 
 public class OrderDbGateway implements OrderDb {
 
-    private final String ORDER_FILE_PATH = "data/orders.ser";
     private final DBReadWriter db;
 
     public OrderDbGateway() {
+        String ORDER_FILE_PATH = "data/orders.ser";
         this.db = new DBReadWriter(ORDER_FILE_PATH);
     }
 
@@ -21,7 +21,7 @@ public class OrderDbGateway implements OrderDb {
         try {
             return (HashMap<UUID, Order>) db.read();
         } catch (EOFException eof) {
-            HashMap<UUID, Order> tempMap = new HashMap<UUID, Order>();
+            HashMap<UUID, Order> tempMap = new HashMap<>();
             try {
                 this.db.write(tempMap);
                 return (HashMap<UUID, Order>) db.read();
@@ -62,7 +62,7 @@ public class OrderDbGateway implements OrderDb {
     //for testing purposes
     public void fileReset() {
         try {
-            HashMap<UUID, Order> newHash = new HashMap<UUID, Order>();
+            HashMap<UUID, Order> newHash = new HashMap<>();
             db.write(newHash);
         } catch(IOException e) {
             e.printStackTrace();

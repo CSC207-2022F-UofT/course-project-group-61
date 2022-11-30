@@ -9,10 +9,10 @@ import java.util.UUID;
 
 public class FacilityDbGateway implements FacilityDb {
 
-    private final String FACILITY_FILE_PATH = "data/facilities.ser";
     private final DBReadWriter db;
 
     public FacilityDbGateway() {
+        String FACILITY_FILE_PATH = "data/facilities.ser";
         this.db = new DBReadWriter(FACILITY_FILE_PATH);
     }
 
@@ -21,7 +21,7 @@ public class FacilityDbGateway implements FacilityDb {
         try {
             return (HashMap<UUID, Facility>) db.read();
         } catch (EOFException eof) {
-            HashMap<UUID, Facility> tempMap = new HashMap<UUID, Facility>();
+            HashMap<UUID, Facility> tempMap = new HashMap<>();
             try {
                 this.db.write(tempMap);
                 return (HashMap<UUID, Facility>) db.read();
@@ -62,7 +62,7 @@ public class FacilityDbGateway implements FacilityDb {
     //for testing purposes
     public void fileReset() {
         try {
-            HashMap<UUID, Facility> newHash = new HashMap<UUID, Facility>();
+            HashMap<UUID, Facility> newHash = new HashMap<>();
             db.write(newHash);
         } catch(IOException e) {
             e.printStackTrace();

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class FulfillController {
 
-    private FulfillInputBoundry inputBoundry;
+    private final FulfillInputBoundry inputBoundry;
 
     public FulfillController(FulfillOutputBoundry outputBoundry){
         this.inputBoundry = new FulfillInteractor(outputBoundry);

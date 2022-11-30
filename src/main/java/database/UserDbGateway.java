@@ -8,10 +8,10 @@ import java.util.HashMap;
 
 public class UserDbGateway implements UserDb {
 
-    private final String USER_FILE_PATH = "data/users.ser";
     private final DBReadWriter db;
 
     public UserDbGateway() {
+        String USER_FILE_PATH = "data/users.ser";
         this.db = new DBReadWriter(USER_FILE_PATH);
     }
 
@@ -20,7 +20,7 @@ public class UserDbGateway implements UserDb {
         try {
             return (HashMap<String, User>) db.read();
         } catch (EOFException eof) {
-            HashMap<String, User> tempMap = new HashMap<String, User>();
+            HashMap<String, User> tempMap = new HashMap<>();
             try {
                 this.db.write(tempMap);
                 return (HashMap<String, User>) db.read();
@@ -61,7 +61,7 @@ public class UserDbGateway implements UserDb {
     //for testing purposes
     public void fileReset() {
         try {
-            HashMap<String, User> newHash = new HashMap<String, User>();
+            HashMap<String, User> newHash = new HashMap<>();
             db.write(newHash);
         } catch(IOException e) {
             e.printStackTrace();
