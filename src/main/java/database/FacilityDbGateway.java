@@ -1,7 +1,6 @@
 package database;
 
 import entities.Facility;
-import entities.Order;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class FacilityDbGateway implements FacilityDb {
         try {
             return (HashMap<UUID, Facility>) db.read();
         } catch (EOFException eof) {
-            HashMap<UUID, Facility> tempMap = new HashMap<UUID, Facility>();
+            HashMap<UUID, Facility> tempMap = new HashMap<>();
             try {
                 this.db.write(tempMap);
                 return (HashMap<UUID, Facility>) db.read();
@@ -38,13 +37,8 @@ public class FacilityDbGateway implements FacilityDb {
 
     @Override
     public Facility getFacility(UUID id) {
-        try {
-            HashMap<UUID, Facility> facilities = getAllFacilities();
-            return facilities.get(id);
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        HashMap<UUID, Facility> facilities = getAllFacilities();
+        return facilities.get(id);
     }
 
     @Override
@@ -63,7 +57,7 @@ public class FacilityDbGateway implements FacilityDb {
     //for testing purposes
     public void fileReset() {
         try {
-            HashMap<UUID, Facility> newHash = new HashMap<UUID, Facility>();
+            HashMap<UUID, Facility> newHash = new HashMap<>();
             db.write(newHash);
         } catch(IOException e) {
             e.printStackTrace();
