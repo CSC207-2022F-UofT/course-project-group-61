@@ -1,7 +1,7 @@
 package warehousemainmenu;
 
-import itemlookup.ItemLookupViewModel;
 import fulfill.FulfillViewModel;
+import itemlookup.ItemLookupViewModel;
 
 public class WarehouseMainMenuPresenter {
 
