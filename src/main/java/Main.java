@@ -8,6 +8,10 @@ import database.OrderDbGateway;
 import database.ProductDbGateway;
 import database.UserDbGateway;
 import entities.*;
+import fulfill.FulfillController;
+import fulfill.FulfillPresenter;
+import fulfill.FulfillView;
+import fulfill.FulfillViewModel;
 import newuser.NewUserViewModel;
 import order.*;
 import storemainmenu.StoreMainMenuController;
@@ -31,6 +35,7 @@ public class Main {
         OrderViewModel orderViewModel = new OrderViewModel();
         NewUserViewModel newUserViewModel = new NewUserViewModel();
         DailySalesViewModel dailySalesViewModel = new DailySalesViewModel();
+        FulfillViewModel fulfillViewModel = new FulfillViewModel();
 
         FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
         ProductDbGateway productDbGateway = new ProductDbGateway();
@@ -44,7 +49,7 @@ public class Main {
         StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel, dailySalesViewModel)));
         storeViewModel.addObserver(storeMainMenuView);
 
-        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel)));
+        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel, fulfillViewModel)));
         warehouseViewModel.addObserver(warehouseMainMenuView);
 
         AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel)));
@@ -52,6 +57,9 @@ public class Main {
 
         OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)), orderViewModel);
         orderViewModel.addObserver(orderView);
+
+        FulfillView fulfillView = new FulfillView(new FulfillController(new FulfillPresenter(fulfillViewModel, warehouseViewModel)));
+        fulfillViewModel.addObserver(fulfillView);
 
         NewUserView newUserView = new NewUserView(new NewUserController(new NewUserInteractor(new NewUserPresenter(newUserViewModel, adminViewModel), userDbGateway)));
         newUserViewModel.addObserver(newUserView);

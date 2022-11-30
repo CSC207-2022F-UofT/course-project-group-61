@@ -22,6 +22,7 @@ public class DailySalesTest {
     private final Facility facility = new Facility("Test Store", FacilityType.STORE);
 
 
+
     @Before
     public void setup() {
         this.facilityDbGateway.fileReset();
