@@ -1,18 +1,18 @@
 package storemainmenu;
 
-import entities.Order;
 import order.OrderViewModel;
 
 public class StoreMainMenuPresenter {
 
-    private StoreMainMenuViewModel viewModel;
-    private OrderViewModel orderViewModel;
+    private final StoreMainMenuViewModel viewModel;
+    private final OrderViewModel orderViewModel;
 
     public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel) {
         this.viewModel = viewModel;
         this.orderViewModel = orderViewModel;
     }
 
+    /* Sets StoreMainMenuView to be invisible, sets selected button press view model to be visible. */
     public void changeView(ButtonOption option) {
         viewModel.setVisible(false);
         switch (option) {

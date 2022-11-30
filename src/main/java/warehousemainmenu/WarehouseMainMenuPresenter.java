@@ -4,15 +4,16 @@ import fulfill.FulfillViewModel;
 
 public class WarehouseMainMenuPresenter {
 
-    private WarehouseMainMenuViewModel viewModel;
+    private final WarehouseMainMenuViewModel viewModel;
 
-    private FulfillViewModel fulfillViewModel;
+    private final FulfillViewModel fulfillViewModel;
 
     public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel, FulfillViewModel fulfillViewModel) {
         this.viewModel = viewModel;
         this.fulfillViewModel = fulfillViewModel;
     }
 
+    /* Sets WarehouseMainMenuView to be invisible, sets selected button press view model to be visible. */
     public void changeView(ButtonOption option) {
         viewModel.setVisible(false);
         switch (option) {

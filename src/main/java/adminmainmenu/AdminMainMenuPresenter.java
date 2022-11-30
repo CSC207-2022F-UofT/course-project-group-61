@@ -1,18 +1,18 @@
 package adminmainmenu;
 
-import newuser.NewUserView;
 import newuser.NewUserViewModel;
 
 public class AdminMainMenuPresenter {
 
-    private AdminMainMenuViewModel viewModel;
-    private NewUserViewModel newUserViewModel;
+    private final AdminMainMenuViewModel viewModel;
+    private final NewUserViewModel newUserViewModel;
 
     public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel) {
         this.viewModel = viewModel;
         this.newUserViewModel = newUserViewModel;
     }
 
+    /* Sets AdminMainMenuView to be invisible, sets selected button press view model to be visible. */
     public void changeView(ButtonOption option) {
         viewModel.setVisible(false);
         switch (option) {
