@@ -5,13 +5,14 @@ import java.util.UUID;
 
 public class DailySalesController {
 
-    private final DailySalesInteractor dailySalesInteractor = new DailySalesInteractor();
+    private DailySalesInputBoundary inputBoundary;
 
-    public DailySalesController() {
+    public DailySalesController(DailySalesInputBoundary inputBoundary) {
 
     }
 
-    public void updateDailySales(UUID facID, HashMap<Long, Integer> dailySales) {
-        this.dailySalesInteractor.updateDailySales(facID, dailySales);
+    public void inputDailySales(HashMap<Long, Integer> dailySales) {
+        DailySalesRequestModel request = new DailySalesRequestModel(dailySales);
+        this.inputBoundary.inputDailySales(request);
     }
 }

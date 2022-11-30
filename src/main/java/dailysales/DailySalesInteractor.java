@@ -1,30 +1,34 @@
 package dailysales;
 
+import database.FacilityDb;
 import database.FacilityDbGateway;
 import entities.Facility;
+import entities.FacilityUser;
+import entities.UserSession;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class DailySalesInteractor {
+public class DailySalesInteractor implements DailySalesInputBoundary {
 
-    private final FacilityDbGateway readWriter = new FacilityDbGateway();
+    private final FacilityDb facilityDb;
 
-    public DailySalesInteractor() {
-
+    public DailySalesInteractor(FacilityDb facilityDb) {
+        this.facilityDb = facilityDb;
     }
 
-    public void updateDailySales(UUID facID, HashMap<Long, Integer> dailySales) {
-        Facility facility = readWriter.getFacility(facID);
+    public DailySalesResponseModel inputDailySales(DailySalesRequestModel request) {
+        UUID facID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
+        Facility facility = facilityDb.getFacility(facID);
 
-        for(long upc: dailySales.keySet()) {
-            facility.removeProduct(upc, dailySales.get(upc));
-
+        for (long upc: request.getDailySales().keySet()) {
+            facility.removeProduct(upc, request.getDailySales().get(upc));
         }
 
-        readWriter.updateFacility(facility);
-
+        facilityDb.updateFacility(facility);
+        //TODO
+        return new DailySalesResponseModel();
     }
 
 
