@@ -1,7 +1,5 @@
 package newuser;
 
-import entities.FacilityType;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,8 +11,6 @@ import java.util.UUID;
 public class NewUserView extends JFrame implements Observer, ActionListener {
 
     private final NewUserController controller;
-
-    private FacilityType facilityType;
     private JTextField usernameField;
     private JTextField passwordField;
     private JRadioButton storeButton;
@@ -47,7 +43,7 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
     }
 
     public void init(){
-        JLabel header = new JLabel("Create New User");
+        JLabel header = new JLabel("Inventory Management System - New User");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         usernameField = new JTextField("Username");

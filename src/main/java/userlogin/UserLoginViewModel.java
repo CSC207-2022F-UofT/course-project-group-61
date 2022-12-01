@@ -9,6 +9,7 @@ public class UserLoginViewModel extends Observable {
     private LoginStatus failedReason;
 
     public UserLoginViewModel() {
+        setVisible(false);
     }
 
     public void failed(LoginStatus status) {

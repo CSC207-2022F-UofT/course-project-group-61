@@ -15,8 +15,6 @@ import java.util.Observer;
 public class OrderView extends JFrame implements Observer, ActionListener {
 
     private final OrderController controller;
-    private final OrderViewModel viewModel;
-
     private JTextField upc;
     private JTextField quantity;
     private JButton add;
@@ -24,24 +22,25 @@ public class OrderView extends JFrame implements Observer, ActionListener {
     private final HashMap<Long, Integer> orderContents;
     private DefaultTableModel rawTableData;
 
-    public OrderView(OrderController controller, OrderViewModel viewModel) {
+    public OrderView(OrderController controller) {
         this.controller = controller;
-        this.viewModel = viewModel;
         init();
         orderContents = new HashMap<>();
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        OrderViewModel viewModel = (OrderViewModel) o;
+
         setVisible(viewModel.isVisible());
 
         if (viewModel.isOrderComplete()) {
-            JOptionPane.showMessageDialog(this, "Order placed successfully!", "Order Placed", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Order placed successfully!", "Order Placed", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private void init() {
-        JLabel header = new JLabel("Inventory Management System");
+        JLabel header = new JLabel("Inventory Management System - Order");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         header.setBounds(50, 0, 500, 40);
@@ -63,7 +62,7 @@ public class OrderView extends JFrame implements Observer, ActionListener {
         quantityDoc.setDocumentFilter(new IntegerFilter());
 
         add = new JButton("Add");
-        add.setBounds(420, 50, 50, 30);
+        add.setBounds(420, 50, 100, 30);
         add.addActionListener(this);
 
         rawTableData = new DefaultTableModel(new Object[]{"UPC", "Name", "Quantity"}, 0);
@@ -105,6 +104,7 @@ public class OrderView extends JFrame implements Observer, ActionListener {
                 row[1] = controller.getProductName(Long.parseLong(upc.getText()));
                 row[2] = quantity.getText();
 
+                // TODO: Add duplication checking, add to existing quantity instead of new row.
                 rawTableData.addRow(row);
 
                 orderContents.put(Long.parseLong(upc.getText()), Integer.parseInt(quantity.getText()));
