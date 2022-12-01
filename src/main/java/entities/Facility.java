@@ -35,7 +35,7 @@ public class Facility implements Serializable {
         try {
             return this.inventory.get(upc);
         } catch(NullPointerException e) {
-            return -1;
+            return null;
         }
 
     }
