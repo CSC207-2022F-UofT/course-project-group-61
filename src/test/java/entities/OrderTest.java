@@ -1,5 +1,7 @@
 package entities;
-import org.junit.*;
+
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.Date;
