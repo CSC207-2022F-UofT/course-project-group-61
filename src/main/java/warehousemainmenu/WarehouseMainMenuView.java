@@ -29,7 +29,7 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
 
     public void init() {
         /* Pop-up window labels and font settings. */
-        JLabel header = new JLabel("Inventory Management System");
+        JLabel header = new JLabel("Inventory Management System - Warehouse Main Menu");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         /* Initialize all buttons on window. */

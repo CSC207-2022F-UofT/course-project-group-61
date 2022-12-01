@@ -30,7 +30,7 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
 
     public void init() {
         /* Pop-up window labels and font settings. */
-        JLabel header = new JLabel("Inventory Management System");
+        JLabel header = new JLabel("Inventory Management System - Store Main Menu");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         /* Initialize all buttons on window. */

@@ -1,16 +1,10 @@
 package fulfill;
 
-import entities.Facility;
-import entities.Order;
-import org.junit.internal.runners.statements.Fail;
-
-import javax.swing.*;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class FulfillController {
 
-    private FulfillInputBoundry inputBoundry;
+    private final FulfillInputBoundry inputBoundry;
 
     public FulfillController(FulfillOutputBoundry outputBoundry){
         this.inputBoundry = new FulfillInteractor(outputBoundry);

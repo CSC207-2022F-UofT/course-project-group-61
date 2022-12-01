@@ -29,7 +29,7 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
 
     public void init() {
         /* Pop-up window labels and font settings. */
-        JLabel header = new JLabel("Inventory Management System");
+        JLabel header = new JLabel("Inventory Management System - Admin Main Menu");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         /* Initialize all buttons on window. */
@@ -63,6 +63,7 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         setTitle("Inventory Management System");
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        //setVisible(true);
     }
 
     /* Runs when any button is pressed, formats call to the controller based on what button was pressed. */

@@ -1,15 +1,17 @@
 package warehousemainmenu;
 
 import fulfill.FulfillViewModel;
+import itemlookup.ItemLookupViewModel;
 
 public class WarehouseMainMenuPresenter {
 
     private final WarehouseMainMenuViewModel viewModel;
-
     private final FulfillViewModel fulfillViewModel;
+    private final ItemLookupViewModel itemLookupViewModel;
 
-    public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel, FulfillViewModel fulfillViewModel) {
+    public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel, ItemLookupViewModel itemLookupViewModel, FulfillViewModel fulfillViewModel) {
         this.viewModel = viewModel;
+        this.itemLookupViewModel = itemLookupViewModel;
         this.fulfillViewModel = fulfillViewModel;
     }
 
@@ -33,7 +35,8 @@ public class WarehouseMainMenuPresenter {
                 break;
             case ITEM_LOOKUP:
                 System.out.println("item lookup");
-
+                viewModel.setVisible(false);
+                itemLookupViewModel.setVisible(true);
                 //TODO: set ItemLookupView to visible
                 break;
         }

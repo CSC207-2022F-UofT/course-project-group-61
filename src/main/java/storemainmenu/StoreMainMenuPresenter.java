@@ -1,15 +1,18 @@
 package storemainmenu;
 
+import itemlookup.ItemLookupViewModel;
 import order.OrderViewModel;
 
 public class StoreMainMenuPresenter {
 
     private final StoreMainMenuViewModel viewModel;
     private final OrderViewModel orderViewModel;
+    private final ItemLookupViewModel itemLookupViewModel;
 
-    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel) {
+    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel, ItemLookupViewModel itemLookupViewModel) {
         this.viewModel = viewModel;
         this.orderViewModel = orderViewModel;
+        this.itemLookupViewModel = itemLookupViewModel;
     }
 
     /* Sets StoreMainMenuView to be invisible, sets selected button press view model to be visible. */
@@ -36,7 +39,8 @@ public class StoreMainMenuPresenter {
                 break;
             case ITEM_LOOKUP:
                 System.out.println("item lookup");
-
+                viewModel.setVisible(false);
+                itemLookupViewModel.setVisible(true);
                 //TODO: set ItemLookupView to visible
                 break;
         }

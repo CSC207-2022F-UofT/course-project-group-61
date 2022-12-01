@@ -1,18 +1,25 @@
-package userlogin;
+package itemlookup;
 
+import java.util.List;
 import java.util.Observable;
 
-public class UserLoginViewModel extends Observable {
+public class ItemLookupViewModel extends Observable {
 
     private boolean visible;
     private boolean failed;
-    private LoginStatus failedReason;
+    private FailReason failedReason;
+    private List<String> infoList;
 
-    public UserLoginViewModel() {
-        setVisible(false);
+    public ItemLookupViewModel() {
     }
 
-    public void failed(LoginStatus status) {
+    public void viewInfo(List<String> infoList) {
+        this.infoList = infoList;
+        setChanged();
+        notifyObservers();
+    }
+
+    public void failed(FailReason status) {
         failed = true;
         failedReason = status;
         setChanged();
@@ -30,12 +37,13 @@ public class UserLoginViewModel extends Observable {
         setChanged();
         notifyObservers();
     }
+    public List<String> getInfoList() {return infoList;}
 
     public boolean getFailed() {
         return failed;
     }
 
-    public LoginStatus getFailedReason() {
+    public FailReason getFailedReason() {
         return failedReason;
     }
 }

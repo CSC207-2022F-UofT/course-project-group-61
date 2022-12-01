@@ -1,7 +1,6 @@
 package fulfill;
 
 import database.*;
-
 import entities.Facility;
 import entities.FacilityUser;
 import entities.Order;
@@ -13,7 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.UUID;
 
 public class FulfillView extends JFrame implements Observer, ActionListener {
     private final FulfillController controller;
