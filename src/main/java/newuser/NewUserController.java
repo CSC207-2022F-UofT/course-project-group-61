@@ -1,8 +1,10 @@
 package newuser;
 
+import entities.Facility;
 import entities.FacilityType;
 
 import java.util.UUID;
+import java.util.ArrayList;
 
 public class NewUserController {
 
@@ -20,5 +22,9 @@ public class NewUserController {
         NewUserRequestModel request = new NewUserRequestModel(username, password, facilityID,
                 FacilityType.WAREHOUSE);
         return inputBoundary.addNewUser(request);
+    }
+
+    public ArrayList<ArrayList<UUID>> getFacilityUUIDLists(){
+        return inputBoundary.getFacilityUUIDLists();
     }
 }

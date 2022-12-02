@@ -1,16 +1,27 @@
 package newuser;
 
 import database.UserDb;
+import database.FacilityDb;
+import entities.Facility;
+import entities.FacilityType;
 import entities.FacilityUser;
 import entities.User;
+
+import java.sql.Array;
+import java.util.UUID;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class NewUserInteractor implements NewUserInputBoundary{
 
-    private final UserDb readWriter;
+    private final UserDb userDB;
+    private final FacilityDb facilityDb;
     private final NewUserOutputBoundary presenter;
-    public NewUserInteractor(NewUserOutputBoundary presenter, UserDb userDb){
-        this.readWriter = userDb;
+    public NewUserInteractor(NewUserOutputBoundary presenter, UserDb userDb, FacilityDb facilityDB){
+        this.userDB = userDb;
+        this.facilityDb = facilityDB;
         this.presenter = presenter;
     }
 
@@ -22,7 +33,7 @@ public class NewUserInteractor implements NewUserInputBoundary{
 
         NewUserResponseModel response;
 
-        if (readWriter.getUser(request.getUsername()) != null){
+        if (userDB.getUser(request.getUsername()) != null){
             response = new NewUserResponseModel(null, NewUserStatus.USERNAME_EXISTS);
             presenter.prepareFailView(response);
             return response;
@@ -33,10 +44,28 @@ public class NewUserInteractor implements NewUserInputBoundary{
             return response;
         }
         else {
-            readWriter.updateUser(newUser);
+            userDB.updateUser(newUser);
             response = new NewUserResponseModel(newUser, NewUserStatus.SUCCESS);
             presenter.prepareSuccessView(response);
             return response;
         }
+    }
+
+    @Override
+    // returns two list of UUIDs (one for stores and one for warehouses)
+    public ArrayList<ArrayList<UUID>> getFacilityUUIDLists() {
+        ArrayList<UUID> storeUUIDList = new ArrayList<>();
+        ArrayList<UUID> warehouseUUIDList = new ArrayList<>();
+        for (Map.Entry<UUID, Facility> facilityEntry: facilityDb.getAllFacilities().entrySet()){
+            if (facilityEntry.getValue().getFacilityType() == FacilityType.STORE){
+                storeUUIDList.add(facilityEntry.getKey());
+            } else if (facilityEntry.getValue().getFacilityType() == FacilityType.WAREHOUSE) {
+                warehouseUUIDList.add(facilityEntry.getKey());
+            }
+        }
+        ArrayList<ArrayList<UUID>> uuidList = new ArrayList<>();
+        uuidList.add(storeUUIDList);
+        uuidList.add(warehouseUUIDList);
+        return uuidList;
     }
 }
