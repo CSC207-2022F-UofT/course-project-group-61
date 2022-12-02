@@ -69,6 +69,11 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         JLabel header = new JLabel("Inventory Management System - New User");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
+        JLabel dropdownSubtitle = new JLabel("Choose the user's associated facility");
+        dropdownSubtitle.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        JLabel radioButtonSubtitle = new JLabel("Choose the facility type of the user's associated facility");
+        radioButtonSubtitle.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
         usernameField = new JTextField("Username");
         // want to add a "5 characters or longer" as a subtitle under password
         passwordField = new JTextField("Password (5 characters or longer)");
@@ -91,16 +96,20 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         storeList.addActionListener(this);
         warehouseList.addActionListener(this);
 
-        header.setBounds(200, 0, 500, 40);
-        usernameField.setBounds(200, 50, 300, 30);
-        passwordField.setBounds(200, 100, 300, 30);
-        storeButton.setBounds(100, 150, 300, 30);
-        warehouseButton.setBounds(400, 150, 300, 30);
-        storeList.setBounds(200, 200, 150, 40);
-        warehouseList.setBounds(200, 200, 150, 40);
-        registerButton.setBounds(200, 250, 100, 30);
+        header.setBounds(100, 0, 500, 40);
+        usernameField.setBounds(100, 50, 300, 30);
+        passwordField.setBounds(100, 100, 300, 30);
+        radioButtonSubtitle.setBounds(100, 135, 500, 20);
+        storeButton.setBounds(100, 160, 150, 30);
+        warehouseButton.setBounds(250, 160, 150, 30);
+        dropdownSubtitle.setBounds(100, 200, 500, 20);
+        storeList.setBounds(100, 230, 150, 40);
+        warehouseList.setBounds(100, 230, 150, 40);
+        registerButton.setBounds(100, 285, 125, 40);
 
         add(header);
+        add(dropdownSubtitle);
+        add(radioButtonSubtitle);
         add(usernameField);
         add(passwordField);
         add(storeButton);
