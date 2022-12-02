@@ -5,13 +5,21 @@ import java.util.UUID;
 
 public class DailySalesController {
 
-    private final DailySalesInteractor dailySalesInteractor = new DailySalesInteractor();
+    private final DailySalesInputBoundary interactor;
 
-    public DailySalesController() {
-
+    public DailySalesController(DailySalesInputBoundary interactor) {
+        this.interactor = interactor;
     }
 
-    public void updateDailySales(UUID facID, HashMap<Long, Integer> dailySales) {
-        this.dailySalesInteractor.updateDailySales(facID, dailySales);
+    public void inputDailySales(HashMap<Long, Integer> dailySales) {
+        DailySalesRequestModel request = new DailySalesRequestModel(dailySales);
+        this.interactor.inputDailySales(request);
+    }
+
+    public boolean upcExists(Long upc) {
+        return interactor.upcExists(upc);
+    }
+    public String getProductName(Long upc) {
+        return interactor.getProductName(upc);
     }
 }

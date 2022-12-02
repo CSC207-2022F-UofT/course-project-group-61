@@ -1,17 +1,20 @@
 package storemainmenu;
 
-import itemlookup.ItemLookupViewModel;
 import order.OrderViewModel;
+import dailysales.DailySalesViewModel;
+import itemlookup.ItemLookupViewModel;
 
 public class StoreMainMenuPresenter {
 
-    private final StoreMainMenuViewModel viewModel;
-    private final OrderViewModel orderViewModel;
+    private StoreMainMenuViewModel viewModel;
+    private OrderViewModel orderViewModel;
+    private DailySalesViewModel dailySalesViewModel;
     private final ItemLookupViewModel itemLookupViewModel;
 
-    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel, ItemLookupViewModel itemLookupViewModel) {
+    public StoreMainMenuPresenter(StoreMainMenuViewModel viewModel, OrderViewModel orderViewModel, DailySalesViewModel dailySalesViewModel, ItemLookupViewModel itemLookupViewModel) {
         this.viewModel = viewModel;
         this.orderViewModel = orderViewModel;
+        this.dailySalesViewModel = dailySalesViewModel;
         this.itemLookupViewModel = itemLookupViewModel;
     }
 
@@ -23,9 +26,7 @@ public class StoreMainMenuPresenter {
                 orderViewModel.setVisible(true);
                 break;
             case DAILY_SALES:
-                System.out.println("daily sales");
-
-                //TODO: set DailySalesView to visible
+                dailySalesViewModel.setVisible(true);
                 break;
             case INV_COUNT:
                 System.out.println("inv count");

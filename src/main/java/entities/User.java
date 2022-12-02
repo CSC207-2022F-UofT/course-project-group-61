@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 
+/* User can login to the program and do various things based on their type. */
 public abstract class User implements Serializable {
     private final String username;
 
