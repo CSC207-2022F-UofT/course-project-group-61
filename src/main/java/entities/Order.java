@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
+/* Order gets placed by Store User to query Warehouses for products, stores all relevant information. */
 public class Order implements Serializable {
     // Creates the markers for the status of the order
     public static final int CREATED = 0;
