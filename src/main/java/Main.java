@@ -58,8 +58,8 @@ public class Main {
         AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel, newFacilityViewModel)));
         adminViewModel.addObserver(adminMainMenuView);
 
-        OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)), orderViewModel);
-        orderViewModel.addObserver(orderView);
+        //OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)), orderViewModel);
+        //orderViewModel.addObserver(orderView);
 
         FulfillView fulfillView = new FulfillView(new FulfillController(new FulfillPresenter(fulfillViewModel, warehouseViewModel)));
         fulfillViewModel.addObserver(fulfillView);
@@ -76,33 +76,33 @@ public class Main {
         ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel), productDbGateway, facilityDbGateway)));
         itemLookupViewModel.addObserver(itemLookupView);
 
-        // ***** TEST CODE BELOW *****
+        // ***** TEST CODE BELOW *****/
 
-        Facility testStore1 = new Facility("TestStore1", FacilityType.STORE);
+        Facility testStore = new Facility("TestStore", FacilityType.STORE);
         Facility testStore2 = new Facility("TestStore2", FacilityType.STORE);
         Facility testStore3 = new Facility("TestStore3", FacilityType.STORE);
-        testStore1.addProduct(4001L, 150);
+        testStore.addProduct(4001L, 150);
         testStore2.addProduct(4001L, 100);
         testStore3.addProduct(4001L, 200);
-        Facility testWarehouse1 = new Facility("TestWarehouse1", FacilityType.WAREHOUSE);
+        Facility testWarehouse = new Facility("TestWarehouse", FacilityType.WAREHOUSE);
         Facility testWarehouse2 = new Facility("TestWarehouse2", FacilityType.WAREHOUSE);
         Facility testWarehouse3 = new Facility("TestWarehouse3", FacilityType.WAREHOUSE);
-        testWarehouse1.addProduct(4001L, 100);
+        testWarehouse.addProduct(4001L, 100);
         testWarehouse2.addProduct(4001L, 50);
         testWarehouse3.addProduct(4001L, 300);
 
         userDbGateway.fileReset();
-        userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore1.getFacilityID(), FacilityType.STORE));
-        userDbGateway.updateUser(new FacilityUser("Warehouse", "Password", testWarehouse1.getFacilityID(), FacilityType.WAREHOUSE));
+        userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));
+        userDbGateway.updateUser(new FacilityUser("Warehouse", "Password", testWarehouse.getFacilityID(), FacilityType.WAREHOUSE));
         userDbGateway.updateUser(new AdminUser("Admin", "Password"));
         productDbGateway.fileReset();
         productDbGateway.updateProduct(new Product("Strawberries", 4001L, 2));
         // null pointer exception occurs on this line
         facilityDbGateway.fileReset();
-        facilityDbGateway.updateFacility(testStore1);
+        facilityDbGateway.updateFacility(testStore);
         facilityDbGateway.updateFacility(testStore2);
         facilityDbGateway.updateFacility(testStore3);
-        facilityDbGateway.updateFacility(testWarehouse1);
+        facilityDbGateway.updateFacility(testWarehouse);
         facilityDbGateway.updateFacility(testWarehouse2);
         facilityDbGateway.updateFacility(testWarehouse3);
 
