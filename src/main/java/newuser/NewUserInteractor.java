@@ -1,14 +1,16 @@
 package newuser;
 
-import database.UserDb;
 import database.FacilityDb;
+import database.UserDb;
 import entities.Facility;
 import entities.FacilityType;
 import entities.FacilityUser;
 import entities.User;
 
-import java.sql.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class NewUserInteractor implements NewUserInputBoundary{
@@ -49,21 +51,20 @@ public class NewUserInteractor implements NewUserInputBoundary{
     }
 
     @Override
-    // returns two list of UUIDs (one for stores and one for warehouses)
-    public ArrayList<ArrayList<UUID>> getFacilityUUIDLists() {
-        ArrayList<UUID> storeUUIDList = new ArrayList<>();
-        ArrayList<UUID> warehouseUUIDList = new ArrayList<>();
-        HashMap<UUID, Facility> test = facilityDb.getAllFacilities();
+    // returns an array list of two dictionaries mapping a UUID to a string (Facility Name)
+    public ArrayList<HashMap<String, UUID>> getFacilityLists() {
+        HashMap<String, UUID> storeMap = new HashMap<>();
+        HashMap<String, UUID> warehouseMap = new HashMap<>();
         for (Map.Entry<UUID, Facility> facilityEntry: facilityDb.getAllFacilities().entrySet()){
             if (facilityEntry.getValue().getFacilityType() == FacilityType.STORE){
-                storeUUIDList.add(facilityEntry.getKey());
+                storeMap.put(facilityEntry.getValue().getName(), facilityEntry.getKey());
             } else if (facilityEntry.getValue().getFacilityType() == FacilityType.WAREHOUSE) {
-                warehouseUUIDList.add(facilityEntry.getKey());
+                warehouseMap.put(facilityEntry.getValue().getName(), facilityEntry.getKey());
             }
         }
-        ArrayList<ArrayList<UUID>> uuidList = new ArrayList<>();
-        uuidList.add(storeUUIDList);
-        uuidList.add(warehouseUUIDList);
-        return uuidList;
+        ArrayList<HashMap<String, UUID>> facilityList = new ArrayList<>();
+        facilityList.add(storeMap);
+        facilityList.add(warehouseMap);
+        return facilityList;
     }
 }

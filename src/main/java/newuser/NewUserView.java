@@ -4,11 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.UUID;
-import database.FacilityDbGateway;
+import java.util.*;
 
 public class NewUserView extends JFrame implements Observer, ActionListener {
 
@@ -18,10 +14,11 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
     private JRadioButton storeButton;
     private JRadioButton warehouseButton;
     private JButton registerButton;
-    private JComboBox storeList;
-    private JComboBox warehouseList;
-    private JComboBox uuidList;
+    private JComboBox<String> storeList;
+    private JComboBox<String> warehouseList;
     private ButtonGroup group;
+    private HashMap<String, UUID> storeMap;
+    private HashMap<String, UUID> warehouseMap;
     private UUID uuid;
 
     public NewUserView(NewUserController controller){
@@ -54,14 +51,20 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
     }
 
     public void init(){
-        Object[] storeUUIDs = controller.getFacilityUUIDLists().get(0).toArray();
-        Object[] warehouseUUIDs = controller.getFacilityUUIDLists().get(1).toArray();
+        this.storeMap = controller.getFacilityUUIDLists().get(0);
+        this.warehouseMap = controller.getFacilityUUIDLists().get(1);
 
-        this.uuid = (UUID) storeUUIDs[0];
+        this.storeList = new JComboBox<>();
+        this.warehouseList = new JComboBox<>();
 
-        this.storeList = new JComboBox(storeUUIDs);
-        this.warehouseList = new JComboBox(warehouseUUIDs);
-        this.uuidList = storeList;
+        for (String storeName : storeMap.keySet()){
+            storeList.addItem(storeName);
+        }
+        for (String warehouseName : warehouseMap.keySet()){
+            warehouseList.addItem(warehouseName);
+        }
+
+        this.uuid = storeMap.get(Objects.requireNonNull(storeList.getSelectedItem()).toString());
 
         JLabel header = new JLabel("Inventory Management System - New User");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -116,6 +119,7 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String facilityName;
         if (e.getSource() == storeButton) {
             warehouseList.setVisible(false);
             storeList.setVisible(true);
@@ -123,9 +127,11 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
             storeList.setVisible(false);
             warehouseList.setVisible(true);
         } else if (e.getSource() == storeList) {
-            this.uuid = (UUID) storeList.getSelectedItem();
+             facilityName = (String) storeList.getSelectedItem();
+             this.uuid = storeMap.get(facilityName);
         } else if (e.getSource() == warehouseList) {
-            this.uuid = (UUID) warehouseList.getSelectedItem();
+            facilityName = (String) warehouseList.getSelectedItem();
+            this.uuid = storeMap.get(facilityName);
         } else if (e.getSource() == registerButton) {
             if (storeButton.isSelected()) {
                 controller.createStoreUser(usernameField.getText(), passwordField.getText(), uuid);

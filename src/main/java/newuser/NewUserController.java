@@ -1,10 +1,10 @@
 package newuser;
 
-import entities.Facility;
 import entities.FacilityType;
 
-import java.util.UUID;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class NewUserController {
 
@@ -24,7 +24,7 @@ public class NewUserController {
         return inputBoundary.addNewUser(request);
     }
 
-    public ArrayList<ArrayList<UUID>> getFacilityUUIDLists(){
-        return inputBoundary.getFacilityUUIDLists();
+    public ArrayList<HashMap<String, UUID>> getFacilityUUIDLists(){
+        return inputBoundary.getFacilityLists();
     }
 }
