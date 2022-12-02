@@ -10,10 +10,10 @@ import warehousemainmenu.WarehouseMainMenuViewModel;
 
 public class UserLoginPresenter implements UserLoginOutputBoundary {
 
-    private UserLoginViewModel viewModel;
-    private StoreMainMenuViewModel storeModel;
-    private WarehouseMainMenuViewModel warehouseModel;
-    private AdminMainMenuViewModel adminModel;
+    private final UserLoginViewModel viewModel;
+    private final StoreMainMenuViewModel storeModel;
+    private final WarehouseMainMenuViewModel warehouseModel;
+    private final AdminMainMenuViewModel adminModel;
 
     public UserLoginPresenter(UserLoginViewModel viewModel,
                               StoreMainMenuViewModel storeModel,
@@ -32,7 +32,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         if (user instanceof AdminUser) {
             adminModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.STORE) {
-            System.out.println("store");
+            //System.out.println("store");
             storeModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
             warehouseModel.setVisible(true);
