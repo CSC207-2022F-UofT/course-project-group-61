@@ -37,13 +37,8 @@ public class FacilityDbGateway implements FacilityDb {
 
     @Override
     public Facility getFacility(UUID id) {
-        try {
-            HashMap<UUID, Facility> facilities = getAllFacilities();
-            return facilities.get(id);
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        HashMap<UUID, Facility> facilities = getAllFacilities();
+        return facilities.get(id);
     }
 
     @Override

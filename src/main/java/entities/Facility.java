@@ -7,8 +7,8 @@ import java.util.UUID;
 public class Facility implements Serializable {
     private final String name;
     private final UUID facilityID;
-    private HashMap<Long, Integer> inventory;
-    private FacilityType facilityType;
+    private final HashMap<Long, Integer> inventory;
+    private final FacilityType facilityType;
 
     public Facility(String name, FacilityType facType) {
         this.name = name;
@@ -33,7 +33,7 @@ public class Facility implements Serializable {
         try {
             return this.inventory.get(upc);
         } catch(NullPointerException e) {
-            return null;
+            return 0;
         }
 
     }
