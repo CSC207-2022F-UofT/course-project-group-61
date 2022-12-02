@@ -1,7 +1,6 @@
 package fulfillorder;
 
 import database.FacilityDbGateway;
-
 import database.OrderDbGateway;
 import entities.Facility;
 import entities.FacilityType;

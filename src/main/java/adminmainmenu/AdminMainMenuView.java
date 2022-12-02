@@ -29,7 +29,7 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
     }
 
     public void init() {
-        JLabel header = new JLabel("Inventory Management System");
+        JLabel header = new JLabel("Inventory Management System - Admin Main Menu");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         this.newFacilityButton = new JButton("New Facility");

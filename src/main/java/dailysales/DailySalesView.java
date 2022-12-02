@@ -1,4 +1,4 @@
-package order;
+package dailysales;
 
 import utils.IntegerFilter;
 
@@ -12,37 +12,26 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-public class OrderView extends JFrame implements Observer, ActionListener {
+public class DailySalesView extends JFrame implements Observer, ActionListener {
 
-    private final OrderController controller;
+    private final DailySalesController controller;
+    private DefaultTableModel rawTableData;
     private JTextField upc;
     private JTextField quantity;
     private JButton add;
-    private JButton placeOrder;
-    private final HashMap<Long, Integer> orderContents;
-    private DefaultTableModel rawTableData;
+    private JTable table;
+    private JButton submit;
+    private HashMap<Long, Integer> salesContents;
 
-    public OrderView(OrderController controller) {
+    public DailySalesView(DailySalesController controller) {
         this.controller = controller;
         init();
-        orderContents = new HashMap<>();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        OrderViewModel viewModel = (OrderViewModel) o;
-
-        setVisible(viewModel.isVisible());
-
-        if (viewModel.isOrderComplete()) {
-            JOptionPane.showMessageDialog(this, "Order placed successfully!", "Order Placed", JOptionPane.INFORMATION_MESSAGE);
-        }
+        salesContents = new HashMap<>();
     }
 
     private void init() {
-        JLabel header = new JLabel("Inventory Management System - Order");
+        JLabel header = new JLabel("Inventory Management System - Daily Sales");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
-
         header.setBounds(50, 0, 500, 40);
 
         JLabel upcLabel = new JLabel("UPC");
@@ -66,14 +55,14 @@ public class OrderView extends JFrame implements Observer, ActionListener {
         add.addActionListener(this);
 
         rawTableData = new DefaultTableModel(new Object[]{"UPC", "Name", "Quantity"}, 0);
-        JTable table = new JTable(rawTableData);
+        table = new JTable(rawTableData);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(50, 130, 700, 675);
 
-        placeOrder = new JButton("Place Order");
-        placeOrder.setBounds(600, 850, 100, 30);
-        placeOrder.addActionListener(this);
+        submit = new JButton("Submit");
+        submit.setBounds(600, 850, 100, 30);
+        submit.addActionListener(this);
 
         add(header);
         add(upcLabel);
@@ -82,13 +71,23 @@ public class OrderView extends JFrame implements Observer, ActionListener {
         add(quantity);
         add(add);
         add(scrollPane);
-        add(placeOrder);
-
+        add(submit);
 
         setLayout(null);
         setTitle("Inventory Management System");
         setSize(800, 1000);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        DailySalesViewModel viewModel = (DailySalesViewModel) o;
+
+        setVisible(viewModel.isVisible());
+
+        if (viewModel.isSuccess()) {
+            JOptionPane.showMessageDialog(this, "Daily Sales updated successfully.", "Daily Sales Updated", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     @Override
@@ -107,12 +106,12 @@ public class OrderView extends JFrame implements Observer, ActionListener {
                 // TODO: Add duplication checking, add to existing quantity instead of new row.
                 rawTableData.addRow(row);
 
-                orderContents.put(Long.parseLong(upc.getText()), Integer.parseInt(quantity.getText()));
+                salesContents.put(Long.parseLong(upc.getText()), Integer.parseInt(quantity.getText()));
                 upc.setText("");
                 quantity.setText("");
             }
-        } else if (e.getSource() == placeOrder) {
-            controller.requestOrder(orderContents);
+        } else if (e.getSource() == submit) {
+            controller.inputDailySales(salesContents);
         }
     }
 }
