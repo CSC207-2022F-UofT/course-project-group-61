@@ -8,10 +8,7 @@ import entities.FacilityUser;
 import entities.User;
 
 import java.sql.Array;
-import java.util.UUID;
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class NewUserInteractor implements NewUserInputBoundary{
@@ -56,6 +53,7 @@ public class NewUserInteractor implements NewUserInputBoundary{
     public ArrayList<ArrayList<UUID>> getFacilityUUIDLists() {
         ArrayList<UUID> storeUUIDList = new ArrayList<>();
         ArrayList<UUID> warehouseUUIDList = new ArrayList<>();
+        HashMap<UUID, Facility> test = facilityDb.getAllFacilities();
         for (Map.Entry<UUID, Facility> facilityEntry: facilityDb.getAllFacilities().entrySet()){
             if (facilityEntry.getValue().getFacilityType() == FacilityType.STORE){
                 storeUUIDList.add(facilityEntry.getKey());

@@ -57,10 +57,11 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         Object[] storeUUIDs = controller.getFacilityUUIDLists().get(0).toArray();
         Object[] warehouseUUIDs = controller.getFacilityUUIDLists().get(1).toArray();
 
-        uuid = (UUID) storeUUIDs[0];
+        this.uuid = (UUID) storeUUIDs[0];
 
-        storeList = new JComboBox(storeUUIDs);
-        warehouseList = new JComboBox(warehouseUUIDs);
+        this.storeList = new JComboBox(storeUUIDs);
+        this.warehouseList = new JComboBox(warehouseUUIDs);
+        this.uuidList = storeList;
 
         JLabel header = new JLabel("Inventory Management System - New User");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -92,6 +93,8 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         passwordField.setBounds(200, 100, 300, 30);
         storeButton.setBounds(100, 150, 300, 30);
         warehouseButton.setBounds(400, 150, 300, 30);
+        storeList.setBounds(200, 200, 150, 40);
+        warehouseList.setBounds(200, 200, 150, 40);
         registerButton.setBounds(200, 250, 100, 30);
 
         add(header);
@@ -100,6 +103,10 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         add(storeButton);
         add(warehouseButton);
         add(registerButton);
+        add(storeList);
+        add(warehouseList);
+
+        warehouseList.setVisible(false);
 
         setLayout(null);
         setTitle("Create New User");
@@ -110,11 +117,15 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == storeButton) {
-            uuidList = storeList;
+            warehouseList.setVisible(false);
+            storeList.setVisible(true);
         } else if (e.getSource() == warehouseButton) {
-            uuidList = warehouseList;
-        } else if (e.getSource() == uuidList) {
-            uuid = (UUID) uuidList.getSelectedItem();
+            storeList.setVisible(false);
+            warehouseList.setVisible(true);
+        } else if (e.getSource() == storeList) {
+            this.uuid = (UUID) storeList.getSelectedItem();
+        } else if (e.getSource() == warehouseList) {
+            this.uuid = (UUID) warehouseList.getSelectedItem();
         } else if (e.getSource() == registerButton) {
             if (storeButton.isSelected()) {
                 controller.createStoreUser(usernameField.getText(), passwordField.getText(), uuid);
