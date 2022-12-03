@@ -8,7 +8,6 @@ import java.util.UUID;
 public class Facility implements Serializable {
     private final String name;
     private final UUID facilityID;
-    private HashMap<Long, Integer> inventory;
     private final HashMap<Long, Integer> inventory;
     private final FacilityType facilityType;
 
