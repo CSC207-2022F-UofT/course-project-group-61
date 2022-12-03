@@ -35,7 +35,7 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
                 JOptionPane.showMessageDialog(this, "UPC already exists", "Error", JOptionPane.ERROR_MESSAGE);
             }
             if (viewModel.getStatus() == NewItemStatus.SUCCESS) {
-                JOptionPane.showInternalMessageDialog(this, "New product has been successfully added", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "New product has been successfully added", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
