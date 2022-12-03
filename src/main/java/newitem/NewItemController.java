@@ -13,7 +13,7 @@ public class NewItemController {
     public NewItemResponseModel newItem(String name, String sUPC, String sPrice) {
 
         try {
-            if (sUPC.length() != 8) {
+            if (sUPC.length() != 12) {
                 throw new Exception();
             }
             long upc = Long.parseLong(sUPC);
