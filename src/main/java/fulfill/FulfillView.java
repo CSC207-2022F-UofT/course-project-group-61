@@ -1,10 +1,7 @@
 package fulfill;
 
 import database.*;
-import entities.Facility;
-import entities.FacilityUser;
-import entities.Order;
-import entities.UserSession;
+import entities.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -47,21 +44,6 @@ public class FulfillView extends JFrame implements Observer, ActionListener {
         JLabel orderHeader = new JLabel("Fulfill Order");
         orderHeader.setFont(font);
 
-        // Orders menu
-        String[] orderColumnNames = {"Order ID", "Store Name"};
-        orderData = orderDataArrayConverter(orderColumnNames.length);
-
-        orderModel = new DefaultTableModel(orderColumnNames, 0);
-        for (Object[] row : orderData) {
-            orderModel.addRow(row);
-        }
-
-        JTable orderTable = new JTable(orderModel);
-        orderTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        orderTable.getSelectionModel().addListSelectionListener(this::ListSelected);
-
-        JScrollPane orderScrollPane = new JScrollPane(orderTable);
-
         // Products in order menu
         String[] productColumnNames = {"Product Name", "Product UPC", "Quantity"};
         productModel = new DefaultTableModel(productColumnNames, 0);
@@ -85,13 +67,11 @@ public class FulfillView extends JFrame implements Observer, ActionListener {
 
         // TODO: fix magic #s
         orderHeader.setBounds(50, 100, 100, 40);
-        orderScrollPane.setBounds(50, 150, 700, 100);
         fulfillButton.setBounds(325, 550, 80, 50);
         productHeader.setBounds(50, 350, 100, 50);
         backButton.setBounds(0, 0, 100, 50);
 
         add(orderHeader);
-        add(orderScrollPane);
         add(fulfillButton);
         add(productHeader);
         add(backButton);
@@ -138,6 +118,12 @@ public class FulfillView extends JFrame implements Observer, ActionListener {
         }
 
         setVisible(viewModel.isVisible());
+
+        // Checks if the viewModel is currently being displayed, if so finds and renders the order table. Note that we
+        // only want this to happen at the very beginning so we check if the data is null
+        if(orderData == null && viewModel.isVisible()){
+            setupOrderData();
+        }
 
     }
 
@@ -227,6 +213,33 @@ public class FulfillView extends JFrame implements Observer, ActionListener {
         orderData = newOrderData;
     }
 
+    private void setupOrderData(){
+        /*
+        Allows for a quick setup of order data, that is formatting the tables, initalizing them and so on.
+         */
+        // Fetches the table data
+        String[] orderColumnNames = {"Order ID", "Store Name"};
+        orderData = orderDataArrayConverter(orderColumnNames.length);
+
+        // Creates the model and adds the info to it
+        orderModel = new DefaultTableModel(orderColumnNames, 0);
+        for (Object[] row : orderData) {
+            orderModel.addRow(row);
+        }
+
+        // Creates the table and sets it up
+        JTable orderTable = new JTable(orderModel);
+        orderTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        orderTable.getSelectionModel().addListSelectionListener(this::ListSelected);
+
+        // Creates the scrolling table
+        JScrollPane orderScrollPane = new JScrollPane(orderTable);
+
+        // Sets up the positioning
+        orderScrollPane.setBounds(50, 150, 700, 100); // TODO: fix magic #s
+        add(orderScrollPane);
+    } // TODO: fix magic #s
+
     private Object[][] orderDataArrayConverter(int columnNumbers){
         /*
         Returns data object for JTable as a 2D array object of order IDs and store names for this specific store
@@ -250,7 +263,7 @@ public class FulfillView extends JFrame implements Observer, ActionListener {
             currentWarehouse = facilityDb.getFacility(currentOrder.getWarehouseID());
 
             // Checks that the order isn't already fulfilled and belongs to the warehouse we are working with
-            if(currentOrder.getStatus() != Order.FULFILLED && currentWarehouse.getFacilityID() == currentUser.getFacilityID()){
+            if(currentOrder.getStatus() != OrderStatus.FULFILLED && currentWarehouse.getFacilityID() == currentUser.getFacilityID()){
                 // Adds the new valid order to the data
                 Object[] values = {id, facilityDb.getFacility(currentOrder.getStoreID()).getName()};
                 returnData[row] = values;
