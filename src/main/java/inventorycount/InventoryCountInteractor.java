@@ -1,29 +1,34 @@
 package inventorycount;
 
 
-import database.FacilityDb;
 import database.FacilityDbGateway;
 import entities.Facility;
+import entities.FacilityUser;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
+import entities.UserSession;
 
 public class InventoryCountInteractor {
 
-    private final FacilityDb facilityDb;
-    private final UUID facID;
+    private final FacilityDbGateway facilityDbGateway;
+    private InventoryCountPresenter presenter;
 
-    public InventoryCountInteractor(UUID facID){
 
-        this.facilityDb = new FacilityDbGateway();
 
-        this.facID = facID;
+    public InventoryCountInteractor(InventoryCountPresenter presenter, FacilityDbGateway facilityDbGateway){
+        this.presenter = presenter;
+        this.facilityDbGateway = facilityDbGateway;
 
     }
 
     public void updateInventoryCount(HashMap<Long, Integer> newInventoryCount){
+        UUID facID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
+
         // pull facility entity
-        Facility facility = facilityDb.getFacility(facID);
+        Facility facility = facilityDbGateway.getFacility(facID);
 
         // update inventory
         for (Long upc : newInventoryCount.keySet()){
@@ -39,14 +44,20 @@ public class InventoryCountInteractor {
         }
 
         // save entity
-        facilityDb.updateFacility(facility);
+        facilityDbGateway.updateFacility(facility);
 
     }
 
-    public HashMap<Long, Integer> getCurrentCount(){
-        Facility facility = facilityDb.getFacility(facID);
+    public HashMap<Long, Integer> getCurrentInventoryCount(){
+        UUID facID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
+
+        Facility facility = facilityDbGateway.getFacility(facID);
 
         return facility.getInventory();
     }
+
+    public void returnToMainMenu(){presenter.returnToMainMenu();}
+
+
 
 }

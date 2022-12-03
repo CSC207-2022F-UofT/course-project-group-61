@@ -1,15 +1,17 @@
 package inventorycount;
 
+import entities.Facility;
+
 import java.util.HashMap;
-import java.util.UUID;
+import java.util.Map;
 
 public class InventoryCountController {
 
     private final InventoryCountInteractor inventoryCountInteractor;
 
-    public InventoryCountController(UUID facID){
+    public InventoryCountController(InventoryCountInteractor interactor){
 
-        this.inventoryCountInteractor = new InventoryCountInteractor(facID);
+        this.inventoryCountInteractor = interactor;
 
     }
 
@@ -21,9 +23,13 @@ public class InventoryCountController {
 
     }
 
-    public HashMap<Long, Integer> getCurrentCount(){
-        return inventoryCountInteractor.getCurrentCount();
+    public HashMap<Long, Integer> getCurrentInventoryCount(){
+        return inventoryCountInteractor.getCurrentInventoryCount();
     }
+
+    public void returnToMainMenu(){inventoryCountInteractor.returnToMainMenu();}
+
+
 
 
 

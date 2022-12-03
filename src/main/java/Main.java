@@ -12,6 +12,7 @@ import fulfill.FulfillController;
 import fulfill.FulfillPresenter;
 import fulfill.FulfillView;
 import fulfill.FulfillViewModel;
+import inventorycount.*;
 import itemlookup.*;
 import newfacility.*;
 import newuser.*;
@@ -42,6 +43,7 @@ public class Main {
         NewUserViewModel newUserViewModel = new NewUserViewModel();
         DailySalesViewModel dailySalesViewModel = new DailySalesViewModel();
         FulfillViewModel fulfillViewModel = new FulfillViewModel();
+        InventoryCountViewModel inventoryCountViewModel = new InventoryCountViewModel();
         ItemLookupViewModel itemLookupViewModel = new ItemLookupViewModel();
         NewFacilityViewModel newFacilityViewModel = new NewFacilityViewModel();
 
@@ -49,7 +51,7 @@ public class Main {
         loginViewModel.addObserver(loginView);
         loginViewModel.setVisible(true);
 
-        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel, dailySalesViewModel, itemLookupViewModel)));
+        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel, dailySalesViewModel, inventoryCountViewModel, itemLookupViewModel)));
         storeViewModel.addObserver(storeMainMenuView);
 
         WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel, itemLookupViewModel, fulfillViewModel)));
@@ -58,7 +60,7 @@ public class Main {
         AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel, newFacilityViewModel)));
         adminViewModel.addObserver(adminMainMenuView);
 
-        OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)), orderViewModel);
+        OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)));
         orderViewModel.addObserver(orderView);
 
         FulfillView fulfillView = new FulfillView(new FulfillController(new FulfillPresenter(fulfillViewModel, warehouseViewModel)));
@@ -73,8 +75,13 @@ public class Main {
         NewFacilityView newFacilityView = new NewFacilityView(new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(newFacilityViewModel), new FacilityDbGateway())));
         newFacilityViewModel.addObserver(newFacilityView);
 
+        InventoryCountView inventoryCountView = new InventoryCountView(new InventoryCountController(new InventoryCountInteractor(new InventoryCountPresenter(inventoryCountViewModel, storeViewModel), facilityDbGateway)));
+        inventoryCountViewModel.addObserver(inventoryCountView);
+
         ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel), productDbGateway, facilityDbGateway)));
         itemLookupViewModel.addObserver(itemLookupView);
+
+
 
         // ***** TEST CODE BELOW *****
 
