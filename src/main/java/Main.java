@@ -35,6 +35,28 @@ public class Main {
         ProductDbGateway productDbGateway = new ProductDbGateway();
         UserDbGateway userDbGateway = new UserDbGateway();
 
+        // ***** TEST CODE BELOW *****
+
+        Facility testStore = new Facility("TestStore", FacilityType.STORE);
+        testStore.addProduct(4001L, 150);
+        Facility testWarehouse = new Facility("TestFacility", FacilityType.WAREHOUSE);
+        testWarehouse.addProduct(4001L, 100);
+
+        userDbGateway.fileReset();
+        userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));
+        userDbGateway.updateUser(new FacilityUser("Warehouse", "Password", testWarehouse.getFacilityID(), FacilityType.WAREHOUSE));
+        userDbGateway.updateUser(new AdminUser("Admin", "Password"));
+        productDbGateway.fileReset();
+        productDbGateway.updateProduct(new Product("Strawberries", 4001L, 2));
+        // null pointer exception occurs on this line
+        facilityDbGateway.fileReset();
+        facilityDbGateway.updateFacility(testStore);
+        facilityDbGateway.updateFacility(testWarehouse);
+
+        orderDbGateway.fileReset();
+
+        //*****************************
+
         UserLoginViewModel loginViewModel = new UserLoginViewModel();
         StoreMainMenuViewModel storeViewModel = new StoreMainMenuViewModel();
         WarehouseMainMenuViewModel warehouseViewModel = new WarehouseMainMenuViewModel();
@@ -60,7 +82,7 @@ public class Main {
         AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel, newFacilityViewModel, newItemViewModel)));
         adminViewModel.addObserver(adminMainMenuView);
 
-        OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)), orderViewModel);
+        OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)));
         orderViewModel.addObserver(orderView);
 
         FulfillView fulfillView = new FulfillView(new FulfillController(new FulfillPresenter(fulfillViewModel, warehouseViewModel)));
@@ -80,28 +102,6 @@ public class Main {
 
         ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel), productDbGateway, facilityDbGateway)));
         itemLookupViewModel.addObserver(itemLookupView);
-
-        // ***** TEST CODE BELOW *****
-
-        Facility testStore = new Facility("TestStore", FacilityType.STORE);
-        testStore.addProduct(4001L, 150);
-        Facility testWarehouse = new Facility("TestFacility", FacilityType.WAREHOUSE);
-        testWarehouse.addProduct(4001L, 100);
-
-        userDbGateway.fileReset();
-        userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));
-        userDbGateway.updateUser(new FacilityUser("Warehouse", "Password", testWarehouse.getFacilityID(), FacilityType.WAREHOUSE));
-        userDbGateway.updateUser(new AdminUser("Admin", "Password"));
-        productDbGateway.fileReset();
-        productDbGateway.updateProduct(new Product("Strawberries", 4001L, 2));
-        // null pointer exception occurs on this line
-        facilityDbGateway.fileReset();
-        facilityDbGateway.updateFacility(testStore);
-        facilityDbGateway.updateFacility(testWarehouse);
-
-        orderDbGateway.fileReset();
-
-
 
     }
 }
