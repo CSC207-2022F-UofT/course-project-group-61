@@ -8,6 +8,7 @@ import entities.User;
 import storemainmenu.StoreMainMenuViewModel;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
+/* Presenter used to update the view/view model for the login use case. */
 public class UserLoginPresenter implements UserLoginOutputBoundary {
 
     private UserLoginViewModel viewModel;
@@ -25,6 +26,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         this.adminModel = adminModel;
     }
 
+    /* Calls the necessary methods to update the view and change to new view. */
     @Override
     public void prepareSuccessView(UserLoginResponseModel model) {
         viewModel.setVisible(false);
@@ -39,6 +41,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         }
     }
 
+    /* Triggers the view to show a failed dialog via the view model. */
     @Override
     public void prepareFailView(UserLoginResponseModel model) {
         viewModel.failed(model.getStatus());

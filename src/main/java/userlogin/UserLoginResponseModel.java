@@ -2,6 +2,7 @@ package userlogin;
 
 import entities.User;
 
+/* Data structure for the response of a call to the login interactor. */
 public class UserLoginResponseModel {
 
     private final User user;
