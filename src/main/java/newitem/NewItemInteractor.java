@@ -16,7 +16,7 @@ public class NewItemInteractor implements NewItemInputBoundary {
 
     @Override
     public NewItemResponseModel newItem(NewItemRequestModel request) {
-        Product newProduct = new Product(request.name(), request.UPC(), request.price());
+        Product newProduct = new Product(request.getName(), request.getUPC(), request.getPrice());
         var products = productDb.getAllProducts();
         NewItemResponseModel response = null;
         boolean isInvalid = false;

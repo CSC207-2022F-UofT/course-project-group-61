@@ -1,6 +1,6 @@
 package newitem;
 
-public class NewItemPresenter implements NewItemOutputBoundary{
+public class NewItemPresenter implements NewItemOutputBoundary {
 
 
     private NewItemViewModel viewModel;
@@ -13,11 +13,11 @@ public class NewItemPresenter implements NewItemOutputBoundary{
 
     @Override
     public void prepareSuccessView(NewItemResponseModel model) {
-        viewModel.changeStatus(model.status());
+        viewModel.changeStatus(model.getStatus());
     }
 
     @Override
     public void prepareFailView(NewItemResponseModel model) {
-        viewModel.changeStatus(model.status());
+        viewModel.changeStatus(model.getStatus());
     }
 }

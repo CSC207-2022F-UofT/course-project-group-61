@@ -10,7 +10,6 @@ public class NewItemViewModel extends Observable {
     private boolean isStatusChanged;
 
 
-
     public NewItemViewModel() {
         setVisible(false);
     }

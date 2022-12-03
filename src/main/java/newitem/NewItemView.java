@@ -31,15 +31,14 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
         setVisible(viewModel.isVisible());
 
         if (viewModel.getStatusChanged()) {
-            if (viewModel.getStatusChanged()) {
-                if (viewModel.getStatus() == NewItemStatus.REPEAT_UPC) {
-                    JOptionPane.showMessageDialog(this, "UPC already exists", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                if (viewModel.getStatus() == NewItemStatus.SUCCESS) {
-                    JOptionPane.showInternalMessageDialog(this, "New product has been successfully added", "Success", JOptionPane.INFORMATION_MESSAGE);
-                }
+            if (viewModel.getStatus() == NewItemStatus.REPEAT_UPC) {
+                JOptionPane.showMessageDialog(this, "UPC already exists", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (viewModel.getStatus() == NewItemStatus.SUCCESS) {
+                JOptionPane.showInternalMessageDialog(this, "New product has been successfully added", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+
     }
 
     private void init() {
@@ -77,7 +76,7 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         var response = controller.newItem(nameField.getText(), upcField.getText(), priceField.getText());
-        if (response.status() == NewItemStatus.INVALID_INPUT) {
+        if (response.getStatus() == NewItemStatus.INVALID_INPUT) {
             JOptionPane.showMessageDialog(this, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
