@@ -22,4 +22,8 @@ public class DailySalesController {
     public String getProductName(Long upc) {
         return interactor.getProductName(upc);
     }
+
+    public void returnToMenu() {
+        interactor.returnToMenu();
+    }
 }

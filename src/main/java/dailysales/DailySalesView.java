@@ -22,6 +22,7 @@ public class DailySalesView extends JFrame implements Observer, ActionListener {
     private JTable table;
     private JButton submit;
     private HashMap<Long, Integer> salesContents;
+    private JButton returnToMenuButton;
 
     public DailySalesView(DailySalesController controller) {
         this.controller = controller;
@@ -64,6 +65,10 @@ public class DailySalesView extends JFrame implements Observer, ActionListener {
         submit.setBounds(600, 850, 100, 30);
         submit.addActionListener(this);
 
+        returnToMenuButton = new JButton("Return to Menu");
+        returnToMenuButton.setBounds(50, 850, 100, 30);
+        returnToMenuButton.addActionListener(this);
+
         add(header);
         add(upcLabel);
         add(upc);
@@ -72,11 +77,19 @@ public class DailySalesView extends JFrame implements Observer, ActionListener {
         add(add);
         add(scrollPane);
         add(submit);
+        add(returnToMenuButton);
 
         setLayout(null);
         setTitle("Inventory Management System");
         setSize(800, 1000);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    public void returnToMenu(){
+        rawTableData.setRowCount(0);
+        upc.setText("");
+        quantity.setText("");
+        controller.returnToMenu();
     }
 
     @Override
@@ -112,6 +125,8 @@ public class DailySalesView extends JFrame implements Observer, ActionListener {
             }
         } else if (e.getSource() == submit) {
             controller.inputDailySales(salesContents);
+        } else if (e.getSource() == returnToMenuButton){
+            returnToMenu();
         }
     }
 }
