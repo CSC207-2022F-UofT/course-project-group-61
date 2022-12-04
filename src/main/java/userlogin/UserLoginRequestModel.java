@@ -1,5 +1,6 @@
 package userlogin;
 
+/* Data structure for the request of a call to the login interactor. */
 public class UserLoginRequestModel {
 
     private String username;

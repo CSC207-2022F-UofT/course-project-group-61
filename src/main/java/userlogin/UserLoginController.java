@@ -1,5 +1,6 @@
 package userlogin;
 
+/* Used to call the login interactor with details from the view. */
 public class UserLoginController {
 
     private final UserLoginInputBoundary inputBoundary;
