@@ -18,4 +18,10 @@ public class OrderPresenter implements OrderOutputBoundary {
         viewModel.setVisible(false);
         storeViewModel.setVisible(true);
     }
+
+    @Override
+    public void returnToMenu() {
+        viewModel.setVisible(false);
+        storeViewModel.setVisible(true);
+    }
 }

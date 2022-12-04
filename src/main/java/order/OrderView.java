@@ -21,6 +21,7 @@ public class OrderView extends JFrame implements Observer, ActionListener {
     private JButton placeOrder;
     private final HashMap<Long, Integer> orderContents;
     private DefaultTableModel rawTableData;
+    private JButton returnToMenuButton;
 
     public OrderView(OrderController controller) {
         this.controller = controller;
@@ -75,6 +76,10 @@ public class OrderView extends JFrame implements Observer, ActionListener {
         placeOrder.setBounds(600, 850, 100, 30);
         placeOrder.addActionListener(this);
 
+        returnToMenuButton = new JButton("Return to Menu");
+        returnToMenuButton.setBounds(50, 850, 100, 30);
+        returnToMenuButton.addActionListener(this);
+
         add(header);
         add(upcLabel);
         add(upc);
@@ -83,6 +88,7 @@ public class OrderView extends JFrame implements Observer, ActionListener {
         add(add);
         add(scrollPane);
         add(placeOrder);
+        add(returnToMenuButton);
 
 
         setLayout(null);
@@ -90,6 +96,14 @@ public class OrderView extends JFrame implements Observer, ActionListener {
         setSize(800, 1000);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+    public void returnToMenu(){
+        rawTableData.setRowCount(0); // clears the table
+        upc.setText(""); // clears the upc field
+        quantity.setText(""); // clear the qty field
+        controller.returnToMenu(); // return to menu
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -113,6 +127,8 @@ public class OrderView extends JFrame implements Observer, ActionListener {
             }
         } else if (e.getSource() == placeOrder) {
             controller.requestOrder(orderContents);
+        }else if (e.getSource() == returnToMenuButton){
+            returnToMenu();
         }
     }
 }
