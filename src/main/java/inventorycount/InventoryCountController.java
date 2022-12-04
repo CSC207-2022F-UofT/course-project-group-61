@@ -1,29 +1,32 @@
 package inventorycount;
-
 import java.util.HashMap;
-import java.util.UUID;
 
 public class InventoryCountController {
 
-    private final InventoryCountInteractor inventoryCountInteractor;
+    private final InventoryCountInputBoundary inputBoundary;
 
-    public InventoryCountController(UUID facID){
+    public InventoryCountController(InventoryCountInputBoundary inputBoundary){
 
-        this.inventoryCountInteractor = new InventoryCountInteractor(facID);
+        this.inputBoundary = inputBoundary;
 
     }
 
 
     public void submitCount(HashMap<Long, Integer> count){
 
-        this.inventoryCountInteractor.updateInventoryCount(count);
+        this.inputBoundary.updateInventoryCount(new InventoryCountRequestModel(count));
         // TODO: return logic for presenter, void for now
 
     }
 
-    public HashMap<Long, Integer> getCurrentCount(){
-        return inventoryCountInteractor.getCurrentCount();
+    public HashMap<Long, Integer> getCurrentInventoryCount(){
+        return inputBoundary.getCurrentInventoryCount().getInventoryCount();
     }
+
+    public void returnToMainMenu(){
+        inputBoundary.returnToMainMenu();}
+
+
 
 
 

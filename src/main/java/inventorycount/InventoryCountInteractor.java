@@ -1,29 +1,34 @@
 package inventorycount;
 
 
-import database.FacilityDb;
 import database.FacilityDbGateway;
 import entities.Facility;
+import entities.FacilityUser;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-public class InventoryCountInteractor {
+import entities.UserSession;
 
-    private final FacilityDb facilityDb;
-    private final UUID facID;
+public class InventoryCountInteractor implements InventoryCountInputBoundary{
 
-    public InventoryCountInteractor(UUID facID){
+    private final FacilityDbGateway facilityDbGateway;
+    private final InventoryCountOutputBoundary outputBoundary;
 
-        this.facilityDb = new FacilityDbGateway();
 
-        this.facID = facID;
+
+    public InventoryCountInteractor(InventoryCountOutputBoundary presenter, FacilityDbGateway facilityDbGateway){
+        this.outputBoundary = presenter;
+        this.facilityDbGateway = facilityDbGateway;
 
     }
 
-    public void updateInventoryCount(HashMap<Long, Integer> newInventoryCount){
+    public void updateInventoryCount(InventoryCountRequestModel inventoryCountRequestModel){
+        UUID facID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
+        HashMap<Long, Integer> newInventoryCount = inventoryCountRequestModel.getInventoryCount();
+
         // pull facility entity
-        Facility facility = facilityDb.getFacility(facID);
+        Facility facility = facilityDbGateway.getFacility(facID);
 
         // update inventory
         for (Long upc : newInventoryCount.keySet()){
@@ -37,16 +42,22 @@ public class InventoryCountInteractor {
             facility.addProduct(upc, countDelta);
 
         }
-
         // save entity
-        facilityDb.updateFacility(facility);
+        facilityDbGateway.updateFacility(facility);
 
     }
 
-    public HashMap<Long, Integer> getCurrentCount(){
-        Facility facility = facilityDb.getFacility(facID);
+    public InventoryCountResponseModel getCurrentInventoryCount(){
+        UUID facID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
 
-        return facility.getInventory();
+        Facility facility = facilityDbGateway.getFacility(facID);
+
+        return new InventoryCountResponseModel(facility.getInventory());
     }
+
+    public void returnToMainMenu(){
+        outputBoundary.returnToMainMenu();}
+
+
 
 }
