@@ -40,4 +40,9 @@ public class NewFacilityInteractor implements NewFacilityInputBoundary{
         return response;
     }
 
+    @Override
+    public void returnToMainMenu() {
+        presenter.returnToMainMenu();
+    }
+
 }
