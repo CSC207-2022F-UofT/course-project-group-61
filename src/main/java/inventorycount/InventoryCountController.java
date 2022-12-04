@@ -1,9 +1,5 @@
 package inventorycount;
-
-import entities.Facility;
-
 import java.util.HashMap;
-import java.util.Map;
 
 public class InventoryCountController {
 

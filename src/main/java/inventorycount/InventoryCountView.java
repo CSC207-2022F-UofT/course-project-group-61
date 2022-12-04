@@ -7,28 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.Long.parseLong;
-
 public class InventoryCountView extends JFrame implements Observer, ActionListener {
-
-
-
-    private InventoryCountController controller;
-
-//    private JButton placeOrderButton;
-//    private JButton dailySalesButton;
-//    private  JButton invCountButton;
-//    private  JButton genReportButton;
-//    private JButton itemLookupButton;
+    private final InventoryCountController controller;
     private JButton getCountButton;
     private JButton submitNewCountButton;
     private DefaultTableModel invTableModel;
-    private JTable invTable;
     private JButton returnToMainMenuButton;
 
 
-    private String[] columns = {"Item Code", "Count"};
+    private final String[] columns = {"Item Code", "Count"};
 
     public InventoryCountView(InventoryCountController controller) {
         this.controller = controller;
@@ -43,35 +30,41 @@ public class InventoryCountView extends JFrame implements Observer, ActionListen
     }
 
     public void init() {
+        // initialize header
         JLabel header = new JLabel("Inventory Management System - Inventory Count");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
+        // initialize elements
         this.getCountButton = new JButton("Get Current Count");
         this.submitNewCountButton = new JButton("Submit New Count");
         this.invTableModel = new DefaultTableModel(new Object[1][2], columns){
             @Override
             public boolean isCellEditable(int row, int column){
-                // return column > 0 && row > 0;
-                return true;
+                return column > 0;
             }
         };
-        this.invTable = new JTable(this.invTableModel);
+        JTable invTable = new JTable(this.invTableModel);
+        JScrollPane scrollPane = new JScrollPane(invTable);
         this.returnToMainMenuButton = new JButton("Return to Main Menu");
 
+        // add action listeners
         getCountButton.addActionListener(this);
         submitNewCountButton.addActionListener(this);
         returnToMainMenuButton.addActionListener(this);
 
+        // set element bounds
         getCountButton.setBounds(50, 50, 200, 40);
         submitNewCountButton.setBounds(260, 50, 200, 40);
         invTable.setBounds(50, 100, 400, 690);
+        scrollPane.setBounds(50, 100, 400, 690);
         returnToMainMenuButton.setBounds(50, 800, 200, 40);
         header.setBounds(50, 0, 500, 40);
 
+        // add the elements
         add(getCountButton);
         add(submitNewCountButton);
-        add(invTable);
         add(returnToMainMenuButton);
+        add(scrollPane);
         add(header);
 
         setSize(800, 1000);
@@ -80,34 +73,39 @@ public class InventoryCountView extends JFrame implements Observer, ActionListen
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    public void clearTable(){
+        for (int i = 0; i < invTableModel.getRowCount(); i++){
+            invTableModel.removeRow(0); // clears the table model
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if (src == getCountButton){
-
-            for (int i = 0; i < invTableModel.getRowCount(); i++){
-                invTableModel.removeRow(0); // clears the table model
-            }
+            clearTable();
             Set<Map.Entry<Long, Integer>> invEntrySet = controller.getCurrentInventoryCount().entrySet();
             invTableModel.setRowCount(invEntrySet.size());
-            System.out.println(invEntrySet.size());
             for (Map.Entry<Long, Integer> entry : invEntrySet){
                 Object[] row = new Object[2];
                 row[0] = entry.getKey();
                 row[1] = entry.getValue();
                 invTableModel.addRow(row); // add the entire inventory
             }
+            invTableModel.removeRow(0); // remove first row
         } else if(src == submitNewCountButton){
             HashMap<Long, Integer> newCount = new HashMap<>();
-            for (int i = 0; i < invTableModel.getColumnCount(); i++){
-                Long pid = parseLong((String) invTableModel.getValueAt(i, 0));
-                int count = parseInt((String) invTableModel.getValueAt(i, 1));
+            for (int i = 0; i < invTableModel.getRowCount(); i++){
+                Long pid = Long.parseLong(invTableModel.getValueAt(i, 0).toString());
+                int count = Integer.parseInt(invTableModel.getValueAt(i, 1).toString());
                 newCount.put(pid, count); // add each row to hashmap
             }
             controller.submitCount(newCount); // submit as new inventory
+            JOptionPane.showMessageDialog(this, "Successfully submitted inventory count.");
 
         }else if (src == returnToMainMenuButton){
             controller.returnToMainMenu();
+            clearTable();
         }
 //    }
 }

@@ -6,7 +6,6 @@ import entities.Facility;
 import entities.FacilityUser;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import entities.UserSession;
@@ -14,7 +13,7 @@ import entities.UserSession;
 public class InventoryCountInteractor {
 
     private final FacilityDbGateway facilityDbGateway;
-    private InventoryCountPresenter presenter;
+    private final InventoryCountPresenter presenter;
 
 
 
@@ -52,6 +51,7 @@ public class InventoryCountInteractor {
         UUID facID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
 
         Facility facility = facilityDbGateway.getFacility(facID);
+        
 
         return facility.getInventory();
     }

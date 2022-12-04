@@ -4,8 +4,8 @@ import storemainmenu.StoreMainMenuViewModel;
 
 public class InventoryCountPresenter {
 
-    private InventoryCountViewModel viewModel;
-    private StoreMainMenuViewModel storeMainMenuViewModel;
+    private final InventoryCountViewModel viewModel;
+    private final StoreMainMenuViewModel storeMainMenuViewModel;
 
     public InventoryCountPresenter(InventoryCountViewModel inventoryCountViewModel, StoreMainMenuViewModel storeMainMenuViewModel){
         this.viewModel = inventoryCountViewModel;
