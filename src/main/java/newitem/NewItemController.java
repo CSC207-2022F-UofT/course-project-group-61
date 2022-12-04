@@ -32,4 +32,8 @@ public class NewItemController {
 
         }
     }
+
+    public void returnToMainMenu() {
+        inputBoundary.returnToMainMenu();
+    }
 }

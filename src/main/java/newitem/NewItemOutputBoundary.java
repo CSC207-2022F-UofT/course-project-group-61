@@ -7,4 +7,5 @@ public interface NewItemOutputBoundary {
 
     void prepareFailView(NewItemResponseModel model);
 
+    void returnToMainMenu();
 }

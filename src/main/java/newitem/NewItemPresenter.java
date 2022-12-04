@@ -1,14 +1,17 @@
 package newitem;
 
+import adminmainmenu.AdminMainMenuViewModel;
+
 public class NewItemPresenter implements NewItemOutputBoundary {
 
 
     private NewItemViewModel viewModel;
+    private AdminMainMenuViewModel adminMainMenuViewModel;
 
-    public NewItemPresenter(NewItemViewModel viewModel) {
+    public NewItemPresenter(NewItemViewModel viewModel, AdminMainMenuViewModel adminMainMenuViewModel) {
 
         this.viewModel = viewModel;
-
+        this.adminMainMenuViewModel = adminMainMenuViewModel;
     }
 
     @Override
@@ -19,5 +22,11 @@ public class NewItemPresenter implements NewItemOutputBoundary {
     @Override
     public void prepareFailView(NewItemResponseModel model) {
         viewModel.changeStatus(model.getStatus());
+    }
+
+    @Override
+    public void returnToMainMenu() {
+        viewModel.setVisible(false);
+        adminMainMenuViewModel.setVisible(true);
     }
 }
