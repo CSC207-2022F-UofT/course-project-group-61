@@ -128,7 +128,6 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
             resetFields();
             controller.returnToMainMenu();
         }
-
         System.out.println("test");
     }
 }
