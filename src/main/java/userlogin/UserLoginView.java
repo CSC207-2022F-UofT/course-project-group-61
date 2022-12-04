@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+/* View that is the default when the application is opened. Allows the user to login. */
 public class UserLoginView extends JFrame implements Observer, ActionListener {
 
     private final UserLoginController controller;
@@ -19,6 +20,7 @@ public class UserLoginView extends JFrame implements Observer, ActionListener {
         init();
     }
 
+    /* Update method called to update the view upon a change in the view model. */
     @Override
     public void update(Observable o, Object arg) {
         UserLoginViewModel viewModel = (UserLoginViewModel) o;
@@ -34,6 +36,7 @@ public class UserLoginView extends JFrame implements Observer, ActionListener {
         }
     }
 
+    /* Initialize the view including its components and other window details. */
     public void init() {
         JLabel header = new JLabel("Inventory Management System");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -61,6 +64,7 @@ public class UserLoginView extends JFrame implements Observer, ActionListener {
     }
 
 
+    /* Called upon the click of the login button. Sends the request to the controller. */
     @Override
     public void actionPerformed(ActionEvent e) {
         controller.login(usernameField.getText(), passwordField.getText());
