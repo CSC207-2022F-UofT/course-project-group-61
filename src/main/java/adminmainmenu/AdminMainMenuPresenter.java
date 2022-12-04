@@ -1,6 +1,7 @@
 package adminmainmenu;
 
 import newfacility.NewFacilityViewModel;
+import newitem.NewItemViewModel;
 import newuser.NewUserViewModel;
 
 public class AdminMainMenuPresenter {
@@ -8,11 +9,13 @@ public class AdminMainMenuPresenter {
     private final AdminMainMenuViewModel viewModel;
     private final NewUserViewModel newUserViewModel;
     private final NewFacilityViewModel newFacilityViewModel;
+    private final NewItemViewModel newItemViewModel;
 
-    public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel, NewFacilityViewModel newFacilityViewModel) {
+    public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel, NewFacilityViewModel newFacilityViewModel, NewItemViewModel newItemViewModel) {
         this.viewModel = viewModel;
         this.newUserViewModel = newUserViewModel;
         this.newFacilityViewModel = newFacilityViewModel;
+        this.newItemViewModel = newItemViewModel;
     }
 
     /* Sets AdminMainMenuView to be invisible, sets selected button press view model to be visible. */
@@ -25,8 +28,7 @@ public class AdminMainMenuPresenter {
                 break;
             case NEW_ITEM:
                 System.out.println("new item");
-
-                //TODO: set NewItemView to visible
+                newItemViewModel.setVisible(true);
                 break;
             case NEW_USER:
                 System.out.println("new user");

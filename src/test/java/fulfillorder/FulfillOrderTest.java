@@ -5,6 +5,7 @@ import database.OrderDbGateway;
 import entities.Facility;
 import entities.FacilityType;
 import entities.Order;
+import entities.OrderStatus;
 import fulfill.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,8 +56,8 @@ public class FulfillOrderTest {
         // Tests the order has been properly marked as fulfilled
         Order newOrder = orderDb.getOrder(order.getId());
 
-        Assertions.assertEquals(Order.FULFILLED, newOrder.getStatus());
-        Assertions.assertNotNull(newOrder.getTimestamps().get(Order.FULFILLED));
+        Assertions.assertEquals(OrderStatus.FULFILLED, newOrder.getStatus());
+        Assertions.assertNotNull(newOrder.getTimestamps().get(OrderStatus.FULFILLED));
 
         // Tests the store and warehouse's inventories have been properly updated
         Facility newStore = facilityDb.getFacility(store.getFacilityID());
@@ -96,7 +97,7 @@ public class FulfillOrderTest {
         // Tests the order has not been updated
         Order newOrder = orderDb.getOrder(order.getId());
 
-        Assertions.assertEquals(Order.CREATED, newOrder.getStatus());
+        Assertions.assertEquals(OrderStatus.CREATED, newOrder.getStatus());
 
         // Tests confirming fulfillment
         FulfillResponseModel secondOutput = controller.confirmFulfill(store.getFacilityID(), warehouse.getFacilityID(), order.getId());
@@ -107,8 +108,8 @@ public class FulfillOrderTest {
         // Tests the order has been properly marked as fulfilled
         newOrder = orderDb.getOrder(order.getId());
 
-        Assertions.assertEquals(Order.FULFILLED, newOrder.getStatus());
-        Assertions.assertNotNull(newOrder.getTimestamps().get(Order.FULFILLED));
+        Assertions.assertEquals(OrderStatus.FULFILLED, newOrder.getStatus());
+        Assertions.assertNotNull(newOrder.getTimestamps().get(OrderStatus.FULFILLED));
 
         // Tests the store and warehouse's inventories have been properly updated
         newStore = facilityDb.getFacility(store.getFacilityID());

@@ -1,4 +1,5 @@
 package entities;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -6,11 +7,6 @@ import java.util.UUID;
 
 /* Order gets placed by Store User to query Warehouses for products, stores all relevant information. */
 public class Order implements Serializable {
-    // Creates the markers for the status of the order
-    public static final int CREATED = 0;
-    public static final int FULFILLED = 1;
-    public static final int DELAYED = 2;
-
     // Stores the order id number.
     private final UUID id;
 
@@ -21,7 +17,7 @@ public class Order implements Serializable {
     // Stores the username of the user that created the Order
     final private String username;
     // Stores the current status of the Order, uses the static public markers above
-    private int currentStatus;
+    private OrderStatus currentStatus;
 
     // Stores the items in the order as a HashMap where the first int is
     // the UPC code of the product and second int is the quantity of it
@@ -29,18 +25,18 @@ public class Order implements Serializable {
 
     // Stores the important timestamps of the order object:
     // the creation date, fulfillment date when it does happen
-    private HashMap<Integer, Date> timestamps = new HashMap<>();
+    private HashMap<OrderStatus, Date> timestamps = new HashMap<>();
 
     public Order(UUID warehouseID, UUID storeID, String username, HashMap<Long, Integer> orderQuantites, Date dateCreated){
+        // Stores the values
         this.warehouseID = warehouseID;
         this.storeID = storeID;
-
         this.username = username;
 
-        currentStatus = CREATED;
+        currentStatus = OrderStatus.CREATED;
 
         this.orderQuantities = orderQuantites;
-        timestamps.put(CREATED, dateCreated);
+        timestamps.put(OrderStatus.CREATED, dateCreated);
         this.id = UUID.randomUUID();
     }
 
@@ -56,7 +52,7 @@ public class Order implements Serializable {
         return storeID;
     }
 
-    public int getStatus() {
+    public OrderStatus getStatus() {
         return currentStatus;
     }
 
@@ -68,11 +64,11 @@ public class Order implements Serializable {
         return orderQuantities;
     }
 
-    public HashMap<Integer, Date> getTimestamps() {
+    public HashMap<OrderStatus, Date> getTimestamps() {
         return timestamps;
     }
 
-    public void setStatus(int currentStatus) {
+    public void setStatus(OrderStatus currentStatus) {
         this.currentStatus = currentStatus;
     }
 
@@ -81,7 +77,7 @@ public class Order implements Serializable {
         Marks the order as fulfilled in the timestamps
         It also sets its own new status
          */
-        timestamps.put(FULFILLED, dateFulfilled);
-        setStatus(FULFILLED);
+        timestamps.put(OrderStatus.FULFILLED, dateFulfilled);
+        this.setStatus(OrderStatus.FULFILLED);
     }
 }

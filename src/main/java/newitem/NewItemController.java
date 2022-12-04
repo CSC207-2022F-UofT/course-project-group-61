@@ -1,18 +1,35 @@
 package newitem;
 
-import entities.Product;
+
+import exceptions.NewItemException;
 
 public class NewItemController {
 
-    private final NewItemInteractor newItemInteractor;
+    private final NewItemInputBoundary inputBoundary;
 
-    public NewItemController() {
-        this.newItemInteractor = new NewItemInteractor();
+
+    public NewItemController(NewItemInputBoundary inputBoundary) {
+        this.inputBoundary = inputBoundary;
     }
 
-    //returns Product for testing purposes but maybe that's what the user will be given upon execution of the request
-    public Product newItem(String name, long UPC, int price) {
-        return this.newItemInteractor.addNewItem(name, UPC, price);
-        //TODO: return logic for presenter
+    public NewItemResponseModel newItem(String name, String sUPC, String sPrice) {
+
+        try {
+            if (sUPC.length() != 12) {
+                throw new NewItemException();
+            }
+            long upc = Long.parseLong(sUPC);
+            int price = Integer.parseInt(sPrice);
+            if (price < 0) {
+                throw new NewItemException();
+            }
+            NewItemRequestModel request = new NewItemRequestModel(name, upc, price);
+            return inputBoundary.newItem(request);
+
+        } catch (NumberFormatException | NewItemException exception) {
+
+            return new NewItemResponseModel(null, NewItemStatus.INVALID_INPUT);
+
+        }
     }
 }
