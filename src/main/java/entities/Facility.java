@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Facility implements Serializable {
     private final String name;
     private final UUID facilityID;
-    private HashMap<Long, Integer> inventory;
+    private final HashMap<Long, Integer> inventory;
     private final FacilityType facilityType;
 
     public Facility(String name, FacilityType facType) {
@@ -31,11 +31,11 @@ public class Facility implements Serializable {
     }
 
     /* Returns quantity of product with given UPC in inventory, if product does not exist in inventory, returns -1. */
-    public int getUPCQuantity(long upc) {
+    public Integer getUPCQuantity(long upc) {
         try {
             return this.inventory.get(upc);
         } catch(NullPointerException e) {
-            return 0;
+            return null;
         }
 
     }

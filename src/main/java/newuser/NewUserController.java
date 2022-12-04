@@ -2,6 +2,8 @@ package newuser;
 
 import entities.FacilityType;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class NewUserController {
@@ -20,5 +22,9 @@ public class NewUserController {
         NewUserRequestModel request = new NewUserRequestModel(username, password, facilityID,
                 FacilityType.WAREHOUSE);
         return inputBoundary.addNewUser(request);
+    }
+
+    public ArrayList<HashMap<String, UUID>> getFacilityUUIDLists(){
+        return inputBoundary.getFacilityLists();
     }
 }

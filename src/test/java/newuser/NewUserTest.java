@@ -2,6 +2,7 @@ package newuser;
 
 import adminmainmenu.AdminMainMenuViewModel;
 import database.UserDbGateway;
+import database.FacilityDbGateway;
 import entities.FacilityType;
 import entities.FacilityUser;
 import org.junit.Before;
@@ -22,12 +23,13 @@ public class NewUserTest {
     private NewUserController newUserController;
 
     private UserDbGateway userDB;
+    private FacilityDbGateway facilityDB;
 
     @Before
     public void setup(){
         this.userDB = new UserDbGateway();
         userDB.fileReset();
-        this.newUserController = new NewUserController(new NewUserInteractor(new NewUserPresenter(new NewUserViewModel(), new AdminMainMenuViewModel()), userDB));
+        this.newUserController = new NewUserController(new NewUserInteractor(new NewUserPresenter(new NewUserViewModel(), new AdminMainMenuViewModel()), userDB, facilityDB));
     }
 
     @Test
