@@ -41,4 +41,9 @@ public class NewItemInteractor implements NewItemInputBoundary {
         return response;
 
     }
+
+    @Override
+    public void returnToMainMenu() {
+        presenter.returnToMainMenu();
+    }
 }

@@ -103,6 +103,14 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    public void resetFields() {
+        // reset all fields
+        inputField.setText("");
+        storeButton.setSelected(false);
+        warehouseButton.setSelected(false);
+        dtm.setRowCount(0);
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -117,6 +125,7 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
         } else if (e.getSource() == executeButton && !Objects.equals(inputField.getText(), "Search") && warehousePressed) {
             controller.newFacility(inputField.getText(), FacilityType.WAREHOUSE);
         } else if (e.getSource() == returnToMenuButton){
+            resetFields();
             controller.returnToMainMenu();
         }
 

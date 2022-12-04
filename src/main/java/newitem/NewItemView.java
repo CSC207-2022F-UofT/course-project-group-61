@@ -22,6 +22,7 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
     private JTextField upcField;
 
     private JTextField priceField;
+    private JButton returnToMenuButton;
 
     public NewItemView(NewItemController controller) {
         this.controller = controller;
@@ -79,6 +80,11 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
 
         addItemButton.setBounds(50, 250, 100, 30);
 
+
+        returnToMenuButton = new JButton("Return to Menu");
+        returnToMenuButton.setBounds(50, 850, 100, 30);
+        returnToMenuButton.addActionListener(this);
+
         add(header);
         add(nameLabel);
         add(upcLabel);
@@ -86,21 +92,33 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
         add(nameField);
         add(upcField);
         add(priceField);
+        add(returnToMenuButton);
         add(addItemButton);
 
         setLayout(null);
         setTitle("New item");
         setSize(800, 1000);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
     }
 
+    public void resetFields(){
+        nameField.setText("");
+        upcField.setText("");
+        priceField.setText("");
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         NewItemResponseModel response = controller.newItem(nameField.getText(), upcField.getText(), priceField.getText());
-        if (response.getStatus() == NewItemStatus.INVALID_INPUT) {
+        if (e.getSource() == returnToMenuButton){
+            resetFields();
+            controller.returnToMainMenu();
+        }else if (response.getStatus() == NewItemStatus.INVALID_INPUT) {
             JOptionPane.showMessageDialog(this, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
 }
