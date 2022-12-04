@@ -10,21 +10,22 @@ import java.util.UUID;
 
 import entities.UserSession;
 
-public class InventoryCountInteractor {
+public class InventoryCountInteractor implements InventoryCountInputBoundary{
 
     private final FacilityDbGateway facilityDbGateway;
-    private final InventoryCountPresenter presenter;
+    private final InventoryCountOutputBoundary outputBoundary;
 
 
 
-    public InventoryCountInteractor(InventoryCountPresenter presenter, FacilityDbGateway facilityDbGateway){
-        this.presenter = presenter;
+    public InventoryCountInteractor(InventoryCountOutputBoundary presenter, FacilityDbGateway facilityDbGateway){
+        this.outputBoundary = presenter;
         this.facilityDbGateway = facilityDbGateway;
 
     }
 
-    public void updateInventoryCount(HashMap<Long, Integer> newInventoryCount){
+    public void updateInventoryCount(InventoryCountRequestModel inventoryCountRequestModel){
         UUID facID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
+        HashMap<Long, Integer> newInventoryCount = inventoryCountRequestModel.getInventoryCount();
 
         // pull facility entity
         Facility facility = facilityDbGateway.getFacility(facID);
@@ -41,22 +42,21 @@ public class InventoryCountInteractor {
             facility.addProduct(upc, countDelta);
 
         }
-
         // save entity
         facilityDbGateway.updateFacility(facility);
 
     }
 
-    public HashMap<Long, Integer> getCurrentInventoryCount(){
+    public InventoryCountResponseModel getCurrentInventoryCount(){
         UUID facID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
 
         Facility facility = facilityDbGateway.getFacility(facID);
-        
 
-        return facility.getInventory();
+        return new InventoryCountResponseModel(facility.getInventory());
     }
 
-    public void returnToMainMenu(){presenter.returnToMainMenu();}
+    public void returnToMainMenu(){
+        outputBoundary.returnToMainMenu();}
 
 
 

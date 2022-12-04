@@ -2,7 +2,7 @@ package inventorycount;
 
 import storemainmenu.StoreMainMenuViewModel;
 
-public class InventoryCountPresenter {
+public class InventoryCountPresenter implements InventoryCountOutputBoundary{
 
     private final InventoryCountViewModel viewModel;
     private final StoreMainMenuViewModel storeMainMenuViewModel;

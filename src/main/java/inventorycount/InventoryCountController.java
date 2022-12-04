@@ -3,27 +3,28 @@ import java.util.HashMap;
 
 public class InventoryCountController {
 
-    private final InventoryCountInteractor inventoryCountInteractor;
+    private final InventoryCountInputBoundary inputBoundary;
 
-    public InventoryCountController(InventoryCountInteractor interactor){
+    public InventoryCountController(InventoryCountInputBoundary inputBoundary){
 
-        this.inventoryCountInteractor = interactor;
+        this.inputBoundary = inputBoundary;
 
     }
 
 
     public void submitCount(HashMap<Long, Integer> count){
 
-        this.inventoryCountInteractor.updateInventoryCount(count);
+        this.inputBoundary.updateInventoryCount(new InventoryCountRequestModel(count));
         // TODO: return logic for presenter, void for now
 
     }
 
     public HashMap<Long, Integer> getCurrentInventoryCount(){
-        return inventoryCountInteractor.getCurrentInventoryCount();
+        return inputBoundary.getCurrentInventoryCount().count;
     }
 
-    public void returnToMainMenu(){inventoryCountInteractor.returnToMainMenu();}
+    public void returnToMainMenu(){
+        inputBoundary.returnToMainMenu();}
 
 
 
