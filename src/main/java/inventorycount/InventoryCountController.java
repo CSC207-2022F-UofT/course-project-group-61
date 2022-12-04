@@ -20,7 +20,7 @@ public class InventoryCountController {
     }
 
     public HashMap<Long, Integer> getCurrentInventoryCount(){
-        return inputBoundary.getCurrentInventoryCount().count;
+        return inputBoundary.getCurrentInventoryCount().getInventoryCount();
     }
 
     public void returnToMainMenu(){
