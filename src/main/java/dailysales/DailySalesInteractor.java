@@ -44,4 +44,9 @@ public class DailySalesInteractor implements DailySalesInputBoundary {
         return productDb.getProduct(upc).getName();
     }
 
+    @Override
+    public void returnToMenu() {
+        presenter.returnToMenu();
+    }
+
 }

@@ -7,4 +7,6 @@ public interface DailySalesInputBoundary {
     boolean upcExists(Long upc);
 
     String getProductName(Long upc);
+
+    void returnToMenu();
 }

@@ -5,6 +5,7 @@ import database.ProductDbGateway;
 import entities.Facility;
 import entities.FacilityType;
 import entities.Product;
+import storemainmenu.StoreMainMenuViewModel;
 
 
 public class test {
@@ -25,7 +26,8 @@ public class test {
 
 
         ItemLookupViewModel viewModel = new ItemLookupViewModel();
-        ItemLookupView view = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(viewModel), productDbGateway, facilityDbGateway)));
+        StoreMainMenuViewModel storeViewModel = new StoreMainMenuViewModel();
+        ItemLookupView view = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(viewModel,storeViewModel), productDbGateway, facilityDbGateway)));
         viewModel.addObserver(view);
         viewModel.setVisible(true);
     }

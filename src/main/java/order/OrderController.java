@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class OrderController {
 
-    private OrderInputBoundary interactor;
+    private final OrderInputBoundary interactor;
 
     public OrderController(OrderInputBoundary interactor) {
         this.interactor = interactor;
@@ -20,5 +20,9 @@ public class OrderController {
     }
     public String getProductName(Long upc) {
         return interactor.getProductName(upc);
+    }
+
+    public void returnToMenu() {
+        interactor.returnToMenu();
     }
 }

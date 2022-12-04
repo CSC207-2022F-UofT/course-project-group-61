@@ -75,4 +75,9 @@ public class OrderInteractor implements OrderInputBoundary {
     public String getProductName(Long upc) {
         return productDb.getProduct(upc).getName();
     }
+
+    @Override
+    public void returnToMenu() {
+        presenter.returnToMenu();
+    }
 }

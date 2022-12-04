@@ -18,4 +18,10 @@ public class DailySalesPresenter implements DailySalesOutputBoundary {
         viewModel.setVisible(false);
         storeMainMenuViewModel.setVisible(true);
     }
+
+    @Override
+    public void returnToMenu() {
+        viewModel.setVisible(false);
+        storeMainMenuViewModel.setVisible(true);
+    }
 }
