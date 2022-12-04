@@ -1,5 +1,7 @@
 package newfacility;
 
+import adminmainmenu.AdminMainMenuViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +9,11 @@ public class NewFacilityPresenter implements NewFacilityOutputBoundary {
 
     private NewFacilityViewModel viewModel;
 
-    public NewFacilityPresenter(NewFacilityViewModel viewModel) {
+    public NewFacilityPresenter(NewFacilityViewModel viewModel, AdminMainMenuViewModel adminMainMenuViewModel) {
         this.viewModel = viewModel;
+        this.adminMainMenuViewModel = adminMainMenuViewModel;
     }
+    private AdminMainMenuViewModel adminMainMenuViewModel;
 
     @Override
     public void prepareSuccessView(NewFacilityResponseModel model) {
@@ -25,5 +29,11 @@ public class NewFacilityPresenter implements NewFacilityOutputBoundary {
     @Override
     public void prepareFailView(NewFacilityResponseModel model) {
         viewModel.failed(model.getFailReason());
+    }
+
+    @Override
+    public void returnToMainMenu() {
+        viewModel.setVisible(false);
+        adminMainMenuViewModel.setVisible(true);
     }
 }
