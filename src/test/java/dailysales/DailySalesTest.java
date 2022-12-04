@@ -32,7 +32,7 @@ public class DailySalesTest {
     private final UserDbGateway userDbGateway = new UserDbGateway();
     private final DailySalesController dailySalesController = new DailySalesController(new DailySalesInteractor(new DailySalesPresenter(new DailySalesViewModel(), new StoreMainMenuViewModel()), facilityDbGateway, productDbGateway));
     private final Facility facility = new Facility("Test Store", FacilityType.STORE);
-    private final NewUserController newUserController = new NewUserController(new NewUserInteractor(new NewUserPresenter(new NewUserViewModel(), new AdminMainMenuViewModel()), userDbGateway));
+    private final NewUserController newUserController = new NewUserController(new NewUserInteractor(new NewUserPresenter(new NewUserViewModel(), new AdminMainMenuViewModel()), userDbGateway, facilityDbGateway));
     private final UserLoginController userLoginController = new UserLoginController(new UserLoginInteractor(new UserLoginPresenter(new UserLoginViewModel(), new StoreMainMenuViewModel(), new WarehouseMainMenuViewModel(), new AdminMainMenuViewModel()), userDbGateway));
 
 
