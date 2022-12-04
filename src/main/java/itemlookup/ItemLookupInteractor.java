@@ -74,4 +74,9 @@ public class ItemLookupInteractor implements ItemLookupInputBoundary{
         presenter.prepareSuccessView(response);
         return response;
     }
+
+    @Override
+    public void returnToMenu() {
+        presenter.returnToMenu();
+    }
 }

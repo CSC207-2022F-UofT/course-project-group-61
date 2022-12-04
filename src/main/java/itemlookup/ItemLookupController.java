@@ -16,4 +16,8 @@ public class ItemLookupController {
         ItemLookupRequestModel request = new ItemLookupRequestModel(name, null);
         return inputBoundary.lookupByName(request);
     }
+
+    public void returnToMenu() {
+        inputBoundary.returnToMenu();
+    }
 }

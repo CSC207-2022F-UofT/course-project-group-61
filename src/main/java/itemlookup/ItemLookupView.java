@@ -22,6 +22,7 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
     private DefaultTableModel dtmi;
     private boolean UPCPressed = false;
     private boolean NamePressed = false;
+    private JButton returnToMenuButton;
 
     public ItemLookupView(ItemLookupController controller) {
         this.controller = controller;
@@ -77,14 +78,17 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
         this.UPCButton = new JRadioButton("Lookup by UPC");
         this.NameButton = new JRadioButton("Lookup by Name");
         this.searchButton = new JButton("Search");
+        this.returnToMenuButton = new JButton("Return to Menu");
 
         ButtonGroup group = new ButtonGroup();
         group.add(UPCButton);
         group.add(NameButton);
 
+
         UPCButton.addActionListener(this);
         NameButton.addActionListener(this);
         searchButton.addActionListener(this);
+        returnToMenuButton.addActionListener(this);
 
         header.setBounds(50, 0, 500, 40);
         UPCButton.setBounds(50, 50 , 300, 30);
@@ -95,7 +99,7 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
         rtHeader.setBounds(50, 250, 700, 30);
         inventoryTable.setBounds(50, 340, 700, 100);
         itHeader.setBounds(50, 310, 700, 30);
-
+        returnToMenuButton.setBounds(50, 850, 100, 30);
 
         add(header);
         add(UPCButton);
@@ -106,6 +110,7 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
         add(inventoryTable);
         add(rtHeader);
         add(itHeader);
+        add(returnToMenuButton);
 
         setLayout(null);
         setTitle("Inventory Management System");
@@ -126,10 +131,21 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
             controller.lookupByUPC(Long.parseLong(inputField.getText()));
         } else if (e.getSource() == searchButton && !Objects.equals(inputField.getText(), "Search") && NamePressed) {
             controller.lookupByName(inputField.getText());
+        }else if(e.getSource() == returnToMenuButton){
+            returnToMenu();
         }
 
 
 
         System.out.println("test");
+    }
+
+    private void returnToMenu() {
+        inputField.setText(""); // clear search field
+        UPCButton.setSelected(false); // clear radio 1
+        NameButton.setSelected(false); // clear radio 2
+        dtm.setRowCount(0); // clear table 1
+        dtmi.setRowCount(0); // clear table 2
+        controller.returnToMenu(); // close
     }
 }
