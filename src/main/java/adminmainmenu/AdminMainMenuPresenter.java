@@ -15,6 +15,7 @@ public class AdminMainMenuPresenter {
         this.newFacilityViewModel = newFacilityViewModel;
     }
 
+    /* Sets AdminMainMenuView to be invisible, sets selected button press view model to be visible. */
     public void changeView(ButtonOption option) {
         viewModel.setVisible(false);
         switch (option) {
