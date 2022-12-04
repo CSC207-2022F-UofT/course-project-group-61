@@ -102,7 +102,7 @@ public class Main {
         InventoryCountView inventoryCountView = new InventoryCountView(new InventoryCountController(new InventoryCountInteractor(new InventoryCountPresenter(inventoryCountViewModel, storeViewModel), facilityDbGateway)));
         inventoryCountViewModel.addObserver(inventoryCountView);
 
-        NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel), new ProductDbGateway())));
+        NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel, adminViewModel), new ProductDbGateway())));
         newItemViewModel.addObserver(newItemView);
         
         ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel,storeViewModel), productDbGateway, facilityDbGateway)));
