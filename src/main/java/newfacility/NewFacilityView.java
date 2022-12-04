@@ -23,6 +23,7 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
     private DefaultTableModel dtm;
     private boolean storePressed = false;
     private boolean warehousePressed = false;
+    private JButton returnToMenuButton;
 
     public NewFacilityView(NewFacilityController controller) {
         this.controller = controller;
@@ -82,6 +83,11 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
         returnTable.setBounds(50, 280, 700, 30);
         rtHeader.setBounds(50, 250, 700, 30);
 
+
+        returnToMenuButton = new JButton("Return to Menu");
+        returnToMenuButton.setBounds(50, 850, 100, 30);
+        returnToMenuButton.addActionListener(this);
+
         add(header);
         add(storeButton);
         add(warehouseButton);
@@ -89,6 +95,7 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
         add(executeButton);
         add(returnTable);
         add(rtHeader);
+        add(returnToMenuButton);
 
         setLayout(null);
         setTitle("Inventory Management System");
@@ -109,6 +116,8 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
             controller.newFacility(inputField.getText(), FacilityType.STORE);
         } else if (e.getSource() == executeButton && !Objects.equals(inputField.getText(), "Search") && warehousePressed) {
             controller.newFacility(inputField.getText(), FacilityType.WAREHOUSE);
+        } else if (e.getSource() == returnToMenuButton){
+            controller.returnToMainMenu();
         }
 
         System.out.println("test");

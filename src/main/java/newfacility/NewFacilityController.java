@@ -17,4 +17,8 @@ public class NewFacilityController {
         NewFacilityRequestModel request = new NewFacilityRequestModel(name, facType);
         return inputBoundary.addNewFacility(request);
     }
+
+    public void returnToMainMenu() {
+        inputBoundary.returnToMainMenu();
+    }
 }
