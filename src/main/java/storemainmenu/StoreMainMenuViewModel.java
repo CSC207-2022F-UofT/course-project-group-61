@@ -14,6 +14,7 @@ public class StoreMainMenuViewModel extends Observable {
         return visible;
     }
 
+    /* Sets ViewModel to visible/invisible and alerts listeners (View). */
     public void setVisible(boolean visible) {
         this.visible = visible;
         setChanged();

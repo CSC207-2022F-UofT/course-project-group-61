@@ -15,6 +15,7 @@ public class WarehouseMainMenuPresenter {
         this.fulfillViewModel = fulfillViewModel;
     }
 
+    /* Sets WarehouseMainMenuView to be invisible, sets selected button press view model to be visible. */
     public void changeView(ButtonOption option) {
         viewModel.setVisible(false);
         switch (option) {

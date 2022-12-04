@@ -8,12 +8,13 @@ import entities.User;
 import storemainmenu.StoreMainMenuViewModel;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
+/* Presenter used to update the view/view model for the login use case. */
 public class UserLoginPresenter implements UserLoginOutputBoundary {
 
-    private UserLoginViewModel viewModel;
-    private StoreMainMenuViewModel storeModel;
-    private WarehouseMainMenuViewModel warehouseModel;
-    private AdminMainMenuViewModel adminModel;
+    private final UserLoginViewModel viewModel;
+    private final StoreMainMenuViewModel storeModel;
+    private final WarehouseMainMenuViewModel warehouseModel;
+    private final AdminMainMenuViewModel adminModel;
 
     public UserLoginPresenter(UserLoginViewModel viewModel,
                               StoreMainMenuViewModel storeModel,
@@ -25,6 +26,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         this.adminModel = adminModel;
     }
 
+    /* Calls the necessary methods to update the view and change to new view. */
     @Override
     public void prepareSuccessView(UserLoginResponseModel model) {
         viewModel.setVisible(false);
@@ -32,13 +34,14 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
         if (user instanceof AdminUser) {
             adminModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.STORE) {
-            System.out.println("store");
+            //System.out.println("store");
             storeModel.setVisible(true);
         } else if (((FacilityUser) user).getType() == FacilityType.WAREHOUSE) {
             warehouseModel.setVisible(true);
         }
     }
 
+    /* Triggers the view to show a failed dialog via the view model. */
     @Override
     public void prepareFailView(UserLoginResponseModel model) {
         viewModel.failed(model.getStatus());

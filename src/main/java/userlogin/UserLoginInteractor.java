@@ -4,6 +4,7 @@ import database.UserDb;
 import entities.User;
 import entities.UserSession;
 
+/* Use case for logging into the application. */
 public class UserLoginInteractor implements UserLoginInputBoundary {
 
     private final UserDb userDb;
@@ -12,6 +13,8 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         this.userDb = userDb;
         this.presenter = presenter;
     }
+
+    /* Login method to check the requested credentials against the database and update the view accordingly. */
     @Override
     public UserLoginResponseModel login(UserLoginRequestModel request) {
         User user = userDb.getUser(request.getUsername());
