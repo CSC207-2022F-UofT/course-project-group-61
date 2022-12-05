@@ -22,5 +22,11 @@ public class NewUserPresenter implements NewUserOutputBoundary{
     public void prepareFailView(NewUserResponseModel model){
         viewModel.failed(model.getStatus());
     }
+
+    @Override
+    public void returnToMenu() {
+        viewModel.setVisible(false);
+        adminMainMenuViewModel.setVisible(true);
+    }
 }
 
