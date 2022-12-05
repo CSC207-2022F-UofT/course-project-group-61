@@ -81,4 +81,9 @@ public class NewUserInteractor implements NewUserInputBoundary{
         facilityList.add(warehouseMap);
         return facilityList;
     }
+
+    @Override
+    public void returnToMenu() {
+        presenter.returnToMenu();
+    }
 }

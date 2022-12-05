@@ -20,6 +20,7 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
     private HashMap<String, UUID> storeMap;
     private HashMap<String, UUID> warehouseMap;
     private UUID uuid;
+    private JButton returnToMenuButton;
 
     public NewUserView(NewUserController controller){
         this.controller = controller;
@@ -114,6 +115,10 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         warehouseList.setBounds(100, 230, 150, 40);
         registerButton.setBounds(100, 285, 125, 40);
 
+        returnToMenuButton = new JButton("Return to Menu");
+        returnToMenuButton.setBounds(50, 850, 100, 30);
+        returnToMenuButton.addActionListener(this);
+
         add(header);
         add(dropdownSubtitle);
         add(radioButtonSubtitle);
@@ -124,6 +129,7 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         add(registerButton);
         add(storeList);
         add(warehouseList);
+        add(returnToMenuButton);
 
         warehouseList.setVisible(false);
 
@@ -132,6 +138,14 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         setSize(800, 1000);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+    public void resetFields(){
+        usernameField.setText("");
+        passwordField.setText("");
+        storeButton.setSelected(false);
+        warehouseButton.setSelected(false);
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -177,6 +191,9 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
             } else {
                 controller.createWarehouseUser(usernameField.getText(), passwordField.getText(), uuid);
             }
+        } else if (e.getSource() == returnToMenuButton){
+            resetFields();
+            controller.returnToMenu();
         }
     }
 }
