@@ -1,7 +1,11 @@
 package newitem;
 
 
+import utils.IntegerFilter;
+import utils.UPCFilter;
+
 import javax.swing.*;
+import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,23 +48,41 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
     private void init() {
         JLabel header = new JLabel("New product");
         header.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        header.setBounds(160, 0, 500, 40);
 
-        nameField = new JTextField("Name");
-        upcField = new JTextField("UPC (12 digits)");
-        priceField = new JTextField("Price");
+        JLabel nameLabel = new JLabel("Name");
+        nameLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        nameLabel.setBounds(50, 25, 300, 30);
+        nameField = new JTextField();
+        nameField.setBounds(50, 50, 300, 30);
+
+        JLabel upcLabel = new JLabel("UPC (12 digits)");
+        upcLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        upcLabel.setBounds(50, 75, 300, 30);
+        upcField = new JTextField();
+        upcField.setBounds(50, 100, 300, 30);
+        PlainDocument upcDoc = (PlainDocument) upcField.getDocument();
+        upcDoc.setDocumentFilter(new UPCFilter());
+
+        JLabel priceLabel = new JLabel("Price");
+        priceLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        priceLabel.setBounds(50, 125, 300, 30);
+        priceField = new JTextField();
+        priceField.setBounds(50, 150, 300, 30);
+        PlainDocument priceDoc = (PlainDocument) priceField.getDocument();
+        priceDoc.setDocumentFilter(new IntegerFilter());
 
 
         JButton addItemButton = new JButton("Add");
         addItemButton.addActionListener(this);
 
-        header.setBounds(50, 0, 500, 40);
-        nameField.setBounds(50, 50, 300, 30);
-        upcField.setBounds(50, 100, 300, 30);
-        priceField.setBounds(50, 150, 300, 30);
 
         addItemButton.setBounds(50, 250, 100, 30);
 
         add(header);
+        add(nameLabel);
+        add(upcLabel);
+        add(priceLabel);
         add(nameField);
         add(upcField);
         add(priceField);

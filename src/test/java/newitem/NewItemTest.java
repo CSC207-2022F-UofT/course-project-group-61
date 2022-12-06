@@ -11,10 +11,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-public class NewItemTest { /*
+public class NewItemTest {
 
     private NewItemController newItemController;
-    private Product firstProduct;
+
+    private ProductDbGateway productDbGateway;
+
 
     public boolean checkAttributes(Product product, String expectedName, long expectedUPC, int expectedPrice) {
         return Objects.equals(product.getName(), expectedName) & Objects.equals(product.getUPC(), expectedUPC) &
@@ -22,33 +24,35 @@ public class NewItemTest { /*
     }
 
     @Before
-    public void setup(){
-        this.newItemController = new NewItemController();
-        var productDbGateway = new ProductDbGateway();
+    public void setup() {
+        productDbGateway = new ProductDbGateway();
         productDbGateway.fileReset();
-        this.firstProduct = newItemController.newItem("Product1", 123456789123L, 50);
+        this.newItemController = new NewItemController(new NewItemInteractor(new NewItemPresenter(new NewItemViewModel()), productDbGateway));
+        newItemController.newItem("Product1", "123456789123", "50");
+
     }
 
     @Test
-    public void testWriteToEmpty(){
-        var productDbGateway = new ProductDbGateway();
+    public void testWriteToEmpty() {
+
         var products = productDbGateway.getAllProducts();
 
         assertEquals(1, products.size());
-        assertTrue(checkAttributes(products.get(this.firstProduct.getUPC()), "Product1", 123456789123L,
+        assertTrue(checkAttributes(products.get(123456789123L), "Product1", 123456789123L,
                 50));
     }
+
     @Test
-    public void testWriteToNonEmpty(){
-        var productDbGateway = new ProductDbGateway();
-        Product secondProduct = newItemController.newItem("Product2", 987654321987L, 100);
+    public void testWriteToNonEmpty() {
+
+        newItemController.newItem("Product2", "987654321987", "100");
         var products = productDbGateway.getAllProducts();
 
         assertEquals(2, products.size());
-        assertTrue(checkAttributes(products.get(this.firstProduct.getUPC()), "Product1", 123456789123L,
+        assertTrue(checkAttributes(products.get(123456789123L), "Product1", 123456789123L,
                 50));
-        assertTrue(checkAttributes(products.get(secondProduct.getUPC()), "Product2", 987654321987L,
+        assertTrue(checkAttributes(products.get(987654321987L), "Product2", 987654321987L,
                 100));
 
-    } */
+    }
 }
