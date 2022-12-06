@@ -14,7 +14,6 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
     private JButton placeOrderButton;
     private JButton dailySalesButton;
     private  JButton invCountButton;
-    private  JButton genReportButton;
     private JButton itemLookupButton;
 
     public StoreMainMenuView(StoreMainMenuController controller) {
@@ -37,14 +36,12 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
         this.placeOrderButton = new JButton("Place Order");
         this.dailySalesButton = new JButton("Input Daily Sales");
         this.invCountButton = new JButton("Input Inventory");
-        this.genReportButton = new JButton("Generate Report");
         this.itemLookupButton = new JButton("Item Lookup");
 
         /* Add action listeners to buttons. */
         placeOrderButton.addActionListener(this);
         dailySalesButton.addActionListener(this);
         invCountButton.addActionListener(this);
-        genReportButton.addActionListener(this);
         itemLookupButton.addActionListener(this);
 
         /* Set bounds of all buttons. */
@@ -52,14 +49,12 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
         placeOrderButton.setBounds(50, 50, 200, 40);
         dailySalesButton.setBounds(50, 100, 200, 40);
         invCountButton.setBounds(50, 150, 200, 40);
-        genReportButton.setBounds(50, 200, 200, 40);
-        itemLookupButton.setBounds(50, 250, 200, 40);
+        itemLookupButton.setBounds(50, 200, 200, 40);
 
         /* Place all buttons on window so that they're visible. */
         add(placeOrderButton);
         add(dailySalesButton);
         add(invCountButton);
-        add(genReportButton);
         add(itemLookupButton);
         add(header);
 
@@ -79,8 +74,6 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
             controller.chooseAction(ButtonOption.DAILY_SALES);
         } else if (e.getSource() == invCountButton) {
             controller.chooseAction(ButtonOption.INV_COUNT);
-        } else if (e.getSource() == genReportButton) {
-            controller.chooseAction(ButtonOption.GEN_REPORT);
         } else if (e.getSource() == itemLookupButton) {
             controller.chooseAction(ButtonOption.ITEM_LOOKUP);
         }

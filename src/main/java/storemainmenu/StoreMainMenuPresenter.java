@@ -8,9 +8,9 @@ import itemlookup.ItemLookupViewModel;
 public class StoreMainMenuPresenter {
 
 
-    private StoreMainMenuViewModel viewModel;
-    private OrderViewModel orderViewModel;
-    private DailySalesViewModel dailySalesViewModel;
+    private final StoreMainMenuViewModel viewModel;
+    private final OrderViewModel orderViewModel;
+    private final DailySalesViewModel dailySalesViewModel;
 
     private final InventoryCountViewModel inventoryCountViewModel;
     private final ItemLookupViewModel itemLookupViewModel;
@@ -34,20 +34,10 @@ public class StoreMainMenuPresenter {
                 dailySalesViewModel.setVisible(true);
                 break;
             case INV_COUNT:
-                System.out.println("inv count");
                 inventoryCountViewModel.setVisible(true);
-                viewModel.setVisible(false);
-                break;
-            case GEN_REPORT:
-                System.out.println("gen report");
-
-                //TODO: set GenerateReportView to visible
                 break;
             case ITEM_LOOKUP:
-                System.out.println("item lookup");
-                viewModel.setVisible(false);
                 itemLookupViewModel.setVisible(true);
-                //TODO: set ItemLookupView to visible
                 break;
         }
     }

@@ -78,7 +78,7 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
         storeButton.setBounds(50, 50 , 300, 30);
         warehouseButton.setBounds(50, 100, 300, 30);
         inputField.setBounds(50, 200,300, 30);
-        executeButton.setBounds(350, 200, 100, 30);
+        executeButton.setBounds(350, 200, 200, 30);
         returnTable.setBounds(50, 280, 700, 30);
         rtHeader.setBounds(50, 250, 700, 30);
 
