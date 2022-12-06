@@ -1,6 +1,7 @@
 package order;
 
 import utils.IntegerFilter;
+import utils.UPCFilter;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -52,7 +53,7 @@ public class OrderView extends JFrame implements Observer, ActionListener {
         upc = new JTextField();
         upc.setBounds(50, 50 , 300, 30);
         PlainDocument upcDoc = (PlainDocument) upc.getDocument();
-        upcDoc.setDocumentFilter(new IntegerFilter());
+        upcDoc.setDocumentFilter(new UPCFilter());
 
         JLabel quantityLabel = new JLabel("Quantity");
         quantityLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
