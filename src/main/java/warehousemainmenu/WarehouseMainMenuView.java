@@ -1,6 +1,11 @@
 package warehousemainmenu;
 
+import entities.FacilityUser;
+import entities.UserSession;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +29,22 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
     public void update(Observable o, Object arg) {
         WarehouseMainMenuViewModel viewModel = (WarehouseMainMenuViewModel) o;
         setVisible(viewModel.isVisible());
+
+        /* Initialize and format user info table. */
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Username", "Facility ID"}, 0);
+        JTable table = new JTable(dtm);
+        JTableHeader tableHeader = table.getTableHeader();
+        String[] row = new String[2];
+        row[0] = UserSession.getUserSession().getUsername();
+        row[1] = ((FacilityUser) UserSession.getUserSession()).getFacilityID().toString();
+        dtm.addRow(row);
+
+        /* Set table bounds. */
+        tableHeader.setBounds(450, 50, 300, 20);
+        table.setBounds(450, 70, 300, 20);
+
+        add(tableHeader);
+        add(table);
     }
 
     public void init() {
