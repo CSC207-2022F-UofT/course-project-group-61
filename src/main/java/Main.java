@@ -113,13 +113,13 @@ public class Main {
         NewFacilityView newFacilityView = new NewFacilityView(new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(newFacilityViewModel,adminViewModel), new FacilityDbGateway())));
         newFacilityViewModel.addObserver(newFacilityView);
 
-        InventoryCountView inventoryCountView = new InventoryCountView(new InventoryCountController(new InventoryCountInteractor(new InventoryCountPresenter(inventoryCountViewModel, storeViewModel), facilityDbGateway)));
+        InventoryCountView inventoryCountView = new InventoryCountView(new InventoryCountController(new InventoryCountInteractor(new InventoryCountPresenter(inventoryCountViewModel, storeViewModel, warehouseViewModel), facilityDbGateway)));
         inventoryCountViewModel.addObserver(inventoryCountView);
 
         NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel), productDbGateway)));
         newItemViewModel.addObserver(newItemView);
-
-        ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel,storeViewModel), productDbGateway, facilityDbGateway)));
+        
+        ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel,storeViewModel, warehouseViewModel, adminViewModel), productDbGateway, facilityDbGateway)));
         itemLookupViewModel.addObserver(itemLookupView);
     }
 }
