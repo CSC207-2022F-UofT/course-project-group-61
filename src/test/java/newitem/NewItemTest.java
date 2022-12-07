@@ -5,6 +5,7 @@ import entities.Product;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
@@ -35,7 +36,7 @@ public class NewItemTest {
     @Test
     public void testWriteToEmpty() {
 
-        var products = productDbGateway.getAllProducts();
+        HashMap<Long, Product> products = productDbGateway.getAllProducts();
 
         assertEquals(1, products.size());
         assertTrue(checkAttributes(products.get(123456789123L), "Product1", 123456789123L,
@@ -46,7 +47,7 @@ public class NewItemTest {
     public void testWriteToNonEmpty() {
 
         newItemController.newItem("Product2", "987654321987", "100");
-        var products = productDbGateway.getAllProducts();
+        HashMap<Long, Product> products = productDbGateway.getAllProducts();
 
         assertEquals(2, products.size());
         assertTrue(checkAttributes(products.get(123456789123L), "Product1", 123456789123L,
