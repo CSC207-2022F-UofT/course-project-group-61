@@ -177,6 +177,13 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
             } else {
                 controller.createWarehouseUser(usernameField.getText(), passwordField.getText(), uuid);
             }
+            // Reset the JRadioButton to store user (default) for the next time the user opens the view
+            storeButton.setSelected(true);
+            // Update the dropdown menu to default (store) as well
+            warehouseList.setVisible(false);
+            storeList.setVisible(true);
+            // Set UUID to default (first store) for the next time the user opens the view
+            this.uuid = storeMap.get(storeList.getItemAt(0));
         }
     }
 }
