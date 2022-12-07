@@ -97,7 +97,7 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        var response = controller.newItem(nameField.getText(), upcField.getText(), priceField.getText());
+        NewItemResponseModel response = controller.newItem(nameField.getText(), upcField.getText(), priceField.getText());
         if (response.getStatus() == NewItemStatus.INVALID_INPUT) {
             JOptionPane.showMessageDialog(this, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
         }
