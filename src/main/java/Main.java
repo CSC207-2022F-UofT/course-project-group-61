@@ -48,14 +48,20 @@ public class Main {
 
         Facility testStore = new Facility("TestStore", FacilityType.STORE);
         testStore.addProduct(4001L, 150);
+        Facility testStore2 = new Facility("TestStore2", FacilityType.STORE);
+        testStore.addProduct(4001L, 100);
         Facility testWarehouse = new Facility("TestFacility", FacilityType.WAREHOUSE);
         testWarehouse.addProduct(4001L, 100);
+        Facility testWarehouse2 = new Facility("TestFacility2", FacilityType.WAREHOUSE);
+        testWarehouse.addProduct(4001L, 150);
 
         if (facilityDbGateway.getAllFacilities() == null) {
             facilityDbGateway.fileReset();
 
             facilityDbGateway.updateFacility(testStore);
+            facilityDbGateway.updateFacility(testStore2);
             facilityDbGateway.updateFacility(testWarehouse);
+            facilityDbGateway.updateFacility(testWarehouse2);
         }
         if (orderDbGateway.getAllOrders() == null) orderDbGateway.fileReset();
         if (productDbGateway.getAllProducts() == null) {
