@@ -1,5 +1,6 @@
 package newitem;
 
+import adminmainmenu.AdminMainMenuViewModel;
 import database.ProductDbGateway;
 import entities.Product;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class NewItemTest {
     public void setup() {
         productDbGateway = new ProductDbGateway();
         productDbGateway.fileReset();
-        this.newItemController = new NewItemController(new NewItemInteractor(new NewItemPresenter(new NewItemViewModel()), productDbGateway));
+        this.newItemController = new NewItemController(new NewItemInteractor(new NewItemPresenter(new NewItemViewModel(), new AdminMainMenuViewModel()), productDbGateway));
         newItemController.newItem("Product1", "123456789123", "50");
 
     }
