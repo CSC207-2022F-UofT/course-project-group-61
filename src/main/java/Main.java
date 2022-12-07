@@ -30,13 +30,21 @@ import warehousemainmenu.WarehouseMainMenuViewModel;
 
 public class Main {
 
-    public static void main(String[] args) {
-        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
-        OrderDbGateway orderDbGateway = new OrderDbGateway();
-        ProductDbGateway productDbGateway = new ProductDbGateway();
-        UserDbGateway userDbGateway = new UserDbGateway();
+    private static FacilityDbGateway facilityDbGateway;
+    private static OrderDbGateway orderDbGateway;
+    private static ProductDbGateway productDbGateway;
+    private static UserDbGateway userDbGateway;
 
-        // ***** TEST CODE BELOW *****
+    public static void main(String[] args) {
+        initDb();
+        initViews();
+    }
+
+    private static void initDb() {
+        facilityDbGateway = new FacilityDbGateway();
+        orderDbGateway = new OrderDbGateway();
+        productDbGateway = new ProductDbGateway();
+        userDbGateway = new UserDbGateway();
 
         Facility testStore = new Facility("TestStore", FacilityType.STORE);
         testStore.addProduct(4001L, 150);
@@ -47,23 +55,29 @@ public class Main {
         Facility testWarehouse2 = new Facility("TestFacility2", FacilityType.WAREHOUSE);
         testWarehouse.addProduct(4001L, 150);
 
-        userDbGateway.fileReset();
-        userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));
-        userDbGateway.updateUser(new FacilityUser("Warehouse", "Password", testWarehouse.getFacilityID(), FacilityType.WAREHOUSE));
-        userDbGateway.updateUser(new AdminUser("Admin", "Password"));
-        productDbGateway.fileReset();
-        productDbGateway.updateProduct(new Product("Strawberries", 4001L, 2));
-        // null pointer exception occurs on this line
-        facilityDbGateway.fileReset();
-        facilityDbGateway.updateFacility(testStore);
-        facilityDbGateway.updateFacility(testWarehouse);
-        facilityDbGateway.updateFacility(testStore2);
-        facilityDbGateway.updateFacility(testWarehouse2);
+        if (facilityDbGateway.getAllFacilities() == null) {
+            facilityDbGateway.fileReset();
 
-        orderDbGateway.fileReset();
+            facilityDbGateway.updateFacility(testStore);
+            facilityDbGateway.updateFacility(testStore2);
+            facilityDbGateway.updateFacility(testWarehouse);
+            facilityDbGateway.updateFacility(testWarehouse2);
+        }
+        if (orderDbGateway.getAllOrders() == null) orderDbGateway.fileReset();
+        if (productDbGateway.getAllProducts() == null) {
+            productDbGateway.fileReset();
+            productDbGateway.updateProduct(new Product("Strawberries", 4001L, 2));
+        }
+        if (userDbGateway.getAllUsers() == null) {
+            userDbGateway.fileReset();
 
-        //*****************************
+            userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));
+            userDbGateway.updateUser(new FacilityUser("Warehouse", "Password", testWarehouse.getFacilityID(), FacilityType.WAREHOUSE));
+            userDbGateway.updateUser(new AdminUser("Admin", "Password"));
+        }
+    }
 
+    private static void initViews() {
         UserLoginViewModel loginViewModel = new UserLoginViewModel();
         StoreMainMenuViewModel storeViewModel = new StoreMainMenuViewModel();
         WarehouseMainMenuViewModel warehouseViewModel = new WarehouseMainMenuViewModel();
@@ -102,15 +116,15 @@ public class Main {
         DailySalesView dailySalesView = new DailySalesView(new DailySalesController(new DailySalesInteractor(new DailySalesPresenter(dailySalesViewModel, storeViewModel), facilityDbGateway, productDbGateway)));
         dailySalesViewModel.addObserver(dailySalesView);
 
-        NewFacilityView newFacilityView = new NewFacilityView(new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(newFacilityViewModel), new FacilityDbGateway())));
+        NewFacilityView newFacilityView = new NewFacilityView(new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(newFacilityViewModel), facilityDbGateway)));
         newFacilityViewModel.addObserver(newFacilityView);
 
         InventoryCountView inventoryCountView = new InventoryCountView(new InventoryCountController(new InventoryCountInteractor(new InventoryCountPresenter(inventoryCountViewModel, storeViewModel), facilityDbGateway)));
         inventoryCountViewModel.addObserver(inventoryCountView);
 
-        NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel), new ProductDbGateway())));
+        NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel), productDbGateway)));
         newItemViewModel.addObserver(newItemView);
-        
+
         ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel,storeViewModel), productDbGateway, facilityDbGateway)));
         itemLookupViewModel.addObserver(itemLookupView);
     }
