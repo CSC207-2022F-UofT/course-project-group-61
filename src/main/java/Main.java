@@ -40,8 +40,12 @@ public class Main {
 
         Facility testStore = new Facility("TestStore", FacilityType.STORE);
         testStore.addProduct(4001L, 150);
+        Facility testStore2 = new Facility("TestStore2", FacilityType.STORE);
+        testStore.addProduct(4001L, 100);
         Facility testWarehouse = new Facility("TestFacility", FacilityType.WAREHOUSE);
         testWarehouse.addProduct(4001L, 100);
+        Facility testWarehouse2 = new Facility("TestFacility2", FacilityType.WAREHOUSE);
+        testWarehouse.addProduct(4001L, 150);
 
         userDbGateway.fileReset();
         userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));
@@ -53,6 +57,8 @@ public class Main {
         facilityDbGateway.fileReset();
         facilityDbGateway.updateFacility(testStore);
         facilityDbGateway.updateFacility(testWarehouse);
+        facilityDbGateway.updateFacility(testStore2);
+        facilityDbGateway.updateFacility(testWarehouse2);
 
         orderDbGateway.fileReset();
 

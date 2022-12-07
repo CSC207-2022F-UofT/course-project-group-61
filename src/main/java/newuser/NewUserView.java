@@ -152,7 +152,7 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
             warehouseList.setVisible(true);
 
             // Set UUID to the first (default) option in the warehouse dropdown menu
-            this.uuid = storeMap.get(warehouseList.getItemAt(0));
+            this.uuid = warehouseMap.get(warehouseList.getItemAt(0));
 
         /* If the store dropdown menu is clicked, update the UUID with the facility ID that corresponds to the
            facility whose name was selected in the store dropdown menu.
@@ -166,7 +166,7 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
          */
         } else if (e.getSource() == warehouseList) {
             facilityName = (String) warehouseList.getSelectedItem();
-            this.uuid = storeMap.get(facilityName);
+            this.uuid = warehouseMap.get(facilityName);
 
         /* If the register button is clicked, attempt to create a new user, with the facility type and UUID
            corresponding to the options the user selected.
