@@ -1,11 +1,13 @@
 package itemlookup;
 
+import adminmainmenu.AdminMainMenuViewModel;
 import database.FacilityDbGateway;
 import database.ProductDbGateway;
 import entities.Facility;
 import entities.FacilityType;
 import entities.Product;
 import storemainmenu.StoreMainMenuViewModel;
+import warehousemainmenu.WarehouseMainMenuViewModel;
 
 
 public class test {
@@ -27,7 +29,7 @@ public class test {
 
         ItemLookupViewModel viewModel = new ItemLookupViewModel();
         StoreMainMenuViewModel storeViewModel = new StoreMainMenuViewModel();
-        ItemLookupView view = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(viewModel,storeViewModel), productDbGateway, facilityDbGateway)));
+        ItemLookupView view = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(viewModel,storeViewModel, new WarehouseMainMenuViewModel(), new AdminMainMenuViewModel()), productDbGateway, facilityDbGateway)));
         viewModel.addObserver(view);
         viewModel.setVisible(true);
     }

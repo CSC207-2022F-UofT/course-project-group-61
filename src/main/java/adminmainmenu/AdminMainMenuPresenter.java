@@ -1,5 +1,7 @@
 package adminmainmenu;
 
+import itemlookup.ItemLookupPresenter;
+import itemlookup.ItemLookupViewModel;
 import newfacility.NewFacilityViewModel;
 import newitem.NewItemViewModel;
 import newuser.NewUserViewModel;
@@ -10,12 +12,14 @@ public class AdminMainMenuPresenter {
     private final NewUserViewModel newUserViewModel;
     private final NewFacilityViewModel newFacilityViewModel;
     private final NewItemViewModel newItemViewModel;
+    private final ItemLookupViewModel itemLookupViewModel;
 
-    public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel, NewFacilityViewModel newFacilityViewModel, NewItemViewModel newItemViewModel) {
+    public AdminMainMenuPresenter(AdminMainMenuViewModel viewModel, NewUserViewModel newUserViewModel, NewFacilityViewModel newFacilityViewModel, NewItemViewModel newItemViewModel, ItemLookupViewModel itemLookupViewModel) {
         this.viewModel = viewModel;
         this.newUserViewModel = newUserViewModel;
         this.newFacilityViewModel = newFacilityViewModel;
         this.newItemViewModel = newItemViewModel;
+        this.itemLookupViewModel = itemLookupViewModel;
     }
 
     /* Sets AdminMainMenuView to be invisible, sets selected button press view model to be visible. */
@@ -37,8 +41,8 @@ public class AdminMainMenuPresenter {
                 break;
             case ITEM_LOOKUP:
                 System.out.println("item lookup");
+                itemLookupViewModel.setVisible(true);
 
-                //TODO: set OrderView to visible
                 break;
         }
     }
