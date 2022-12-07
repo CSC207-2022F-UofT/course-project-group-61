@@ -1,5 +1,7 @@
 package adminmainmenu;
 
+import itemlookup.ItemLookupPresenter;
+import itemlookup.ItemLookupViewModel;
 import newfacility.NewFacilityViewModel;
 import newitem.NewItemViewModel;
 import newuser.NewUserViewModel;
@@ -38,7 +40,9 @@ public class AdminMainMenuPresenter {
                 newUserViewModel.setVisible(true);
                 break;
             case ITEM_LOOKUP:
+                System.out.println("item lookup");
                 itemLookupViewModel.setVisible(true);
+
                 break;
         }
     }

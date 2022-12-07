@@ -1,11 +1,7 @@
 package newitem;
 
 
-import utils.IntegerFilter;
-import utils.UPCFilter;
-
 import javax.swing.*;
-import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -118,7 +114,6 @@ public class NewItemView extends JFrame implements Observer, ActionListener {
         }else if (response.getStatus() == NewItemStatus.INVALID_INPUT) {
             JOptionPane.showMessageDialog(this, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
 }

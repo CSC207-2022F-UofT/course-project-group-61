@@ -30,11 +30,6 @@ import warehousemainmenu.WarehouseMainMenuViewModel;
 
 public class Main {
 
-    private static FacilityDbGateway facilityDbGateway;
-    private static OrderDbGateway orderDbGateway;
-    private static ProductDbGateway productDbGateway;
-    private static UserDbGateway userDbGateway;
-
     public static void main(String[] args) {
         initDb();
         initViews();
@@ -116,7 +111,7 @@ public class Main {
         InventoryCountView inventoryCountView = new InventoryCountView(new InventoryCountController(new InventoryCountInteractor(new InventoryCountPresenter(inventoryCountViewModel, storeViewModel, warehouseViewModel), facilityDbGateway)));
         inventoryCountViewModel.addObserver(inventoryCountView);
 
-        NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel), productDbGateway)));
+        NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel, adminViewModel), productDbGateway)));
         newItemViewModel.addObserver(newItemView);
         
         ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel,storeViewModel, warehouseViewModel, adminViewModel), productDbGateway, facilityDbGateway)));
