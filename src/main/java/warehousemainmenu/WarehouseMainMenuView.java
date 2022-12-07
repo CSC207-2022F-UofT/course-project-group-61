@@ -15,6 +15,8 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
     private  JButton invCountButton;
     private JButton itemLookupButton;
 
+    private JButton logoutButton;
+
     public WarehouseMainMenuView(WarehouseMainMenuController controller) {
         this.controller = controller;
         init();
@@ -35,22 +37,26 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         this.fulfillOrderButton = new JButton("Fulfill Order");
         this.invCountButton = new JButton("Input Inventory");
         this.itemLookupButton = new JButton("Item Lookup");
+        this.logoutButton = new JButton("Logout");
 
         /* Add action listeners to buttons. */
         fulfillOrderButton.addActionListener(this);
         invCountButton.addActionListener(this);
         itemLookupButton.addActionListener(this);
+        logoutButton.addActionListener(this);
 
         /* Set bounds of all buttons. */
         header.setBounds(50, 0, 500, 40);
         fulfillOrderButton.setBounds(50, 50, 200, 40);
         invCountButton.setBounds(50, 100, 200, 40);
         itemLookupButton.setBounds(50, 150, 200, 40);
+        logoutButton.setBounds(550, 50, 200, 40);
 
         /* Place all buttons on window so that they're visible. */
         add(fulfillOrderButton);
         add(invCountButton);
         add(itemLookupButton);
+        add(logoutButton);
         add(header);
 
         /* Set window dimensions. */
@@ -69,6 +75,8 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
             controller.chooseAction(ButtonOption.INV_COUNT);
         } else if (e.getSource() == itemLookupButton) {
             controller.chooseAction(ButtonOption.ITEM_LOOKUP);
+        } else if (e.getSource() == logoutButton) {
+            controller.logout();
         }
     }
 }

@@ -15,6 +15,7 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
     private JButton dailySalesButton;
     private  JButton invCountButton;
     private JButton itemLookupButton;
+    private JButton logoutButton;
 
     public StoreMainMenuView(StoreMainMenuController controller) {
         this.controller = controller;
@@ -37,12 +38,14 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
         this.dailySalesButton = new JButton("Input Daily Sales");
         this.invCountButton = new JButton("Input Inventory");
         this.itemLookupButton = new JButton("Item Lookup");
+        this.logoutButton = new JButton("Logout");
 
         /* Add action listeners to buttons. */
         placeOrderButton.addActionListener(this);
         dailySalesButton.addActionListener(this);
         invCountButton.addActionListener(this);
         itemLookupButton.addActionListener(this);
+        logoutButton.addActionListener(this);
 
         /* Set bounds of all buttons. */
         header.setBounds(50, 0, 500, 40);
@@ -50,12 +53,14 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
         dailySalesButton.setBounds(50, 100, 200, 40);
         invCountButton.setBounds(50, 150, 200, 40);
         itemLookupButton.setBounds(50, 200, 200, 40);
+        logoutButton.setBounds(550, 50, 200, 40);
 
         /* Place all buttons on window so that they're visible. */
         add(placeOrderButton);
         add(dailySalesButton);
         add(invCountButton);
         add(itemLookupButton);
+        add(logoutButton);
         add(header);
 
         /* Set window dimensions. */
@@ -76,6 +81,8 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
             controller.chooseAction(ButtonOption.INV_COUNT);
         } else if (e.getSource() == itemLookupButton) {
             controller.chooseAction(ButtonOption.ITEM_LOOKUP);
+        } else if (e.getSource() == logoutButton) {
+            controller.logout();
         }
     }
 }

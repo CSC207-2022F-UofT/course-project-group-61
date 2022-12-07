@@ -52,7 +52,6 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
 
         setVisible(viewModel.isVisible());
 
-        System.out.println(viewModel.getFailed() + "" + viewModel.getFailedReason());
         if (viewModel.getFailed()) {
             if (viewModel.getFailedReason() == FailReason.INVALID_UPC) {
                 JOptionPane.showMessageDialog(this, "Item UPC not found.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -134,10 +133,6 @@ public class ItemLookupView extends JFrame implements Observer, ActionListener {
         }else if(e.getSource() == returnToMenuButton){
             returnToMenu();
         }
-
-
-
-        System.out.println("test");
     }
 
     private void returnToMenu() {

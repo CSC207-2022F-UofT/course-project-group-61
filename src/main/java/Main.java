@@ -28,35 +28,17 @@ import warehousemainmenu.WarehouseMainMenuPresenter;
 import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
-public class Main {
+import java.util.UUID;
 
+public class Main {
+//TODO: maybe instead of passing in all the views which is messy, make 1 object with all the views and getters / final public objects
     public static void main(String[] args) {
         FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
         OrderDbGateway orderDbGateway = new OrderDbGateway();
         ProductDbGateway productDbGateway = new ProductDbGateway();
         UserDbGateway userDbGateway = new UserDbGateway();
 
-        // ***** TEST CODE BELOW *****
-
-        Facility testStore = new Facility("TestStore", FacilityType.STORE);
-        testStore.addProduct(4001L, 150);
-        Facility testWarehouse = new Facility("TestFacility", FacilityType.WAREHOUSE);
-        testWarehouse.addProduct(4001L, 100);
-
-        userDbGateway.fileReset();
-        userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));
-        userDbGateway.updateUser(new FacilityUser("Warehouse", "Password", testWarehouse.getFacilityID(), FacilityType.WAREHOUSE));
-        userDbGateway.updateUser(new AdminUser("Admin", "Password"));
-        productDbGateway.fileReset();
-        productDbGateway.updateProduct(new Product("Strawberries", 4001L, 2));
-        // null pointer exception occurs on this line
-        facilityDbGateway.fileReset();
-        facilityDbGateway.updateFacility(testStore);
-        facilityDbGateway.updateFacility(testWarehouse);
-
-        orderDbGateway.fileReset();
-
-        //*****************************
+        tester();
 
         UserLoginViewModel loginViewModel = new UserLoginViewModel();
         StoreMainMenuViewModel storeViewModel = new StoreMainMenuViewModel();
@@ -75,13 +57,13 @@ public class Main {
         loginViewModel.addObserver(loginView);
         loginViewModel.setVisible(true);
 
-        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel, dailySalesViewModel, inventoryCountViewModel, itemLookupViewModel)));
+        StoreMainMenuView storeMainMenuView = new StoreMainMenuView(new StoreMainMenuController(new StoreMainMenuPresenter(storeViewModel, orderViewModel, dailySalesViewModel, inventoryCountViewModel, itemLookupViewModel, loginViewModel)));
         storeViewModel.addObserver(storeMainMenuView);
 
-        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel, itemLookupViewModel, fulfillViewModel, inventoryCountViewModel)));
+        WarehouseMainMenuView warehouseMainMenuView = new WarehouseMainMenuView(new WarehouseMainMenuController(new WarehouseMainMenuPresenter(warehouseViewModel, itemLookupViewModel, fulfillViewModel, inventoryCountViewModel, loginViewModel)));
         warehouseViewModel.addObserver(warehouseMainMenuView);
 
-        AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel, newFacilityViewModel, newItemViewModel, itemLookupViewModel)));
+        AdminMainMenuView adminMainMenuView = new AdminMainMenuView(new AdminMainMenuController(new AdminMainMenuPresenter(adminViewModel, newUserViewModel, newFacilityViewModel, newItemViewModel, itemLookupViewModel, loginViewModel)));
         adminViewModel.addObserver(adminMainMenuView);
 
         OrderView orderView = new OrderView(new OrderController(new OrderInteractor(new OrderPresenter(orderViewModel, storeViewModel), orderDbGateway, facilityDbGateway, productDbGateway)));
@@ -104,8 +86,24 @@ public class Main {
 
         NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel), new ProductDbGateway())));
         newItemViewModel.addObserver(newItemView);
-        
+
         ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel,storeViewModel), productDbGateway, facilityDbGateway)));
         itemLookupViewModel.addObserver(itemLookupView);
+    }
+
+    private static void tester(){
+        FacilityDbGateway facilityDbGateway = new FacilityDbGateway();
+        OrderDbGateway orderDbGateway = new OrderDbGateway();
+        ProductDbGateway productDbGateway = new ProductDbGateway();
+        UserDbGateway userDbGateway = new UserDbGateway();
+
+        if(userDbGateway.getAllUsers().size() == 0){
+            userDbGateway.fileReset();
+            orderDbGateway.fileReset();
+            productDbGateway.fileReset();
+            facilityDbGateway.fileReset();
+
+            userDbGateway.updateUser(new AdminUser("Admin", "Password"));
+        }
     }
 }

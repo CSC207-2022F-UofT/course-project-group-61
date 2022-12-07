@@ -32,7 +32,6 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
 
         setVisible(viewModel.isVisible());
 
-        System.out.println(viewModel.getFailed() + "" + viewModel.getFailReason());
         if (viewModel.getFailed()){
             if (viewModel.getFailReason() == NewUserStatus.USERNAME_EXISTS){
                 JOptionPane.showMessageDialog(this,
