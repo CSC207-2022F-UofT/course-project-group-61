@@ -1,6 +1,10 @@
 package adminmainmenu;
 
+import entities.UserSession;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +29,21 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
     public void update(Observable o, Object arg) {
         AdminMainMenuViewModel viewModel = (AdminMainMenuViewModel) o;
         setVisible(viewModel.isVisible());
+
+        /* Initialize and format user info table. */
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Username"}, 0);
+        JTable table = new JTable(dtm);
+        JTableHeader tableHeader = table.getTableHeader();
+        String[] row = new String[1];
+        row[0] = UserSession.getUserSession().getUsername();
+        dtm.addRow(row);
+
+        /* Set table bounds. */
+        tableHeader.setBounds(600, 50, 100, 20);
+        table.setBounds(600, 70, 100, 20);
+
+        add(tableHeader);
+        add(table);
     }
 
     public void init() {
@@ -44,7 +63,7 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         newUserButton.addActionListener(this);
         itemLookupButton.addActionListener(this);
 
-        /* Set bounds of all buttons. */
+        /* Set bounds of all buttons/table. */
         header.setBounds(50, 0, 500, 40);
         newFacilityButton.setBounds(50, 50, 200, 40);
         newItemButton.setBounds(50, 100, 200, 40);
@@ -63,7 +82,6 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         setTitle("Inventory Management System");
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //setVisible(true);
     }
 
     /* Runs when any button is pressed, formats call to the controller based on what button was pressed. */
