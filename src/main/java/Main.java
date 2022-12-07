@@ -29,6 +29,11 @@ import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
 public class Main {
+    private static FacilityDbGateway facilityDbGateway;
+    private static OrderDbGateway orderDbGateway;
+    private static ProductDbGateway productDbGateway;
+    private static UserDbGateway userDbGateway;
+
 
     public static void main(String[] args) {
         initDb();
