@@ -1,5 +1,6 @@
 package warehousemainmenu;
 
+import entities.UserSession;
 import fulfill.FulfillViewModel;
 import inventorycount.InventoryCountViewModel;
 import itemlookup.ItemLookupViewModel;
@@ -41,5 +42,7 @@ public class WarehouseMainMenuPresenter {
     public void logout() {
         viewModel.setVisible(false);
         loginViewModel.setVisible(true);
+
+        UserSession.setUserSession(null);
     }
 }

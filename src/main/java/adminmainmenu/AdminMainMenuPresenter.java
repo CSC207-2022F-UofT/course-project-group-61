@@ -1,5 +1,6 @@
 package adminmainmenu;
 
+import entities.UserSession;
 import itemlookup.ItemLookupViewModel;
 import newfacility.NewFacilityViewModel;
 import newitem.NewItemViewModel;
@@ -47,5 +48,7 @@ public class AdminMainMenuPresenter {
     public void logout() {
         viewModel.setVisible(false);
         loginViewModel.setVisible(true);
+
+        UserSession.setUserSession(null);
     }
 }

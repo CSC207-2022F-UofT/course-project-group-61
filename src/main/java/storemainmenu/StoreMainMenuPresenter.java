@@ -1,5 +1,6 @@
 package storemainmenu;
 
+import entities.UserSession;
 import inventorycount.InventoryCountViewModel;
 import order.OrderViewModel;
 import dailysales.DailySalesViewModel;
@@ -49,5 +50,7 @@ public class StoreMainMenuPresenter {
     public void logout() {
         viewModel.setVisible(false);
         loginViewModel.setVisible(true);
+
+        UserSession.setUserSession(null);
     }
 }
