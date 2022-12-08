@@ -54,7 +54,7 @@ public class Main {
         Facility testWarehouse = new Facility("TestFacility", FacilityType.WAREHOUSE);
         testWarehouse.addProduct(4001L, 100);
         Facility testWarehouse2 = new Facility("TestFacility2", FacilityType.WAREHOUSE);
-        testWarehouse.addProduct(4001L, 150);
+        testWarehouse2.addProduct(4001L, 150);
 
         if (facilityDbGateway.getAllFacilities().size() == 0) {
             facilityDbGateway.fileReset();
