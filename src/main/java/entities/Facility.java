@@ -30,12 +30,16 @@ public class Facility implements Serializable {
         return this.facilityType;
     }
 
-    /* Returns quantity of product with given UPC in inventory, if product does not exist in inventory, returns -1. */
+    /* Returns quantity of product with given UPC in inventory, if product does not exist in inventory, returns 0. */
     public Integer getUPCQuantity(long upc) {
         try {
-            return this.inventory.get(upc);
+            if (this.inventory.get(upc) == null) {
+                return 0;
+            } else {
+                return this.inventory.get(upc);
+            }
         } catch(NullPointerException e) {
-            return null;
+            return 0;
         }
 
     }

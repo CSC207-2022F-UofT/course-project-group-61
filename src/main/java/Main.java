@@ -28,8 +28,6 @@ import warehousemainmenu.WarehouseMainMenuPresenter;
 import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
-import java.util.HashMap;
-
 public class Main {
     private static FacilityDbGateway facilityDbGateway;
     private static OrderDbGateway orderDbGateway;
@@ -53,10 +51,11 @@ public class Main {
         testStore.addProduct(4001L, 100);
         Facility testWarehouse = new Facility("TestFacility", FacilityType.WAREHOUSE);
         testWarehouse.addProduct(4001L, 100);
+        testWarehouse.addProduct(401140114011L, 1000);
         Facility testWarehouse2 = new Facility("TestFacility2", FacilityType.WAREHOUSE);
         testWarehouse2.addProduct(4001L, 150);
 
-        if (facilityDbGateway.getAllFacilities().size() == 0) {
+        if (facilityDbGateway.getAllFacilities() == null) {
             facilityDbGateway.fileReset();
 
             facilityDbGateway.updateFacility(testStore);
@@ -64,12 +63,13 @@ public class Main {
             facilityDbGateway.updateFacility(testWarehouse);
             facilityDbGateway.updateFacility(testWarehouse2);
         }
-        if (orderDbGateway.getAllOrders().size() == 0) orderDbGateway.fileReset();
-        if (productDbGateway.getAllProducts().size() == 0) {
+        if (orderDbGateway.getAllOrders() == null) orderDbGateway.fileReset();
+        if (productDbGateway.getAllProducts() == null) {
             productDbGateway.fileReset();
             productDbGateway.updateProduct(new Product("Strawberries", 4001L, 2));
+            productDbGateway.updateProduct(new Product("Bananas", 401140114011L, 3));
         }
-        if (userDbGateway.getAllUsers().size() == 0) {
+        if (userDbGateway.getAllUsers() == null) {
             userDbGateway.fileReset();
 
             userDbGateway.updateUser(new FacilityUser("Store", "Password", testStore.getFacilityID(), FacilityType.STORE));

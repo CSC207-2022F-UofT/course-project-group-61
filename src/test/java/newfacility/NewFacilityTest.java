@@ -47,7 +47,7 @@ public class NewFacilityTest {
         HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
         assertEquals(facilities.size(), 1);
         assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, FacilityType.STORE,
-                123456789123L, null));
+                123456789123L, 0));
         facilityDbGateway.fileReset();
     }
 
@@ -57,9 +57,9 @@ public class NewFacilityTest {
         HashMap<UUID, Facility> facilities = facilityDbGateway.getAllFacilities();
         assertEquals(facilities.size(), 2);
         assertTrue(checkAttributes(facilities.get(this.newFacilityID), "Store1", this.newFacilityID, FacilityType.STORE,
-                123456789123L, null));
+                123456789123L, 0));
         assertTrue(checkAttributes(facilities.get(secondFacilityID), "Warehouse1", secondFacilityID, FacilityType.WAREHOUSE,
-                123456789123L, null));
+                123456789123L, 0));
         facilityDbGateway.fileReset();
     }
 }
