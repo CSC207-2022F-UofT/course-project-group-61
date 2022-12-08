@@ -1,8 +1,10 @@
 package warehousemainmenu;
 
+import entities.UserSession;
 import fulfill.FulfillViewModel;
 import inventorycount.InventoryCountViewModel;
 import itemlookup.ItemLookupViewModel;
+import userlogin.UserLoginViewModel;
 
 public class WarehouseMainMenuPresenter {
 
@@ -10,12 +12,14 @@ public class WarehouseMainMenuPresenter {
     private final FulfillViewModel fulfillViewModel;
     private final ItemLookupViewModel itemLookupViewModel;
     private final InventoryCountViewModel inventoryCountViewModel;
+    private final UserLoginViewModel loginViewModel;
 
-    public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel, ItemLookupViewModel itemLookupViewModel, FulfillViewModel fulfillViewModel, InventoryCountViewModel inventoryCountViewModel) {
+    public WarehouseMainMenuPresenter(WarehouseMainMenuViewModel viewModel, ItemLookupViewModel itemLookupViewModel, FulfillViewModel fulfillViewModel, InventoryCountViewModel inventoryCountViewModel, UserLoginViewModel loginViewModel) {
         this.viewModel = viewModel;
         this.itemLookupViewModel = itemLookupViewModel;
         this.fulfillViewModel = fulfillViewModel;
         this.inventoryCountViewModel = inventoryCountViewModel;
+        this.loginViewModel = loginViewModel;
     }
 
     /* Sets WarehouseMainMenuView to be invisible, sets selected button press view model to be visible. */
@@ -34,5 +38,13 @@ public class WarehouseMainMenuPresenter {
                 itemLookupViewModel.setVisible(true);
                 break;
         }
+    }
+
+    /* Logs out of the main menu view to the login screen again */
+    public void logout() {
+        viewModel.setVisible(false);
+        loginViewModel.setVisible(true);
+
+        UserSession.setUserSession(null);
     }
 }

@@ -45,7 +45,6 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
 
         setVisible(viewModel.isVisible());
 
-        System.out.println(viewModel.getFailed() + "" + viewModel.getFailedReason());
         if (viewModel.getFailed()) {
             if (viewModel.getFailedReason() == newfacility.FailReason.REPEAT_NAME) {
                 JOptionPane.showMessageDialog(this, "Facility Name already exists.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -129,6 +128,5 @@ public class NewFacilityView extends JFrame implements Observer, ActionListener 
             controller.returnToMainMenu();
         }
 
-        System.out.println("test");
     }
 }

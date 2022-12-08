@@ -19,6 +19,7 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
     private JButton newItemButton;
     private  JButton newUserButton;
     private JButton itemLookupButton;
+    private JButton logoutButton;
 
     public AdminMainMenuView(AdminMainMenuController controller) {
         this.controller = controller;
@@ -56,12 +57,14 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         this.newItemButton = new JButton("New Item");
         this.newUserButton = new JButton("New User");
         this.itemLookupButton = new JButton("Item Lookup");
+        this.logoutButton = new JButton("Logout");
 
         /* Add action listeners to buttons. */
         newFacilityButton.addActionListener(this);
         newItemButton.addActionListener(this);
         newUserButton.addActionListener(this);
         itemLookupButton.addActionListener(this);
+        logoutButton.addActionListener(this);
 
         /* Set bounds of all buttons/table. */
         header.setBounds(50, 0, 500, 40);
@@ -69,12 +72,14 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         newItemButton.setBounds(50, 100, 200, 40);
         newUserButton.setBounds(50, 150, 200, 40);
         itemLookupButton.setBounds(50, 200, 200, 40);
+        logoutButton.setBounds(50, 250, 200, 40);
 
         /* Place all buttons on window so that they're visible. */
         add(newFacilityButton);
         add(newItemButton);
         add(newUserButton);
         add(itemLookupButton);
+        add(logoutButton);
         add(header);
 
         /* Set window dimensions. */
@@ -95,6 +100,8 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
             controller.chooseAction(ButtonOption.NEW_USER);
         } else if (e.getSource() == itemLookupButton) {
             controller.chooseAction(ButtonOption.ITEM_LOOKUP);
+        } else if (e.getSource() == logoutButton) {
+            controller.logout();
         }
     }
 }
