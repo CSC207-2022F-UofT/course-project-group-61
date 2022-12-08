@@ -25,8 +25,8 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         } else {
             if (user.getPassword().equals(request.getPassword())) {
                 response = new UserLoginResponseModel(user, LoginStatus.SUCCESS);
-                presenter.prepareSuccessView(response);
                 UserSession.setUserSession(user);
+                presenter.prepareSuccessView(response);
             } else {
                 response = new UserLoginResponseModel(null, LoginStatus.INCORRECT_PASSWORD);
                 presenter.prepareFailView(response);

@@ -3,6 +3,8 @@ package newitem;
 import database.ProductDb;
 import entities.Product;
 
+import java.util.HashMap;
+
 public class NewItemInteractor implements NewItemInputBoundary {
 
     private final ProductDb productDb;
@@ -17,7 +19,7 @@ public class NewItemInteractor implements NewItemInputBoundary {
     @Override
     public NewItemResponseModel newItem(NewItemRequestModel request) {
         Product newProduct = new Product(request.getName(), request.getUPC(), request.getPrice());
-        var products = productDb.getAllProducts();
+        HashMap<Long, Product> products = productDb.getAllProducts();
         NewItemResponseModel response = null;
         boolean isInvalid = false;
 
