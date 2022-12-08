@@ -1,13 +1,11 @@
 package dailysales;
 
 import database.FacilityDb;
-import database.FacilityDbGateway;
 import database.ProductDb;
 import entities.Facility;
 import entities.FacilityUser;
 import entities.UserSession;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 public class DailySalesInteractor implements DailySalesInputBoundary {

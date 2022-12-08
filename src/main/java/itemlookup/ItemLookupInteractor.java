@@ -2,7 +2,6 @@ package itemlookup;
 
 import database.FacilityDb;
 import database.ProductDb;
-import database.ProductDbGateway;
 import entities.Facility;
 import entities.Product;
 
@@ -10,11 +9,9 @@ import java.util.*;
 
 public class ItemLookupInteractor implements ItemLookupInputBoundary{
 
-    ProductDbGateway readWriter;
-
-    ProductDb productDb;
-    FacilityDb facilityDb;
-    ItemLookupOutputBoundary presenter;
+    private final ProductDb productDb;
+    private final FacilityDb facilityDb;
+    private final ItemLookupOutputBoundary presenter;
 
     public ItemLookupInteractor(ItemLookupOutputBoundary presenter, ProductDb productDb, FacilityDb facilityDb) {
         this.presenter = presenter;

@@ -20,9 +20,8 @@ public class DailySalesView extends JFrame implements Observer, ActionListener {
     private JTextField upc;
     private JTextField quantity;
     private JButton add;
-    private JTable table;
     private JButton submit;
-    private HashMap<Long, Integer> salesContents;
+    private final HashMap<Long, Integer> salesContents;
     private JButton returnToMenuButton;
 
     public DailySalesView(DailySalesController controller) {
@@ -57,7 +56,7 @@ public class DailySalesView extends JFrame implements Observer, ActionListener {
         add.addActionListener(this);
 
         rawTableData = new DefaultTableModel(new Object[]{"UPC", "Name", "Quantity"}, 0);
-        table = new JTable(rawTableData);
+        JTable table = new JTable(rawTableData);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(50, 130, 700, 675);

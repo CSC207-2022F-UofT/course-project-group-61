@@ -3,7 +3,7 @@ package inventorycount;
 import java.util.HashMap;
 
 public class InventoryCountResponseModel {
-    private HashMap<Long, Integer> count;
+    private final HashMap<Long, Integer> count;
 
     public InventoryCountResponseModel(HashMap<Long, Integer> count){
         this.count = count;

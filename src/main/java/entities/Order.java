@@ -25,7 +25,7 @@ public class Order implements Serializable {
 
     // Stores the important timestamps of the order object:
     // the creation date, fulfillment date when it does happen
-    private HashMap<OrderStatus, Date> timestamps = new HashMap<>();
+    private final HashMap<OrderStatus, Date> timestamps = new HashMap<>();
 
     public Order(UUID warehouseID, UUID storeID, String username, HashMap<Long, Integer> orderQuantites, Date dateCreated){
         // Stores the values

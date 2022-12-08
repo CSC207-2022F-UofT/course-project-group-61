@@ -2,7 +2,6 @@ package inventorycount;
 
 import entities.FacilityType;
 import entities.FacilityUser;
-import entities.User;
 import entities.UserSession;
 import storemainmenu.StoreMainMenuViewModel;
 import warehousemainmenu.WarehouseMainMenuViewModel;

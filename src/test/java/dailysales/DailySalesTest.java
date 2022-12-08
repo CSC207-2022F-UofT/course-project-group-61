@@ -53,7 +53,7 @@ public class DailySalesTest {
         newUserController.createStoreUser(user.getUsername(), user.getPassword(), user.getFacilityID());
         userLoginController.login("Store User", "Password");
 
-        HashMap<Long, Integer> oneProdHash = new HashMap<Long, Integer>();
+        HashMap<Long, Integer> oneProdHash = new HashMap<>();
         oneProdHash.put(1L, 4);
         this.dailySalesController.inputDailySales(oneProdHash);
 
@@ -69,7 +69,7 @@ public class DailySalesTest {
         userLoginController.login("Store User", "Password");
 
 
-        HashMap<Long, Integer> multiProdHash = new HashMap<Long, Integer>();
+        HashMap<Long, Integer> multiProdHash = new HashMap<>();
         multiProdHash.put(1L, 4);
         multiProdHash.put(2L, 7);
         this.facility.addProduct(2L, 20);

@@ -4,7 +4,7 @@ import adminmainmenu.AdminMainMenuViewModel;
 
 public class NewUserPresenter implements NewUserOutputBoundary{
 
-    private NewUserViewModel viewModel;
+    private final NewUserViewModel viewModel;
     private final AdminMainMenuViewModel adminMainMenuViewModel;
 
     public NewUserPresenter(NewUserViewModel viewModel, AdminMainMenuViewModel adminMainMenuViewModel){

@@ -16,7 +16,6 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
     private JButton registerButton;
     private JComboBox<String> storeList;
     private JComboBox<String> warehouseList;
-    private ButtonGroup group;
     private HashMap<String, UUID> storeMap;
     private HashMap<String, UUID> warehouseMap;
     private UUID uuid;
@@ -91,7 +90,7 @@ public class NewUserView extends JFrame implements Observer, ActionListener {
         storeButton.setSelected(true);
 
         // Put both radio buttons in a group
-        this.group = new ButtonGroup();
+        ButtonGroup group = new ButtonGroup();
         group.add(storeButton);
         group.add(warehouseButton);
 

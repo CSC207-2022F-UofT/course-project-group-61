@@ -6,10 +6,10 @@ import java.util.UUID;
 
 public class NewUserRequestModel {
 
-    private String username;
-    private String password;
-    private UUID facilityID;
-    private FacilityType type;
+    private final String username;
+    private final String password;
+    private final UUID facilityID;
+    private final FacilityType type;
 
     public NewUserRequestModel(String username, String password, UUID facilityID, FacilityType type){
         this.username = username;
