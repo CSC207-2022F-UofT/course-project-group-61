@@ -6,12 +6,14 @@ package itemlookup;
     -lookup by name
      */
 
+import adminmainmenu.AdminMainMenuViewModel;
 import database.FacilityDbGateway;
 import database.ProductDbGateway;
 import entities.Product;
 import org.junit.Before;
 import org.junit.Test;
 import storemainmenu.StoreMainMenuViewModel;
+import warehousemainmenu.WarehouseMainMenuViewModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +45,7 @@ public class ItemLookupTest {
         this.productDbGateway.updateProduct(this.testProduct);
         this.facilityDbGateway = new FacilityDbGateway();
         this.facilityDbGateway.fileReset();
-        this.itemLookupController = new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(new ItemLookupViewModel(), new StoreMainMenuViewModel()), productDbGateway, facilityDbGateway));
+        this.itemLookupController = new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(new ItemLookupViewModel(), new StoreMainMenuViewModel(), new WarehouseMainMenuViewModel(), new AdminMainMenuViewModel()), productDbGateway, facilityDbGateway));
         this.testList = Arrays.asList("Apple", 123456789123L, 5);
     }
 

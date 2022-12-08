@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.UUID;
 
 public class WarehouseMainMenuView extends JFrame implements Observer, ActionListener {
 
@@ -33,12 +34,15 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         setVisible(viewModel.isVisible());
 
         /* Initialize and format user info table. */
-        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Username", "Facility ID"}, 0);
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Username", "Facility Name", "Facility ID"}, 0);
         JTable table = new JTable(dtm);
         JTableHeader tableHeader = table.getTableHeader();
-        String[] row = new String[2];
+        String[] row = new String[3];
+        UUID facilityID = ((FacilityUser) UserSession.getUserSession()).getFacilityID();
         row[0] = UserSession.getUserSession().getUsername();
-        row[1] = ((FacilityUser) UserSession.getUserSession()).getFacilityID().toString();
+        row[1] = controller.getFacilityDB().getFacility(facilityID).getName();
+        row[2] = facilityID.toString();
+
         dtm.addRow(row);
 
         /* Set table bounds. */

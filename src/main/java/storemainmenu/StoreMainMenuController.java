@@ -1,10 +1,13 @@
 package storemainmenu;
 
+import database.FacilityDbGateway;
 public class StoreMainMenuController {
 
     StoreMainMenuPresenter presenter;
-    public StoreMainMenuController(StoreMainMenuPresenter presenter) {
+    FacilityDbGateway facilityDB;
+    public StoreMainMenuController(StoreMainMenuPresenter presenter, FacilityDbGateway facilityDB) {
         this.presenter = presenter;
+        this.facilityDB = facilityDB;
     }
 
     /* Calls presenter.changeView based on what button sends input through the view. */
@@ -15,5 +18,9 @@ public class StoreMainMenuController {
     /* Calls the presenter telling them to logout of the main menu view */
     public void logout() {
         presenter.logout();
+
+    public FacilityDbGateway getFacilityDB() {
+        return facilityDB;
+
     }
 }

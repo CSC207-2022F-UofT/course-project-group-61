@@ -27,4 +27,8 @@ public class NewUserController {
     public ArrayList<HashMap<String, UUID>> getFacilityUUIDLists(){
         return inputBoundary.getFacilityLists();
     }
+
+    public void returnToMenu() {
+        inputBoundary.returnToMenu();
+    }
 }
