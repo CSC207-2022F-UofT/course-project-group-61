@@ -20,6 +20,7 @@ public class WarehouseMainMenuController {
     /* Calls the presenter telling them to logout of the main menu view */
     public void logout() {
         presenter.logout();
+    }
 
     public FacilityDbGateway getFacilityDB() {
         return facilityDB;
