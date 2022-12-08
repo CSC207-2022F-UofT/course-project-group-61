@@ -79,7 +79,7 @@ public class WarehouseMainMenuView extends JFrame implements Observer, ActionLis
         fulfillOrderButton.setBounds(50, 50, 200, 40);
         invCountButton.setBounds(50, 100, 200, 40);
         itemLookupButton.setBounds(50, 150, 200, 40);
-        logoutButton.setBounds(50, 250, 200, 40);
+        logoutButton.setBounds(50, 200, 200, 40);
 
         /* Place all buttons on window so that they're visible. */
         add(fulfillOrderButton);
