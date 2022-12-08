@@ -1,5 +1,6 @@
 package newfacility;
 
+import adminmainmenu.AdminMainMenuViewModel;
 import database.FacilityDbGateway;
 import entities.Facility;
 import entities.FacilityType;
@@ -36,7 +37,7 @@ public class NewFacilityTest {
     public void setup() {
         facilityDbGateway = new FacilityDbGateway();
         facilityDbGateway.fileReset();
-        this.newFacilityController = new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(new NewFacilityViewModel()), facilityDbGateway));
+        this.newFacilityController = new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(new NewFacilityViewModel(), new AdminMainMenuViewModel()), facilityDbGateway));
         List<Object> facility = newFacilityController.newFacility("Store1", FacilityType.STORE).getInfoList();
         this.newFacilityID = (UUID) facility.get(1);
     }

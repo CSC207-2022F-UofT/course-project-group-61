@@ -1,5 +1,6 @@
 package adminmainmenu;
 
+import itemlookup.ItemLookupPresenter;
 import itemlookup.ItemLookupViewModel;
 import newfacility.NewFacilityViewModel;
 import newitem.NewItemViewModel;
@@ -26,16 +27,22 @@ public class AdminMainMenuPresenter {
         viewModel.setVisible(false);
         switch (option) {
             case NEW_FACILITY:
+                System.out.println("new facility");
                 newFacilityViewModel.setVisible(true);
                 break;
             case NEW_ITEM:
+                System.out.println("new item");
                 newItemViewModel.setVisible(true);
                 break;
             case NEW_USER:
+                System.out.println("new user");
+
                 newUserViewModel.setVisible(true);
                 break;
             case ITEM_LOOKUP:
+                System.out.println("item lookup");
                 itemLookupViewModel.setVisible(true);
+
                 break;
         }
     }

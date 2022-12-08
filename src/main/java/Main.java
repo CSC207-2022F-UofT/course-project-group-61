@@ -29,11 +29,11 @@ import warehousemainmenu.WarehouseMainMenuView;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
 public class Main {
-
     private static FacilityDbGateway facilityDbGateway;
     private static OrderDbGateway orderDbGateway;
     private static ProductDbGateway productDbGateway;
     private static UserDbGateway userDbGateway;
+
 
     public static void main(String[] args) {
         initDb();
@@ -116,16 +116,16 @@ public class Main {
         DailySalesView dailySalesView = new DailySalesView(new DailySalesController(new DailySalesInteractor(new DailySalesPresenter(dailySalesViewModel, storeViewModel), facilityDbGateway, productDbGateway)));
         dailySalesViewModel.addObserver(dailySalesView);
 
-        NewFacilityView newFacilityView = new NewFacilityView(new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(newFacilityViewModel), facilityDbGateway)));
+        NewFacilityView newFacilityView = new NewFacilityView(new NewFacilityController(new NewFacilityInteractor(new NewFacilityPresenter(newFacilityViewModel,adminViewModel), new FacilityDbGateway())));
         newFacilityViewModel.addObserver(newFacilityView);
 
-        InventoryCountView inventoryCountView = new InventoryCountView(new InventoryCountController(new InventoryCountInteractor(new InventoryCountPresenter(inventoryCountViewModel, storeViewModel), facilityDbGateway)));
+        InventoryCountView inventoryCountView = new InventoryCountView(new InventoryCountController(new InventoryCountInteractor(new InventoryCountPresenter(inventoryCountViewModel, storeViewModel, warehouseViewModel), facilityDbGateway)));
         inventoryCountViewModel.addObserver(inventoryCountView);
 
-        NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel), productDbGateway)));
+        NewItemView newItemView = new NewItemView(new NewItemController(new NewItemInteractor(new NewItemPresenter(newItemViewModel, adminViewModel), productDbGateway)));
         newItemViewModel.addObserver(newItemView);
-
-        ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel,storeViewModel), productDbGateway, facilityDbGateway)));
+        
+        ItemLookupView itemLookupView = new ItemLookupView(new ItemLookupController(new ItemLookupInteractor(new ItemLookupPresenter(itemLookupViewModel,storeViewModel, warehouseViewModel, adminViewModel), productDbGateway, facilityDbGateway)));
         itemLookupViewModel.addObserver(itemLookupView);
     }
 }

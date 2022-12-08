@@ -8,4 +8,6 @@ public interface NewUserInputBoundary {
     NewUserResponseModel addNewUser(NewUserRequestModel request);
 
     ArrayList<HashMap<String, UUID>> getFacilityLists();
+
+    void returnToMenu();
 }

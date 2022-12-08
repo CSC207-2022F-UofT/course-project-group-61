@@ -26,6 +26,8 @@ public class WarehouseMainMenuPresenter {
                 fulfillViewModel.setVisible(true);
                 break;
             case INV_COUNT:
+                System.out.println("inv count");
+                viewModel.setVisible(false);
                 inventoryCountViewModel.setVisible(true);
                 break;
             case ITEM_LOOKUP:

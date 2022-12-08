@@ -4,4 +4,5 @@ public interface NewItemInputBoundary {
 
     NewItemResponseModel newItem(NewItemRequestModel request);
 
+    void returnToMainMenu();
 }
