@@ -32,7 +32,10 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         setVisible(viewModel.isVisible());
 
         /* Initialize and format user info table. */
-        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Username"}, 0);
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Username"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column){return false;}
+        };
         JTable table = new JTable(dtm);
         JTableHeader tableHeader = table.getTableHeader();
         String[] row = new String[1];

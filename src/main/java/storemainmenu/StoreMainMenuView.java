@@ -35,7 +35,10 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
         setVisible(viewModel.isVisible());
 
         /* Initialize and format user info table. */
-        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Username", "Facility Name", "Facility ID"}, 0);
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Username", "Facility Name", "Facility ID"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column){return false;}
+        };
         JTable table = new JTable(dtm);
         JTableHeader tableHeader = table.getTableHeader();
         String[] row = new String[3];
@@ -47,6 +50,7 @@ public class StoreMainMenuView extends JFrame implements Observer, ActionListene
 
         /* Set table bounds. */
         tableHeader.setBounds(450, 50, 300, 20);
+        tableHeader.setReorderingAllowed(false);
         table.setBounds(450, 70, 300, 20);
 
         add(tableHeader);
