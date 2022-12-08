@@ -72,7 +72,7 @@ public class AdminMainMenuView extends JFrame implements Observer, ActionListene
         newItemButton.setBounds(50, 100, 200, 40);
         newUserButton.setBounds(50, 150, 200, 40);
         itemLookupButton.setBounds(50, 200, 200, 40);
-        logoutButton.setBounds(550, 50, 200, 40);
+        logoutButton.setBounds(50, 250, 200, 40);
 
         /* Place all buttons on window so that they're visible. */
         add(newFacilityButton);
