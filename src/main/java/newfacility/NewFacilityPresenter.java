@@ -7,13 +7,13 @@ import java.util.List;
 
 public class NewFacilityPresenter implements NewFacilityOutputBoundary {
 
-    private NewFacilityViewModel viewModel;
+    private final NewFacilityViewModel viewModel;
 
     public NewFacilityPresenter(NewFacilityViewModel viewModel, AdminMainMenuViewModel adminMainMenuViewModel) {
         this.viewModel = viewModel;
         this.adminMainMenuViewModel = adminMainMenuViewModel;
     }
-    private AdminMainMenuViewModel adminMainMenuViewModel;
+    private final AdminMainMenuViewModel adminMainMenuViewModel;
 
     @Override
     public void prepareSuccessView(NewFacilityResponseModel model) {

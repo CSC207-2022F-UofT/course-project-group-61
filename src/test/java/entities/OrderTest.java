@@ -11,8 +11,8 @@ import java.util.UUID;
 
 public class OrderTest {
     public static Order newOrder;
-    public static HashMap<Long, Integer> orderQuantities = new HashMap<>();
-    public static Date creationDate = new Date(2022, 10, 31, 0, 0);
+    public static final HashMap<Long, Integer> orderQuantities = new HashMap<>();
+    public static final Date creationDate = new Date();
 
     private UUID warehouseId;
     private UUID storeId;
@@ -59,7 +59,7 @@ public class OrderTest {
         Assertions.assertEquals(newOrder.getStatus(), OrderStatus.DELAYED);
 
         // Tests the order getting fulfilled
-        Date fulfilledDate = new Date(2023, 10, 31, 0, 0);
+        Date fulfilledDate = new Date();
         newOrder.fulfillOrder(fulfilledDate);
         Assertions.assertEquals(newOrder.getTimestamps().get(OrderStatus.FULFILLED), fulfilledDate);
         Assertions.assertEquals(newOrder.getStatus(), OrderStatus.FULFILLED);

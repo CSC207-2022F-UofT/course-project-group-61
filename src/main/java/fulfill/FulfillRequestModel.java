@@ -3,9 +3,9 @@ package fulfill;
 import java.util.UUID;
 
 public class FulfillRequestModel {
-    private UUID storeID;
-    private UUID warehouseID;
-    private UUID orderID;
+    private final UUID storeID;
+    private final UUID warehouseID;
+    private final UUID orderID;
 
     public FulfillRequestModel(UUID storeID, UUID warehouseID, UUID orderID){
         this.storeID = storeID;

@@ -15,8 +15,8 @@ public class FulfillInteractor implements FulfillInputBoundry{
 
     private final FulfillOutputBoundry outputBoundry;
 
-    private FacilityDb facilityDb;
-    private OrderDb orderDb;
+    private final FacilityDb facilityDb;
+    private final OrderDb orderDb;
 
     public FulfillInteractor(FulfillOutputBoundry outputBoundry){
         this.facilityDb = new FacilityDbGateway();

@@ -8,7 +8,7 @@ import java.util.*;
 public class NewFacilityInteractor implements NewFacilityInputBoundary{
 
     private final FacilityDb facilityDb;
-    NewFacilityOutputBoundary presenter;
+    private final NewFacilityOutputBoundary presenter;
     public NewFacilityInteractor(NewFacilityOutputBoundary presenter, FacilityDb facilityDb) {
         this.presenter = presenter;
         this.facilityDb = facilityDb;

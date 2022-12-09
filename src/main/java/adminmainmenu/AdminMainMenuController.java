@@ -2,7 +2,7 @@ package adminmainmenu;
 
 public class AdminMainMenuController {
 
-    AdminMainMenuPresenter presenter;
+    private final AdminMainMenuPresenter presenter;
     public AdminMainMenuController(AdminMainMenuPresenter presenter) {
         this.presenter = presenter;
     }

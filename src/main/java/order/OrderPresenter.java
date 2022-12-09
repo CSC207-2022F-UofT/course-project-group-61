@@ -4,8 +4,8 @@ import storemainmenu.StoreMainMenuViewModel;
 
 public class OrderPresenter implements OrderOutputBoundary {
 
-    private OrderViewModel viewModel;
-    private StoreMainMenuViewModel storeViewModel;
+    private final OrderViewModel viewModel;
+    private final StoreMainMenuViewModel storeViewModel;
 
     public OrderPresenter(OrderViewModel viewModel, StoreMainMenuViewModel storeViewModel) {
         this.viewModel = viewModel;

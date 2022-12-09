@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /* things to test:
-    -sucessfully stores new user in database
+    - successfully stores new user in database
     - does not create a new user when a user with the same username already exists
     - does not create a new user when the password is less than 5 characters
  */
@@ -23,6 +23,7 @@ public class NewUserTest {
     private NewUserController newUserController;
 
     private UserDbGateway userDB;
+
     private FacilityDbGateway facilityDB;
 
     @Before
@@ -38,10 +39,10 @@ public class NewUserTest {
         UUID uuid = UUID.randomUUID();
         FacilityUser user = new FacilityUser("Store User", "Password", uuid, FacilityType.STORE);
         newUserController.createStoreUser(user.getUsername(), user.getPassword(), user.getFacilityID());
-        Assertions.assertTrue(userDB.getUser("Store User").getUsername().equals(user.getUsername()));
-        Assertions.assertTrue(userDB.getUser("Store User").getPassword().equals(user.getPassword()));
-        Assertions.assertTrue(((FacilityUser) userDB.getUser("Store User")).getFacilityID().equals(user.getFacilityID()));
-        Assertions.assertTrue(((FacilityUser) userDB.getUser("Store User")).getType().equals(FacilityType.STORE));
+        Assertions.assertEquals(userDB.getUser("Store User").getUsername(), user.getUsername());
+        Assertions.assertEquals(userDB.getUser("Store User").getPassword(), user.getPassword());
+        Assertions.assertEquals(((FacilityUser) userDB.getUser("Store User")).getFacilityID(), user.getFacilityID());
+        Assertions.assertEquals(((FacilityUser) userDB.getUser("Store User")).getType(), FacilityType.STORE);
     }
 
     @Test
@@ -50,10 +51,10 @@ public class NewUserTest {
         UUID uuid = UUID.randomUUID();
         FacilityUser user = new FacilityUser("Warehouse User", "Password", uuid, FacilityType.WAREHOUSE);
         newUserController.createWarehouseUser(user.getUsername(), user.getPassword(), user.getFacilityID());
-        Assertions.assertTrue(userDB.getUser("Warehouse User").getUsername().equals(user.getUsername()));
-        Assertions.assertTrue(userDB.getUser("Warehouse User").getPassword().equals(user.getPassword()));
-        Assertions.assertTrue(((FacilityUser) userDB.getUser("Warehouse User")).getFacilityID().equals(user.getFacilityID()));
-        Assertions.assertTrue(((FacilityUser) userDB.getUser("Warehouse User")).getType().equals(FacilityType.WAREHOUSE));
+        Assertions.assertEquals(userDB.getUser("Warehouse User").getUsername(), user.getUsername());
+        Assertions.assertEquals(userDB.getUser("Warehouse User").getPassword(), user.getPassword());
+        Assertions.assertEquals(((FacilityUser) userDB.getUser("Warehouse User")).getFacilityID(), user.getFacilityID());
+        Assertions.assertEquals(((FacilityUser) userDB.getUser("Warehouse User")).getType(), FacilityType.WAREHOUSE);
     }
 
     @Test
@@ -67,7 +68,7 @@ public class NewUserTest {
         // attempt to create a new user with the same username
         newUserController.createWarehouseUser("User", "Password2", uuid2);
         // check that the registered user is the first user, which is a store user (is there a better method?)
-        assertTrue(((FacilityUser) userDB.getUser("User")).getType().equals(FacilityType.STORE));
+        assertEquals(((FacilityUser) userDB.getUser("User")).getType(), FacilityType.STORE);
     }
 
     @Test
@@ -79,6 +80,6 @@ public class NewUserTest {
         newUserController.createStoreUser("User", "PW", uuid);
 
         // check that no user under that username is created
-        assertTrue(userDB.getUser("User") == null);
+        assertNull(userDB.getUser("User"));
     }
 }

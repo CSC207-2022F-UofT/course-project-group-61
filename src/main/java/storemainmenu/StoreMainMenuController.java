@@ -3,8 +3,8 @@ package storemainmenu;
 import database.FacilityDbGateway;
 public class StoreMainMenuController {
 
-    StoreMainMenuPresenter presenter;
-    FacilityDbGateway facilityDB;
+    private final StoreMainMenuPresenter presenter;
+    final FacilityDbGateway facilityDB;
     public StoreMainMenuController(StoreMainMenuPresenter presenter, FacilityDbGateway facilityDB) {
         this.presenter = presenter;
         this.facilityDB = facilityDB;
@@ -22,6 +22,5 @@ public class StoreMainMenuController {
 
     public FacilityDbGateway getFacilityDB() {
         return facilityDB;
-
     }
 }

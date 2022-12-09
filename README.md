@@ -1,6 +1,6 @@
 # CSC207 Group 61 <Project Name>
 
-<Basic introduction to project as a whole>
+<!--Basic introduction to project as a whole-->
   
 ## Existing user logins for testing purposes
   **Admin User Login:**  

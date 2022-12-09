@@ -30,10 +30,7 @@ public class UPCFilter extends DocumentFilter {
             Long.parseLong(text);
             return true;
         } catch (NumberFormatException e) {
-            if (text.equals("")) {
-                return true;
-            }
-            return false;
+            return text.equals("");
         }
     }
 

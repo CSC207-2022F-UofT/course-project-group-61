@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class OrderResponseModel {
 
-    private HashMap<Long, Integer> orderedItems;
-    private HashMap<Long, Integer> unavailableItems;
+    private final HashMap<Long, Integer> orderedItems;
+    private final HashMap<Long, Integer> unavailableItems;
 
     public OrderResponseModel(HashMap<Long, Integer> orderedItems, HashMap<Long, Integer> unavailableItems) {
         this.orderedItems = orderedItems;

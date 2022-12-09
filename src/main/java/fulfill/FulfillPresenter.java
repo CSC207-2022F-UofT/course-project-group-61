@@ -3,9 +3,9 @@ package fulfill;
 import warehousemainmenu.WarehouseMainMenuViewModel;
 
 public class FulfillPresenter implements FulfillOutputBoundry{
-    private FulfillViewModel viewModel;
+    private final FulfillViewModel viewModel;
 
-    private WarehouseMainMenuViewModel warehouseMainMenuViewModel;
+    private final WarehouseMainMenuViewModel warehouseMainMenuViewModel;
 
     public FulfillPresenter(FulfillViewModel viewModel, WarehouseMainMenuViewModel warehouseMainMenuViewModel){
         this.viewModel = viewModel;

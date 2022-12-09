@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
 
-    public UUID facilityId;
-    public final FacilityUser facilityUser;
+    private final UUID facilityId;
+    private final FacilityUser facilityUser;
 
     public UserTest() {
         facilityId = UUID.randomUUID();

@@ -5,8 +5,8 @@ import adminmainmenu.AdminMainMenuViewModel;
 public class NewItemPresenter implements NewItemOutputBoundary {
 
 
-    private NewItemViewModel viewModel;
-    private AdminMainMenuViewModel adminMainMenuViewModel;
+    private final NewItemViewModel viewModel;
+    private final AdminMainMenuViewModel adminMainMenuViewModel;
 
     public NewItemPresenter(NewItemViewModel viewModel, AdminMainMenuViewModel adminMainMenuViewModel) {
 

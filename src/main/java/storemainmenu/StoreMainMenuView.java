@@ -1,6 +1,5 @@
 package storemainmenu;
 
-import database.FacilityDb;
 import entities.FacilityUser;
 import entities.UserSession;
 
