@@ -24,6 +24,12 @@ This feature allows **ADMIN USERS** to create new facility **(STORE or WAREHOUSE
     **1.** The username must be unique. If there is an existing user in the database with the same username, the new user is not created and an error informs the admin user that there is already an existing user with that username.  
     **2.** The password must be longer than 4 characters. If the password is shorter, an error will inform the admin that the password is too short.
 
+## InventoryCount
+This feature allows **STORE** or **WAREHOUSE** users to view and edit quanities for all items currently in inventory for the User's Facility.
+To retrieve the current inventory, the user must click the "Get Current Count" button, after which the table will display the items currently in Inventory along with their quantity.
+To edit the quantities, the user may simply select the cell containing the quantity they would like to change, enter the new quantity, and submit the new value with the "Submit New Count" button.
+
+
 ## Testing Coverage
 Use cases are covered as follows:
 ![image](https://user-images.githubusercontent.com/69370774/206619109-40145854-e2b2-4965-b204-2cd440e9667e.png)
