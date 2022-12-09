@@ -11,13 +11,13 @@
     **Username:** "Store" **Password:** "Password"
     
 ## Existing products
-  **Name:** "Strawberries" **UPC:** 4001 **Price** 2
+  **Name:** "Strawberries" **UPC:** 4001 **Price** 2  
   
 ## Existing Facilities
-  **Name:** "TestStore" **Type:** "Store"
-  **Name:** "TestStore2" **Type:** "Store"
-  **Name:** "TestFacility" **Type:** "Warehouse"
-  **Name:** "TestFacility2 **Type:** "Warehouse"
+  **Name:** "TestStore" **Type:** "Store"  
+  **Name:** "TestStore2" **Type:** "Store"  
+  **Name:** "TestFacility" **Type:** "Warehouse"  
+  **Name:** "TestFacility2 **Type:** "Warehouse"  
 
 ## CreateNewUser
 This feature allows **ADMIN USERS** to create new facility **(STORE or WAREHOUSE)** users through the admin main menu. To avoid confusion, this feature is **not available** in the **login interface**. This is because **ONLY ADMINS** are permitted to create new (facility) users, as general users should not have the permission to do so. Through the admin main menu interface, the admin user will be able to select the "New User" button which will send them to the Create New User interface. Here, The admin user may create either a store or warehouse user with two requirements:  
