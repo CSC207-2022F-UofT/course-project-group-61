@@ -1,0 +1,7 @@
+Files are organized either by use case or by a handful of utility functions such as databases and entities.
+
+For use case packages, the entire stack of Clean Architecture is included, from the interactor to the view.
+
+Utility type packages simply contain all relevant classes, but do not necessarily contain the full scope of Clean Architecture-type files.
+
+If one wanted to open the Interactor file for the Item Lookup use case, they would navigate to the itemlookup package, and open the ItemLookupInteractor file. The naming convention is the same for each package and class.
